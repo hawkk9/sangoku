@@ -15,7 +15,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :charm_exp, comment: "人望経験値", :null => false
       t.integer :soldier_num, comment: "兵士数", :null => false
       t.integer :training, comment: "訓練", :null => false
-      t.integer :country_id, comment: "国ID", :null => false
+      t.integer :country_id, comment: "国ID", :null => false, foreign_key: true
       t.integer :gold, comment: "金", :null => false
       t.integer :rice, comment: "米", :null => false
       t.integer :contributing, comment: "貢献", :null => false
