@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_123604) do
+ActiveRecord::Schema.define(version: 2020_01_06_124920) do
 
   create_table "commands", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -23,6 +23,26 @@ ActiveRecord::Schema.define(version: 2020_01_06_123604) do
     t.integer "command_id", null: false
     t.integer "soldier_type", null: false
     t.integer "soldier_num", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "towns", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "country_id"
+    t.integer "farmer", null: false
+    t.integer "allegiance", null: false
+    t.integer "agriculture", null: false
+    t.integer "commerce", null: false
+    t.integer "technology", null: false
+    t.integer "wall", null: false
+    t.integer "wall_durability", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
