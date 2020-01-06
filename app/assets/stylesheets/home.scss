@@ -1,0 +1,23 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+BODY,TR,TD,TH{
+  font-family : "ＭＳ ゴシック";
+  font-size: 9pt
+}
+A:HOVER{
+  color: #AA8855
+}
+.S1 {color:#fff; border-style: double; border-width: 3px;BACKGROUND: #633;}
+.dmg { color: #FF0000; font-size: 18pt }
+.clit { color: #0000FF; font-size: 18pt }
+.r { color: #FF4444; font-size: 10pt }
+.b { color: #4444DD; font-size: 10pt }
+.s { color: #44AAEE; font-size: 10pt }
+.g { color: #44DD44; font-size: 10pt }
+.o { color: #EEAA44; font-size: 10pt }
+
+div p {
+  writing-mode: tb-rl;
+}
