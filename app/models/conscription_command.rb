@@ -1,0 +1,2 @@
+class ConscriptionCommand < ApplicationRecord
+end
