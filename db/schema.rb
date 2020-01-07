@@ -14,9 +14,11 @@ ActiveRecord::Schema.define(version: 2020_01_06_124920) do
 
   create_table "commands", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.integer "command_no", null: false
     t.integer "command_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "command_no"], name: "index_commands_on_user_id_and_command_no", unique: true
   end
 
   create_table "conscription_commands", force: :cascade do |t|
@@ -67,10 +69,10 @@ ActiveRecord::Schema.define(version: 2020_01_06_124920) do
     t.integer "rice", null: false
     t.integer "contributing", null: false
     t.integer "rank", null: false
-    t.integer "arm", null: false
-    t.integer "guard", null: false
-    t.integer "book", null: false
-    t.integer "flag", null: false
+    t.decimal "arm", null: false
+    t.decimal "guard", null: false
+    t.decimal "book", null: false
+    t.decimal "flag", null: false
     t.integer "delete_turn", null: false
     t.integer "position", null: false
     t.string "email", null: false
