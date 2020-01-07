@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_01_06_124920) do
     t.integer "soldier_num", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["command_id"], name: "index_conscription_commands_on_command_id", unique: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -80,4 +81,5 @@ ActiveRecord::Schema.define(version: 2020_01_06_124920) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "conscription_commands", "commands"
 end

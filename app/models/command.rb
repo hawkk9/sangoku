@@ -29,4 +29,6 @@ class Command < ApplicationRecord
   COMMAND_LABEL_HASH = {
 
   }
+
+  has_one :conscription_command
 end
