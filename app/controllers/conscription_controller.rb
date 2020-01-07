@@ -13,10 +13,6 @@ class ConscriptionController < ApplicationController
 
   private
 
-  def dummy_user
-    { user_id: 1 }
-  end
-
   def command_params
     params.permit(:command_no)
   end
