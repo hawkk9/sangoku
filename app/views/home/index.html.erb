@@ -346,10 +346,10 @@
         <tr><th bgcolor="#0f6080"><font color="#efffff">コマンド</font></th></tr>
         <tr><td>
           No:<select name="command_no[]" size="7" multiple="">
-          <option value="all">ALL
+          <option value="<%= Command::ALL %>">ALL
 
           </option>
-          <% 96.times do |i| %>
+          <% Command::MAX_NUM.times do |i| %>
             <% command = @commands.find_by(command_no: i) %>
             <option value="<%= i %>" selected=""><%= "#{i + 1}：【247年2月：#{Command::COMMAND_SHORT_LABEL_HASH[command && command.command_type]}】 " %></option>
           <% end %>

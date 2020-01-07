@@ -1,4 +1,8 @@
 class Command < ApplicationRecord
+  ALL = 'all'
+
+  MAX_NUM = 96
+
   NONE = 0
   WAIT = 1
 
