@@ -1,0 +1,206 @@
+<table border="0" width="100%" height="100%"><tbody><tr><td align="center">
+  <table border="0" width="100%">
+    <tbody><tr><th bgcolor="414141">
+      <font color="ffffff"> - 徴 兵 - </font>
+    </th></tr>
+    <tr><td>
+      <input type="hidden" name="no" value="0">
+      <table bgcolor="#666666"><tbody bgcolor="#f1f1f1">
+      <tr><th colspan="7" bgcolor="#666666"><font color="#f1f1f1">SHOUYU</font></th></tr>
+
+      <tr><td rowspan="2" width="5"><img src="./image/34.gif" width="64" height="64"></td><td>武力</td><th>9</th><td>知力</td><th>21</th><td>統率力</td><th>95</th></tr>
+      <tr><td>金</td><th>213163</th><td>米</td><th>161325</th><td>貢献</td><th>129</th></tr>
+      <tr><td>所属国</td><th colspan="2">国</th><td>兵士</td><th>95</th><td>訓練</td><th>99</th></tr>
+      </tbody></table>
+    </td></tr>
+    <tr><td>
+      <tabel bgcolor="#AA0000"></tabel></td></tr><tr><td bgcolor="#000000">
+      <font color="white">兵士を徴兵します。<br>種類の違う兵を雇うと以前まで雇っていた兵は解雇されます。<br>毎月維持費として兵１人につき米１を消費します。</font>
+    </td></tr></tbody></table>
+</td></tr>
+<tr><td><br><br>
+
+
+
+  <table border="2">
+    <tbody><tr><th></th><th>計算式</th><th>その他</th></tr>
+    <tr><th>攻撃力</th><th>武力＋兵攻撃力＋武器威力</th><td>※雑兵、鬼兵、賊、志願兵、攻城兵には武力による補正はありません</td></tr>
+    <tr><th>防御力</th><th>兵守備力＋訓練度÷２＋防具守備力</th><th></th></tr>
+    <tr><td colspan="3">「攻撃力が＋１２％」といった効果を持つスキルや陣形での「攻撃力」「防御力」とは上の計算式によって計算された数値を使用しています。<br>
+      なので、特殊技能や陣形などの「攻撃力＋２０」といった追加補正は、「＋１２％」などの計算には含まれません。
+      <br><br>
+      例）攻撃力１００の武将が、「攻撃力が＋２０される」、「攻撃力が＋１０％になる」といったスキル、技能、陣形を持っていた場合、<br>
+      最終攻撃力は１３０となります。（１００＋２０＋（１００×１０％）＝１３０）<br>
+
+      　
+    </td></tr>
+
+    </tbody></table>
+
+
+
+
+
+
+
+  <br>
+  何名雇いますか？(※最大95人)
+  <table bgcolor="#884422"><tbody bgcolor="#C0C088">
+  <tr><th>種類</th><th>攻撃力</th><th>防御力</th><th>属性</th><th>特殊効果</th><th>必要技術</th><th>雇用金</th><th>人数</th><td></td></tr>
+  <tr><th bgcolor="#884422" colspan="9">■人望官■</th></tr>
+  <tr>
+    <form action="/conscription/update" method="POST">
+      <th>民衆</th><th>人望×0.8</th><th>人望×0</th><th>無し</th><th></th><th>0</th><th>金 15</th>
+      <td>
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="text" name="num" value="0" size="4">人
+        <input type="hidden" name="no" value="0">
+        <input type="hidden" name="type" value="20">
+        <input type="hidden" name="mode" value="10">
+      </td>
+      <td>
+        <input type="submit" value="雇う">
+      </td>
+    </form>
+  </tr>
+  <tr><th>一揆軍</th><th>人望×0.8</th><th>人望×0</th><th>無し</th><th>掛け声：攻撃力が上がる</th><th>0</th><th>金 20</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="76">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>民兵【Cランク】</th><th>(人望＋旗)×0.75</th><th>(人望＋旗)×0.35</th><th>歩</th><th></th><th>200</th><th>金 40</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="21">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>暴走族【Cランク】</th><th>(人望＋旗)×0.9</th><th>(人望＋旗)×0.2</th><th>馬</th><th></th><th>200</th><th>金 40</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="30">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>やくざ【Cランク】</th><th>(人望＋旗)×1.1</th><th>(人望＋旗)×0</th><th>弓</th><th></th><th>200</th><th>金 40</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="31">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>一向一揆軍【特Cランク】</th><th>(人望＋旗)×0.75</th><th>(人望＋旗)×0.35</th><th>歩</th><th>竹槍：竹槍で敵を倒すぞ</th><th>200</th><th>金 50</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="77">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>地侍【特Cランク】</th><th>(人望＋旗)×0.9</th><th>(人望＋旗)×0.2</th><th>馬</th><th>すごい刀：攻撃力＋１０</th><th>200</th><th>金 50</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="78">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>種子島の人【特Cランク】</th><th>(人望＋旗)×1.1</th><th>(人望＋旗)×0</th><th>弓</th><th>火縄銃：火縄銃で殴る</th><th>200</th><th>金 50</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="79">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>自警団【Bランク】</th><th>(人望＋旗)×1.0</th><th>(人望＋旗)×0.4</th><th>歩</th><th></th><th>500</th><th>金 70</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="22">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>海賊【Bランク】</th><th>(人望＋旗)×1.2</th><th>(人望＋旗)×0.2</th><th>馬</th><th></th><th>500</th><th>金 70</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="23">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>倭寇【Bランク】</th><th>(人望＋旗)×1.4</th><th>(人望＋旗)×0</th><th>弓</th><th></th><th>500</th><th>金 70</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="24">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>長島一揆軍【特Bランク】</th><th>(人望＋旗)×1.0</th><th>(人望＋旗)×0.4</th><th>歩</th><th>鉄槍：鉄でできている槍</th><th>500</th><th>金 85</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="80">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>豪族【特Bランク】</th><th>(人望＋旗)×1.2</th><th>(人望＋旗)×0.2</th><th>馬</th><th>先祖伝来の刀：攻撃力＋２０</th><th>500</th><th>金 85</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="81">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>雑賀衆【特Bランク】</th><th>(人望＋旗)×1.4</th><th>(人望＋旗)×0</th><th>弓</th><th>火縄銃：火縄銃で攻撃</th><th>500</th><th>金 85</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="82">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>武士【Aランク】</th><th>(人望＋旗)×1.4</th><th>(人望＋旗)×0.3</th><th>馬</th><th></th><th>800</th><th>金 160</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="25">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>皇兵【Aランク】</th><th>(人望＋旗)×1.2</th><th>(人望＋旗)×0.5</th><th>歩</th><th></th><th>800</th><th>金 160</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="26">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>義賊【Aランク】</th><th>(人望＋旗)×1.7</th><th>(人望＋旗)×0</th><th>弓</th><th></th><th>800</th><th>金 160</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="27">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>落ち武者【特Aランク】</th><th>(人望＋旗)×1.4</th><th>(人望＋旗)×0.3</th><th>馬</th><th>渾身の一撃：渾身の一撃を加える</th><th>800</th><th>金 175</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="83">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>本願寺顕如【特Aランク】</th><th>(人望＋旗)×1.2</th><th>(人望＋旗)×0.5</th><th>歩</th><th>檄文：味方の攻撃力があがる</th><th>800</th><th>金 175</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="84">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>孫市軍【特Aランク】</th><th>(人望＋旗)×1.7</th><th>(人望＋旗)×0</th><th>弓</th><th>雑賀筒：雑賀産の火縄銃</th><th>800</th><th>金 175</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="85">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>革命軍【Sランク】</th><th>(人望＋旗)×1.7</th><th>(人望＋旗)×0.6</th><th>無し</th><th>農民数に関係なく徴兵できる。<br>民忠も減らさない<br>戦闘終了後兵士数＋５</th><th>950</th><th>金 220</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="45">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>攻城兵</th><th>－武力</th><th>0</th><th>無し</th><th>攻城戦において、<br>攻＆守＝（武＋知＋統＋人望）×1.5</th><th>0</th><th>金 20</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="29">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  <tr><th>モンテカルロ隊</th><th>－武力</th><th>0</th><th>無し</th><th>攻撃力＝０～（武力＋知力＋統率＋人望）<br>守備力＝０～（武力＋知力＋統率＋人望）×0.5。<br>すべて運に任せろ。</th><th>0</th><th>金 70</th><form action="command.cgi" method="POST"></form><td>
+        <input type="text" name="num" value="0" size="4">人
+    <input type="hidden" name="no" value="0">
+    <input type="hidden" name="type" value="87">
+    <input type="hidden" name="mode" value="10">
+  </td><td><input type="submit" value="雇う"></td></tr>
+  </tbody></table><br>
+  <b></b>
+
+  <form action="status.cgi" method="post">
+    <input type="hidden" name="id" value="soyu">
+    <input type="hidden" name="pass" value="2528">
+    <input type="hidden" name="mode" value="STATUS">
+    <input type="submit" value="戻る"></form>
+</td></tr></tbody></table>

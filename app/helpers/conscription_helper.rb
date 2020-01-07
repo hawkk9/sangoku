@@ -1,0 +1,2 @@
+module ConscriptionHelper
+end
