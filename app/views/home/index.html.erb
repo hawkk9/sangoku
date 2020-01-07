@@ -332,7 +332,7 @@
       <table width="100%" bgcolor="#884422" cellspacing="1"><tbody bgcolor="#F0F0F0">
       <tr><th bgcolor="#000000" colspan="3"><font color="#FFFFFF">コマンドリスト（上から順に実行されていきます。）</font></th></tr>
       <% 50.times do |i| %>
-        <% command = @commands[i] %>
+        <% command = @commands.find_by(command_no: i) %>
         <tr><th><%= i + 1 %></th><th><p title="Mon Jan  6 22:53:17 2020">【247年2月（6日22時53分17秒）】</p></th><th><%= Command::COMMAND_SHORT_LABEL_HASH[command && command.command_type] %></th></tr>
       <% end %>
       </tbody></table>
@@ -350,7 +350,7 @@
 
           </option>
           <% 96.times do |i| %>
-            <% command = @commands[i] %>
+            <% command = @commands.find_by(command_no: i) %>
             <option value="<%= i %>" selected=""><%= "#{i + 1}：【247年2月：#{Command::COMMAND_SHORT_LABEL_HASH[command && command.command_type]}】 " %></option>
           <% end %>
           <script type="text/javascript">
