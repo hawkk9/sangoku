@@ -35,4 +35,17 @@ class Command < ApplicationRecord
   }
 
   has_one :conscription_command
+  belongs_to :user
+
+  def execute
+    self.typed_command.execute(self.user)
+    p self.destroy
+  end
+
+  def typed_command
+    case self.command_type
+    when CONSCRIPTION
+      self.conscription_command
+    end
+  end
 end
