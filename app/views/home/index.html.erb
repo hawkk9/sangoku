@@ -289,24 +289,15 @@
 
 
         </td><td align="right">
-          <form action="status.cgi" method="post">
-
-            <table bgcolor="#0f6080" cellspacing="1"><tbody bgcolor="#efffff">
-            <tr><th bgcolor="#0f6080"><font color="#efffff">画面RELODE</font></th></tr>
-            <tr><th>
-              <br><br>
-              <input type="hidden" name="id" value="dummy">
-              <input type="hidden" name="pass" value="dummy">
-              <input type="hidden" name="mode" value="STATUS">
-              <input type="submit" value="画面RELODE">
-
-              <br>
-              <br><br>
-            </th></tr><tr><td><br>次のターンまで49分(2957秒)<br>放置削除ターンまで<font color="red">96</font>ターン<br><br></td></tr>
-            </tbody></table>
-
-          </form>
-
+          <table bgcolor="#0f6080" cellspacing="1"><tbody bgcolor="#efffff">
+          <tr><th bgcolor="#0f6080"><font color="#efffff">画面RELODE</font></th></tr>
+          <tr><th>
+            <br><br>
+            <%= button_to "画面RELODE", home_index_url, {method: :get} %>
+            <br>
+            <br><br>
+          </th></tr><tr><td><br>次のターンまで49分(2957秒)<br>放置削除ターンまで<font color="red">96</font>ターン<br><br></td></tr>
+          </tbody></table>
           <br><br>
         </td></tr></tbody></table>
 
