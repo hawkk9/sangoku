@@ -39,7 +39,15 @@ class Command < ApplicationRecord
 
   def execute
     self.typed_command.execute(self.user)
-    p self.destroy
+    self.destroy
+    self.decrement_user_command_no
+  end
+
+  def decrement_user_command_no
+    self.user.commands.each do |command|
+      command.command_no -= 1
+      command.save
+    end
   end
 
   def typed_command
