@@ -1,24 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 初期設定
 
-Things you may want to cover:
+### gemパッケージのインストール
 
-* Ruby version
+```bash
+bundle install
+```
 
-* System dependencies
+### jsパッケージのインストール
 
-* Configuration
+```bash
+yarn install
+```
 
-* Database creation
+### マイグレーション実行
 
-* Database initialization
+```bash
+rails db:migrate
+```
 
-* How to run the test suite
+### 初期データの投入
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+rails runner bin/initial_data.rb
+```
 
-* Deployment instructions
+### サーバー起動
 
-* ...
+```bash
+rails s
+```
+
+### ホーム画面にアクセス
+
+http://localhost:3000/home/index
