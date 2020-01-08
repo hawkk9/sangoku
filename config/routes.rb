@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   get 'home/index'
   post 'command/form'
 
-  get 'conscription/form'
-  post 'conscription/update'
+  get '/conscription/form' => 'conscription#form'
+  post '/conscription/update' => 'conscription#update'
 end
