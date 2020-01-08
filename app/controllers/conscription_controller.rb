@@ -1,4 +1,8 @@
 class ConscriptionController < ApplicationController
+  def form
+    @command_nos = params[:command_no]
+  end
+
   def update
     if params[:command_no].first == Command::ALL
       Command::MAX_NUM.times { |command_no| input_command(command_no) }

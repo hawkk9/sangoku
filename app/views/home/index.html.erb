@@ -331,8 +331,8 @@
 
 
 
-      <form action="/command/form" method="POST">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <form id="command_form" action="/command/form" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" id="token">
         <table bgcolor="#0f6080" cellspacing="1"><tbody bgcolor="#efffff">
         <tr><th bgcolor="#0f6080"><font color="#efffff">コマンド</font></th></tr>
         <tr><td>
@@ -386,74 +386,58 @@
           <td>
 
 
-            <select name="mode" size="10">
+            <select name="mode" size="10" id="mode">
               <option value="0">何もしない
               </option><option value="80">待機（更新時間＋１～１０分）
-            </option><option value="">== 内政 ==
-            </option><option value="1">農業開発(50G)(知力)
-            </option><option value="36">農業用地拡大(50G)(知)
-            </option><option value="2">商業発展(50G)(知力)
-            </option><option value="37">商業用地拡大(50G)(知)
-            </option><option value="29">技術開発(50G)(知力)
-            </option><option value="3">城壁強化(50G)(統率)
-            </option><option value="38">城壁拡張(50G)(統or武)
-            </option><option value="30">城壁耐久力強化(50G)(武力)
-            </option><option value="8">米施し(50R)(人望)
-            </option><option value="39">大量米施し(1000R)(仁)
-            </option><option value="">
-            </option><option value="">== 軍事 ==
-            </option><option value="9">徴兵（兵士が増えます）
-            </option><option value="11">兵士訓練（兵士の防御上昇）
-            </option><option value="40">兵士猛訓練(500G)
-            </option><option value="12">城の守備（守備につきます）
-            </option><option value="61">後方守備（後方へ守備につく,500R）
-            </option><option value="13">戦争(他国へ侵攻します)
-            </option><option value="100">模擬戦(兵５０必要)
-            </option><option value="">
-            </option><option value="">== 計略 ==
-            </option><option value="24">登用(成功報酬有り)
-            </option><option value="43">一括内政(500G)(知力)
-            </option><option value="60">一括拡張(500G)(知力)
-
-            </option><option value="46">一夜城(500G)(統or武)
-
-
-
-
-
-
-
-
-
-
-
-
-            </option><option value="52">召集
-            </option><option value="">
-            </option><option value="">== 鍛錬 ==
-            </option><option value="26">能力強化()
-            </option><option value="">
-            </option><option value="">== 商人 ==
-            </option><option value="14">米売買
-            </option><option value="15">武器購入
-            </option><option value="16">書物購入
-            </option><option value="41">防具購入
-            </option><option value="50">旗購入
-
-            </option><option value="">
-            </option><option value="">== 移動 ==
-            </option><option value="17">移動
-
-
-            </option><option value="21">仕官
-            </option></select>
+              </option><option value="">== 内政 ==
+              </option><option value="1">農業開発(50G)(知力)
+              </option><option value="36">農業用地拡大(50G)(知)
+              </option><option value="2">商業発展(50G)(知力)
+              </option><option value="37">商業用地拡大(50G)(知)
+              </option><option value="29">技術開発(50G)(知力)
+              </option><option value="3">城壁強化(50G)(統率)
+              </option><option value="38">城壁拡張(50G)(統or武)
+              </option><option value="30">城壁耐久力強化(50G)(武力)
+              </option><option value="8">米施し(50R)(人望)
+              </option><option value="39">大量米施し(1000R)(仁)
+              </option><option value="">
+              </option><option value="">== 軍事 ==
+              </option><option value="<%= Command::CONSCRIPTION %>">徴兵（兵士が増えます）
+              </option><option value="11">兵士訓練（兵士の防御上昇）
+              </option><option value="40">兵士猛訓練(500G)
+              </option><option value="12">城の守備（守備につきます）
+              </option><option value="61">後方守備（後方へ守備につく,500R）
+              </option><option value="13">戦争(他国へ侵攻します)
+              </option><option value="100">模擬戦(兵５０必要)
+              </option><option value="">
+              </option><option value="">== 計略 ==
+              </option><option value="24">登用(成功報酬有り)
+              </option><option value="43">一括内政(500G)(知力)
+              </option><option value="60">一括拡張(500G)(知力)
+              </option><option value="46">一夜城(500G)(統or武)
+              </option><option value="52">召集
+              </option><option value="">
+              </option><option value="">== 鍛錬 ==
+              </option><option value="26">能力強化()
+              </option><option value="">
+              </option><option value="">== 商人 ==
+              </option><option value="14">米売買
+              </option><option value="15">武器購入
+              </option><option value="16">書物購入
+              </option><option value="41">防具購入
+              </option><option value="50">旗購入
+              </option><option value="">
+              </option><option value="">== 移動 ==
+              </option><option value="17">移動
+              </option><option value="21">仕官
+              </option></select>
           </td>
           <td>
 
           </td>
         </tr>
         <tr><th colspan="3">
-          <input type="submit" value="実行">
+          <input type="button" value="実行" id="submit_command">
 
 
         </th></tr>
@@ -462,7 +446,6 @@
 
 
           <form action="./command.cgi" method="POST">
-            <input type="hidden" name="id" value="dummy"><input type="hidden" name="pass" value="dummy">
             <table border="0"><tbody><tr><td>
               削除・挿入場所No.<br>
               <select name="nno" size="5" multiple="">

@@ -15,3 +15,20 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+document.addEventListener("DOMContentLoaded",function(){
+  document.getElementById('submit_command').addEventListener('click', submit_command)
+});
+
+function submit_command() {
+  const form = document.getElementById('command_form')
+  const mode = document.getElementById('mode').value
+  const token = document.getElementById('token')
+
+  form.method = 'GET'
+  form.action = '/conscription/form'
+  token.disabled = true
+
+  form.submit()
+}
+
