@@ -3,6 +3,9 @@ class ConscriptionController < ApplicationController
 
   def form
     @command_nos = params[:command_no]
+
+    user = User.find(dummy_user_id)
+    can_employ_types
   end
 
   def update
@@ -16,7 +19,7 @@ class ConscriptionController < ApplicationController
   end
 
   def input_command(command_no)
-    command = Command.find_or_initialize_by({command_no: command_no}.merge({user_id: dummy_user[:id]}))
+    command = Command.find_or_initialize_by({command_no: command_no}.merge({user_id: dummy_user_id}))
     command.command_type = Command::CONSCRIPTION
     command.save
     if command.conscription_command.nil?

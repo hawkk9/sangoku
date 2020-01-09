@@ -38,6 +38,7 @@
   <table bgcolor="#884422"><tbody bgcolor="#C0C088">
   <tr><th>種類</th><th>攻撃力</th><th>防御力</th><th>属性</th><th>特殊効果</th><th>必要技術</th><th>雇用金</th><th>人数</th><td></td></tr>
   <tr><th bgcolor="#884422" colspan="9">■人望官■</th></tr>
+  <% @soldiers.each do |soldier| %>
   <tr>
       <th>民衆</th><th>人望×0.8</th><th>人望×0</th><th>無し</th><th></th><th>0</th><th>金 15</th>
       <td>
@@ -48,6 +49,7 @@
         <input type="submit" value="雇う" class="js-submit_command">
       </td>
   </tr>
+  <% end %>
   </tbody></table><br>
   <b></b>
 
