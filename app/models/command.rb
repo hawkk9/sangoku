@@ -28,6 +28,17 @@ class Command < ApplicationRecord
     NONE => '何もしない',
     WAIT => '待機',
     AGRICULTURE => '農業開発',
+    AGRICULTURE_EXPANSION => '農業用地拡大',
+    COMMERCE => '商業発展',
+    COMMERCE_EXPANSION => '商業用地拡大',
+    TECHNOLOGY => '技術開発',
+    WALL => '城壁強化',
+    WALL_EXPANSION => '城壁拡張',
+    WALL_DURABILITY => '城壁耐久力強化',
+    RICE_ALMS => '米施し',
+    MANY_RICE_ALMS => '大量米施し',
+
+
     CONSCRIPTION => '徴兵'
   }.freeze
 
