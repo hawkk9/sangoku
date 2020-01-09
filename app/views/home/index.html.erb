@@ -385,8 +385,8 @@
 
 
             <select name="command_type" size="10" id="command_type">
-              <option value="0">何もしない
-              </option><option value="80">待機（更新時間＋１～１０分）
+              <option value="<%= Command::NONE %>">何もしない
+              </option><option value="<%= Command::WAIT %>">待機（更新時間＋１～１０分）
               </option><option value="">== 内政 ==
               </option><option value="<%= Command::AGRICULTURE %>">農業開発(50G)(知力)
               </option><option value="<%= Command::AGRICULTURE_EXPANSION %>">農業用地拡大(50G)(知)

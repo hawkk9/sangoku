@@ -19,9 +19,6 @@
     </td></tr></tbody></table>
 </td></tr>
 <tr><td><br><br>
-
-
-
   <table border="2">
     <tbody><tr><th></th><th>計算式</th><th>その他</th></tr>
     <tr><th>攻撃力</th><th>武力＋兵攻撃力＋武器威力</th><td>※雑兵、鬼兵、賊、志願兵、攻城兵には武力による補正はありません</td></tr>
@@ -36,40 +33,32 @@
     </td></tr>
 
     </tbody></table>
-
-
-
-
-
-
-
   <br>
   何名雇いますか？(※最大95人)
   <table bgcolor="#884422"><tbody bgcolor="#C0C088">
   <tr><th>種類</th><th>攻撃力</th><th>防御力</th><th>属性</th><th>特殊効果</th><th>必要技術</th><th>雇用金</th><th>人数</th><td></td></tr>
   <tr><th bgcolor="#884422" colspan="9">■人望官■</th></tr>
   <tr>
-    <form action="/conscription/update" method="POST">
       <th>民衆</th><th>人望×0.8</th><th>人望×0</th><th>無し</th><th></th><th>0</th><th>金 15</th>
       <td>
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <input type="text" name="soldier_num" value="0" size="4">人
-        <input type="hidden" name="soldier_type" value="20">
-        <% @command_nos.each do |command_no| %>
-          <input type="hidden" name="command_no[]" value="<%= command_no %>">
-        <% end %>
+        <input type="text" name="soldier_num" value="0" size="4" class="js-soldier_num">人
+        <input type="hidden" name="soldier_type" value="20" class="js-soldier_type">
       </td>
       <td>
-        <input type="submit" value="雇う">
+        <input type="submit" value="雇う" class="js-submit_command">
       </td>
-    </form>
   </tr>
   </tbody></table><br>
   <b></b>
 
-  <form action="status.cgi" method="post">
-    <input type="hidden" name="id" value="soyu">
-    <input type="hidden" name="pass" value="2528">
-    <input type="hidden" name="mode" value="STATUS">
-    <input type="submit" value="戻る"></form>
+  <form action="/conscription/update" method="POST" id="command_form">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="soldier_num">
+    <input type="hidden" name="soldier_type">
+    <% @command_nos.each do |command_no| %>
+      <input type="hidden" name="command_no[]" value="<%= command_no %>">
+    <% end %>
+  </form>
+
+  <%= button_to "戻る", home_index_url, {method: :get} %>
 </td></tr></tbody></table>

@@ -38,7 +38,6 @@ class Command < ApplicationRecord
     RICE_ALMS => '米施し',
     MANY_RICE_ALMS => '大量米施し',
 
-
     CONSCRIPTION => '徴兵'
   }.freeze
 
