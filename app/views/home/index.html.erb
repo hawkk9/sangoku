@@ -294,6 +294,7 @@
           <tr><th>
             <br><br>
             <%= button_to "画面RELODE", home_index_url, {method: :get} %>
+            <%= button_to "コマンド実行", dubug_execute_command_url, {method: :post} %>
             <br>
             <br><br>
           </th></tr><tr><td><br>次のターンまで49分(2957秒)<br>放置削除ターンまで<font color="red">96</font>ターン<br><br></td></tr>
@@ -331,7 +332,7 @@
 
 
 
-      <form id="command_form" action="/command/form" method="POST">
+      <form id="command_form" action="/command/update" method="POST">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" id="token">
         <table bgcolor="#0f6080" cellspacing="1"><tbody bgcolor="#efffff">
         <tr><th bgcolor="#0f6080"><font color="#efffff">コマンド</font></th></tr>
@@ -390,7 +391,7 @@
               <option value="0">何もしない
               </option><option value="80">待機（更新時間＋１～１０分）
               </option><option value="">== 内政 ==
-              </option><option value="1">農業開発(50G)(知力)
+              </option><option value="<%= Command::AGRICULTURE %>">農業開発(50G)(知力)
               </option><option value="36">農業用地拡大(50G)(知)
               </option><option value="2">商業発展(50G)(知力)
               </option><option value="37">商業用地拡大(50G)(知)
