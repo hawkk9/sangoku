@@ -1,16 +1,12 @@
 class ConscriptionController < ApplicationController
+  include InputCommand
+
   def form
     @command_nos = params[:command_no]
   end
 
   def update
-    if params[:command_no].first == Command::ALL
-      Command::MAX_NUM.times { |command_no| input_command(command_no) }
-    else
-      params[:command_no].each { |command_no| input_command(command_no) }
-    end
-
-    redirect_to home_index_url
+    input_command_to_nos
   end
 
   private

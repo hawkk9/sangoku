@@ -27,6 +27,7 @@ class Command < ApplicationRecord
     nil => '-',
     NONE => '何もしない',
     WAIT => '待機',
+    AGRICULTURE => '農業開発',
     CONSCRIPTION => '徴兵'
   }.freeze
 
