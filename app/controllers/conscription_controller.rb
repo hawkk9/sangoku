@@ -3,9 +3,8 @@ class ConscriptionController < ApplicationController
 
   def form
     @command_nos = params[:command_no]
-
-    user = User.find(dummy_user_id)
-    can_employ_types
+    @user = User.find(dummy_user_id)
+    @soldiers = Soldiers::Soldier.can_employ_soldiers(@user)
   end
 
   def update

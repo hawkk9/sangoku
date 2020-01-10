@@ -77,12 +77,14 @@ ActiveRecord::Schema.define(version: 2020_01_06_124920) do
     t.decimal "book", null: false
     t.decimal "flag", null: false
     t.integer "delete_turn", null: false
-    t.integer "position", null: false
+    t.integer "town_id", null: false
     t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["town_id"], name: "index_users_on_town_id"
   end
 
   add_foreign_key "commands", "users"
   add_foreign_key "conscription_commands", "commands", on_delete: :cascade
+  add_foreign_key "users", "towns"
 end

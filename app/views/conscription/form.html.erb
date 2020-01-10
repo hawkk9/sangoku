@@ -37,17 +37,23 @@
   何名雇いますか？(※最大95人)
   <table bgcolor="#884422"><tbody bgcolor="#C0C088">
   <tr><th>種類</th><th>攻撃力</th><th>防御力</th><th>属性</th><th>特殊効果</th><th>必要技術</th><th>雇用金</th><th>人数</th><td></td></tr>
-  <tr><th bgcolor="#884422" colspan="9">■人望官■</th></tr>
+  <tr><th bgcolor="#884422" colspan="9">■<%= @user.officer_type_label %>■</th></tr>
   <% @soldiers.each do |soldier| %>
   <tr>
-      <th>民衆</th><th>人望×0.8</th><th>人望×0</th><th>無し</th><th></th><th>0</th><th>金 15</th>
-      <td>
-        <input type="text" name="soldier_num" value="0" size="4" class="js-soldier_num">人
-        <input type="hidden" name="soldier_type" value="20" class="js-soldier_type">
-      </td>
-      <td>
-        <input type="submit" value="雇う" class="js-submit_command">
-      </td>
+    <th><%= soldier.name %></th>
+    <th><%= soldier.base_status_label %>×<%= soldier.attack %></th>
+    <th><%= soldier.base_status_label %>×<%= soldier.defense %></th>
+    <th><%= soldier.attribute_label %></th>
+    <th><%= soldier.skill_label %></th>
+    <th><%= soldier.technology %></th>
+    <th>金 <%= soldier.gold %></th>
+    <td>
+      <input type="text" name="soldier_num" value="0" size="4" class="js-soldier_num">人
+      <input type="hidden" name="soldier_type" value="<%= soldier.soldier_type %>" class="js-soldier_type">
+    </td>
+    <td>
+      <input type="submit" value="雇う" class="js-submit_command">
+    </td>
   </tr>
   <% end %>
   </tbody></table><br>

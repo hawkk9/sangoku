@@ -26,7 +26,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.decimal :book, comment: "書物", null: false
       t.decimal :flag, comment: "旗", null: false
       t.integer :delete_turn, comment: "削除ターン", null: false
-      t.integer :position, comment: "位置", null: false, foreign_key: { to_table: :towns }
+      t.belongs_to :town, comment: "位置", null: false, foreign_key: true
       t.string :email, comment: "メールアドレス", null: false
 
       t.timestamps
