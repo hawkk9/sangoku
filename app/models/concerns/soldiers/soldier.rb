@@ -1,8 +1,8 @@
 module Soldiers
   class Soldier
     # 兵種
-    NO_RANK = 0
-    NO_S_RANK = 1
+    NO_NONE = 0
+    NO_S_NONE = 1
     SIEGE = 2
     MIRROR = 3
     MONTE_CARLO = 4
@@ -26,7 +26,7 @@ module Soldiers
     A_S_INFANTRY = 22
     A_S_CAVALRY = 23
     A_S_ARCHER = 24
-    S_RANK = 25
+    S_NONE = 25
 
     # 属性
     NONE = 0
@@ -41,9 +41,31 @@ module Soldiers
       ARCHER => '弓',
     }
 
+    # ランク
+    NO_RANK = 0
+    NO_S_RANK = 1
+    C_RANK = 2
+    C_S_RANK = 3
+    B_RANK = 4
+    B_S_RANK = 5
+    A_RANK = 6
+    A_S_RANK = 7
+    S_RANK = 8
+
+    RANK_LABEL_HASH = {
+      C_RANK => 'Cランク',
+      C_S_RANK => '特Cランク',
+      B_RANK => 'Bランク',
+      B_S_RANK => '特Bランク',
+      A_RANK => 'Aランク',
+      A_S_RANK => '特Aランク',
+      S_RANK => 'Sランク',
+    }
+
     SOLDIER_OPTIONS = [
       {
-        soldier_type: NO_RANK,
+        soldier_type: NO_NONE,
+        soldier_rank: NO_RANK,
         officer_type: User::CHARM,
         name: '民衆',
         attack: 0.8,
@@ -57,7 +79,8 @@ module Soldiers
         technology: 0
       },
       {
-        soldier_type: NO_RANK,
+        soldier_type: NO_NONE,
+        soldier_rank: NO_S_RANK,
         officer_type: User::CHARM,
         name: '一揆軍',
         attack: 0.8,
@@ -72,6 +95,7 @@ module Soldiers
       },
       {
         soldier_type: C_INFANTRY,
+        soldier_rank: C_RANK,
         officer_type: User::CHARM,
         name: '民兵',
         attack: 0.75,
@@ -86,6 +110,7 @@ module Soldiers
       },
       {
         soldier_type: C_CAVALRY,
+        soldier_rank: C_RANK,
         officer_type: User::CHARM,
         name: '暴走族',
         attack: 0.9,
@@ -100,6 +125,7 @@ module Soldiers
       },
       {
         soldier_type: C_ARCHER,
+        soldier_rank: C_RANK,
         officer_type: User::CHARM,
         name: 'やくざ',
         attack: 1.1,
@@ -168,6 +194,14 @@ module Soldiers
 
     def soldier_type
       @options[:soldier_type]
+    end
+
+    def soldier_rank
+      @options[:soldier_rank]
+    end
+
+    def soldier_rank_label
+      RANK_LABEL_HASH[@options[:soldier_rank]]
     end
 
     def officer_type
