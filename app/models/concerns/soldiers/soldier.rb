@@ -443,7 +443,8 @@ module Soldiers
         enable_equip: true,
         gold: 175,
         rank:0,
-        technology: 800
+        technology: 800,
+        achievement: Achievement::MACAO
       },
       {
         soldier_type: LAS_VEGAS,
@@ -460,7 +461,8 @@ module Soldiers
         enable_equip: true,
         gold: 175,
         rank:0,
-        technology: 800
+        technology: 800,
+        achievement: Achievement::LAS_VEGAS
       },
     ]
 
@@ -471,7 +473,9 @@ module Soldiers
 
       def can_employ_soldier_options(user)
         SOLDIER_OPTIONS.filter do |option|
-          (option[:officer_type].nil? || option[:officer_type] == user.officer_type) && option[:technology] <= user.town.technology && option[:rank] <= user.rank
+          (option[:officer_type].nil? || option[:officer_type] == user.officer_type) &&
+            option[:technology] <= user.town.technology && option[:rank] <= user.rank &&
+            (option[:achievement].nil? || user.achievements.exists?(achievement_type: option[:achievement]))
         end
       end
     end

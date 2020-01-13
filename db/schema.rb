@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_124920) do
+ActiveRecord::Schema.define(version: 2020_01_13_094550) do
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "achievement_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_achievements_on_user_id"
+  end
 
   create_table "commands", force: :cascade do |t|
     t.integer "user_id", null: false
