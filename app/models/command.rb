@@ -62,6 +62,8 @@ class Command < ApplicationRecord
     typed.class == Command ? COMMAND_LABEL_HASH[self.command_type] : typed.inputed_label(self.user)
   end
 
+  protected
+
   def typed_command
     case self.command_type
     when CONSCRIPTION
@@ -70,6 +72,4 @@ class Command < ApplicationRecord
       self
     end
   end
-  private
-
 end
