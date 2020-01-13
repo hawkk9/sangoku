@@ -190,7 +190,11 @@
         <tr><td>金</td><th><%= @user.gold %></th><td>米</td><th><%= @user.rice %></th><td>所属</td><th>豆板醤国</th><td>部隊</td><th>伝説リプレイス部</th></tr>
         <tr><td>階級</td><th>始皇帝</th><td>貢献</td><th>30</th><td>階級値</td><th colspan="3"><%= @user.rank %></th></tr>
 
-        <tr><td>兵種</td><th colspan="4">ミラーマン:無し</th><td>兵士</td><th><%= @user.soldier_num %></th><td>訓練</td><th><%= @user.training %></th></tr>
+        <tr>
+          <td>兵種</td>
+          <% soldier = Soldiers::Soldier.find_by_officer_and_type(@user.officer_type, @user.soldier_type) %>
+          <th colspan="4"><%= "#{soldier.name_with_rank}:#{soldier.attribute_label}" %></th>
+          <td>兵士</td><th><%= @user.soldier_num %></th><td>訓練</td><th><%= @user.training %></th></tr>
         <tr><td>武器</td><th colspan="7">竹槍</th><th><%= @user.arm %></th></tr>
         <tr><td>防具</td><th colspan="7">普通のTシャツ</th><th><%= @user.guard %></th></tr>
         <tr><td>書物</td><th colspan="7">二コ厨入門書</th><th><%= @user.book %></th></tr>
@@ -325,7 +329,7 @@
         <tr>
           <th><%= i + 1 %></th>
           <th><p title="Mon Jan  6 22:53:17 2020">【247年2月（6日22時53分17秒）】</p></th>
-          <th><%= command && command.inputed_label %></th>
+          <th><%= command ? command.inputed_label : '-' %></th>
         </tr>
       <% end %>
       </tbody></table>
@@ -344,7 +348,7 @@
           </option>
           <% Command::MAX_NUM.times do |i| %>
             <% command = @commands.find_by(command_no: i) %>
-            <option value="<%= i %>" selected=""><%= "#{i + 1}：【247年2月：#{Command::COMMAND_LABEL_HASH[command && command.command_type]}】 " %></option>
+            <option value="<%= i %>"><%= "#{i + 1}：【247年2月：#{command ? command.inputed_label : '-'}】 " %></option>
           <% end %>
           <script type="text/javascript">
           <!--
