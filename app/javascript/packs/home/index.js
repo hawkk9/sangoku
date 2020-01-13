@@ -10,7 +10,7 @@ function submit_command() {
     const command = gon.command_map[command_type]
     form.method = command.method
     form.action = command.action
-    if(form.method === 'GET') {
+    if(form.method === 'get') {
       const token = document.getElementById('token')
       token.disabled = true
     }

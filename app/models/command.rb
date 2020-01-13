@@ -67,4 +67,8 @@ class Command < ApplicationRecord
       self.conscription_command
     end
   end
+
+  def inputed_label
+
+  end
 end
