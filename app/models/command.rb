@@ -23,7 +23,7 @@ class Command < ApplicationRecord
   TRAINING = 13
   MANY_TRAINING = 14
 
-  COMMAND_SHORT_LABEL_HASH = {
+  COMMAND_LABEL_HASH = {
     nil => '-',
     NONE => '何もしない',
     WAIT => '待機',
@@ -41,10 +41,6 @@ class Command < ApplicationRecord
     CONSCRIPTION => '徴兵'
   }.freeze
 
-  COMMAND_LABEL_HASH = {
-
-  }
-
   has_one :conscription_command
   belongs_to :user
 
@@ -61,14 +57,19 @@ class Command < ApplicationRecord
     end
   end
 
+  def inputed_label
+    typed = self.typed_command
+    typed.class == Command ? COMMAND_LABEL_HASH[self.command_type] : typed.inputed_label(self.user)
+  end
+
   def typed_command
     case self.command_type
     when CONSCRIPTION
       self.conscription_command
+    else
+      self
     end
   end
+  private
 
-  def inputed_label
-
-  end
 end

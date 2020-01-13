@@ -41,7 +41,7 @@
   <% soldier_num = @user.leadership - @user.soldier_num %>
   <% @soldiers.each do |soldier| %>
   <tr>
-    <th><%= soldier.name %><%= soldier.soldier_rank_label && "【#{soldier.soldier_rank_label}】" %></th>
+    <th><%= soldier.name_with_rank %></th>
     <th><%= soldier.base_status_label %>×<%= soldier.attack %></th>
     <th><%= soldier.base_status_label %>×<%= soldier.defense %></th>
     <th><%= soldier.attribute_label %></th>

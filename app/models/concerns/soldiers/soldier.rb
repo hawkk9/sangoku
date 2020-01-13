@@ -468,7 +468,7 @@ module Soldiers
 
     class << self
       def can_employ_soldiers(user)
-        can_employ_soldier_options(user).map {|soldier_option| Soldiers::Soldier.new(soldier_option)}
+        can_employ_soldier_options(user).map {|soldier_option| Soldier.new(soldier_option)}
       end
 
       def can_employ_soldier_options(user)
@@ -478,6 +478,13 @@ module Soldiers
             (option[:achievement].nil? || user.achievements.exists?(achievement_type: option[:achievement]))
         end
       end
+
+      def find_by_officer_and_type(officer_type, soldier_type)
+        Soldier.new(SOLDIER_OPTIONS.find do |option|
+          (option[:officer_type].nil? || option[:officer_type] == officer_type) &&
+            option[:soldier_type] == soldier_type
+        end)
+      end
     end
 
     def initialize(options = {})
@@ -486,6 +493,11 @@ module Soldiers
 
     def name
       @options[:name]
+    end
+
+    # 例)暴走族【Cランク】
+    def name_with_rank
+      self.name + (self.soldier_rank_label && "【#{self.soldier_rank_label}】").to_s
     end
 
     def attack
