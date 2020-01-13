@@ -38,6 +38,7 @@
   <table bgcolor="#884422"><tbody bgcolor="#C0C088">
   <tr><th>種類</th><th>攻撃力</th><th>防御力</th><th>属性</th><th>特殊効果</th><th>必要技術</th><th>雇用金</th><th>人数</th><td></td></tr>
   <tr><th bgcolor="#884422" colspan="9">■<%= @user.officer_type_label %>■</th></tr>
+  <% soldier_num = @user.leadership - @user.soldier_num %>
   <% @soldiers.each do |soldier| %>
   <tr>
     <th><%= soldier.name %><%= soldier.soldier_rank_label && "【#{soldier.soldier_rank_label}】" %></th>
@@ -48,7 +49,7 @@
     <th><%= soldier.technology %></th>
     <th>金 <%= soldier.gold %></th>
     <td>
-      <input type="text" name="soldier_num" value="0" size="4" class="js-soldier_num">人
+      <input type="text" name="soldier_num" value="<%= soldier_num %>" size="4" class="js-soldier_num">人
       <input type="hidden" name="soldier_type" value="<%= soldier.soldier_type %>" class="js-soldier_type">
     </td>
     <td>
