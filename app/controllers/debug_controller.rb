@@ -1,6 +1,7 @@
 class DebugController < ApplicationController
   def execute_command
-    CommandWorker.perform_async(dummy_user_id)
+    command = Command.where(user_id: dummy_user_id).order(:command_no).first
+    command.execute
     redirect_to home_index_url
   end
 end
