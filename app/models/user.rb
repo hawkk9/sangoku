@@ -39,4 +39,16 @@ class User < ApplicationRecord
   def officer_type_equip_label
     OFFICER_TYPE_EQUIP_LABEL_HASH[self.officer_type]
   end
+
+  def attack
+    (self.charm + self.flag) * self.soldier.attack + self.strength + self.arm
+  end
+
+  def defence
+    (self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard
+  end
+
+  def soldier
+    Soldiers::Soldier.find_by_officer_and_type(self.officer_type, self.soldier_type)
+  end
 end

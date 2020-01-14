@@ -183,7 +183,11 @@
 
 
         <table width="100%" bgcolor="#0f6080" cellspacing="1"><tbody bgcolor="#efffff">
-        <tr><th colspan="9" bgcolor="#0f6080"><font color="#efffff"><%= @user.name %>【勤続7年8ヶ月】【攻撃力：6 (＋0)】【守備力：85(＋10)】</font></th></tr>
+        <tr>
+          <th colspan="9" bgcolor="#0f6080">
+            <font color="#efffff"><%= @user.name %>【勤続7年8ヶ月】【攻撃力：<%= @user.attack %> (＋0)】【守備力：<%= @user.defence %>(＋10)】</font>
+          </th>
+        </tr>
 
         <tr><td rowspan="4" width="5"><img src="./image/34.gif" width="64" height="64"></td><td>武力</td><th><%= @user.strength %></th><td>知力</td><th><%= @user.intelligence %></th><td>統率力</td><th><%= @user.leadership %></th><td>人望</td><th><%= @user.charm %></th></tr>
         <tr><td>武EX</td><th><%= @user.strength_exp %></th><td>知EX</td><th><%= @user.intelligence_exp %></th><td>統EX</td><th><%= @user.leadership_exp %></th><td>人望EX</td><th><%= @user.charm_exp %></th></tr>
@@ -192,8 +196,7 @@
 
         <tr>
           <td>兵種</td>
-          <% soldier = Soldiers::Soldier.find_by_officer_and_type(@user.officer_type, @user.soldier_type) %>
-          <th colspan="4"><%= "#{soldier.name_with_rank}:#{soldier.attribute_label}" %></th>
+          <th colspan="4"><%= "#{@user.soldier.name_with_rank}:#{@user.soldier.attribute_label}" %></th>
           <td>兵士</td><th><%= @user.soldier_num %></th><td>訓練</td><th><%= @user.training %></th></tr>
         <tr><td>武器</td><th colspan="7">竹槍</th><th><%= @user.arm %></th></tr>
         <tr><td>防具</td><th colspan="7">普通のTシャツ</th><th><%= @user.guard %></th></tr>
