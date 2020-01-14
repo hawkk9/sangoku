@@ -21,10 +21,10 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :rice, comment: "米", null: false
       t.integer :contributing, comment: "貢献", null: false
       t.integer :rank, comment: "階級", null: false
-      t.decimal :arm, comment: "武器", null: false
-      t.decimal :guard, comment: "防具", null: false
-      t.decimal :book, comment: "書物", null: false
-      t.decimal :flag, comment: "旗", null: false
+      t.float :arm, comment: "武器", null: false
+      t.float :guard, comment: "防具", null: false
+      t.float :book, comment: "書物", null: false
+      t.float :flag, comment: "旗", null: false
       t.integer :delete_turn, comment: "削除ターン", null: false
       t.belongs_to :town, comment: "位置", null: false, foreign_key: true
       t.string :email, comment: "メールアドレス", null: false

@@ -80,10 +80,10 @@ ActiveRecord::Schema.define(version: 2020_01_13_094550) do
     t.integer "rice", null: false
     t.integer "contributing", null: false
     t.integer "rank", null: false
-    t.decimal "arm", null: false
-    t.decimal "guard", null: false
-    t.decimal "book", null: false
-    t.decimal "flag", null: false
+    t.float "arm", null: false
+    t.float "guard", null: false
+    t.float "book", null: false
+    t.float "flag", null: false
     t.integer "delete_turn", null: false
     t.integer "town_id", null: false
     t.string "email", null: false
