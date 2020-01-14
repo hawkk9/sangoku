@@ -45,9 +45,10 @@ class Command < ApplicationRecord
   belongs_to :user
 
   def execute
-    self.typed_command.execute(self.user)
-    self.destroy
+    log_messages = self.typed_command.execute(self.user)
+    # self.destroy
     self.decrement_user_command_no
+    self.write_command_log_file(self.user.character_id, log_messages)
   end
 
   def decrement_user_command_no
@@ -70,6 +71,25 @@ class Command < ApplicationRecord
       self.conscription_command
     else
       self
+    end
+  end
+
+  def write_command_log_file(file_name, messages)
+    path = File.join(Rails.root, 'tmp', file_name)
+    lines = []
+    if File.exist?(path)
+      File.foreach(path) do |line|
+        lines << line.chomp
+      end
+    end
+
+    lines.unshift(messages)
+    lines.flatten!
+
+    File.open(path, "w+") do |f|
+      lines.each do |line|
+        f.puts line
+      end
     end
   end
 end
