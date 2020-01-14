@@ -51,4 +51,15 @@ class User < ApplicationRecord
   def soldier
     Soldiers::Soldier.find_by_officer_and_type(self.officer_type, self.soldier_type)
   end
+
+  def message_logs
+    path = File.join(Rails.root, 'tmp', self.character_id)
+    lines = []
+    if File.exist?(path)
+      File.foreach(path) do |line|
+        lines << line.chomp
+      end
+    end
+    lines
+  end
 end

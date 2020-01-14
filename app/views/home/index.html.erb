@@ -601,32 +601,18 @@
 
 
     <tbody><tr><th colspan="4" bgcolor="#efffff">
-      <font color="navy">●</font><font color="blue">【コマンド失敗残念賞】</font>統率力経験値＋1 貢献値＋３０(6日21時53分)
-      <br><font color="navy">●</font>1月:無所属でなければ仕官できません。(6日21時53分)
-      <br><font color="navy">●</font>1月:<font color="red">【ベーシック】</font>:金を450、米を0徴収しました。(6日21時53分)
-      <br><font color="navy">●</font>1月:国へ<font color="red">0</font>の金を収めました。 税率0％(6日21時53分)
-      <br><font color="navy">●</font>1月:税金で<font color="red">18000</font>の金を徴収しました。(6日21時53分)
-      <br>
+      <% @user.message_logs.each do |message_log|  %>
+        <%= message_log %><br>
+      <% end %>
     </th></tr>
     <form action="./mylog.cgi" method="post"></form>
     <tr><th colspan="1" bgcolor="#efffff">
-      <input type="hidden" name="id" value="dummy">
-      <input type="hidden" name="pass" value="dummy">
-      <input type="submit" value="都市情報
-"></th><th colspan="1" bgcolor="#efffff"><form action="./mylog2.cgi" method="post">
-      <input type="hidden" name="id" value="dummy">
-      <input type="hidden" name="eeeranku" value="35">
-      <input type="hidden" name="pass" value="dummy">
+      <input type="submit" value="都市情報"></th><th colspan="1" bgcolor="#efffff"><form action="./mylog2.cgi" method="post">
       <input type="submit" value="国民コマンド確認">
     </form>
     </th><th colspan="1" bgcolor="#efffff"><form action="./mycou.cgi" method="post">
-      <input type="hidden" name="id" value="dummy">
-      <input type="hidden" name="pass" value="dummy">
       <input type="submit" value="豆板醤国データ">
     </form></th><th colspan="1" bgcolor="#efffff"><form action="./mydata3.cgi" method="post">
-      <input type="hidden" name="id" value="dummy">
-      <input type="hidden" name="pass" value="dummy">
-      <input type="hidden" name="mode" value="STATUS">
       <input type="submit" value="個人データ＆過去ログ">
     </form></th></tr>
 
