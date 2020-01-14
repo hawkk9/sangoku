@@ -189,7 +189,7 @@
           </th>
         </tr>
 
-        <tr><td rowspan="4" width="5"><img src="./image/34.gif" width="64" height="64"></td><td>武力</td><th><%= @user.strength %></th><td>知力</td><th><%= @user.intelligence %></th><td>統率力</td><th><%= @user.leadership %></th><td>人望</td><th><%= @user.charm %></th></tr>
+        <tr><td rowspan="4" width="5"><%= image_tag('34.gif') %></td><td>武力</td><th><%= @user.strength %></th><td>知力</td><th><%= @user.intelligence %></th><td>統率力</td><th><%= @user.leadership %></th><td>人望</td><th><%= @user.charm %></th></tr>
         <tr><td>武EX</td><th><%= @user.strength_exp %></th><td>知EX</td><th><%= @user.intelligence_exp %></th><td>統EX</td><th><%= @user.leadership_exp %></th><td>人望EX</td><th><%= @user.charm_exp %></th></tr>
         <tr><td>金</td><th><%= @user.gold %></th><td>米</td><th><%= @user.rice %></th><td>所属</td><th>豆板醤国</th><td>部隊</td><th>伝説リプレイス部</th></tr>
         <tr><td>階級</td><th>始皇帝</th><td>貢献</td><th>30</th><td>階級値</td><th colspan="3"><%= @user.rank %></th></tr>
@@ -536,12 +536,12 @@
       <td width="100%" bgcolor="#000000">
         <font size="2" color="skyblue"><b>SHOUYUから砂糖へ</b></font><br><font size="2" color="#FFFFFF"><b>こんにちは<br>こんばんは</b><br>12/30/(Mon) 03:31</font>
       </td>
-      <td width="70" bgcolor="#000000" align="center" valign="middle"><img src="./image/34.gif" alt="SHOUYU" width="64" height="64"></td>
+      <td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td>
     </tr>
     <tr>
       <td width="100%" bgcolor="#000000">
         <font size="2" color="#FFFFFF"><b><font color="orange"><a href="ranking6.cgi?id=rudy" target="_blank">砂糖</a>@</font>からSHOUYUへ</b> <br>「<b>そうですね</b>」<br>12/30/(Mon) 03:10</font></td>
-      <td width="70" bgcolor="#000000" align="center" valign="middle"><img src="./image/upl/32166.gif" alt="砂糖" width="64" height="64"></td>
+      <td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td>
     </tr>
     </tbody></table>
 
@@ -550,7 +550,7 @@
     <tr>
       <td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><font color="orange"><a href="ranking6.cgi?id=n3yst" target="_blank">砂糖</a>@濮陽@豆板醤国</font>から伝説リプレイス部部隊へ</b> <br>「<b><font color="33CCFF"><b>[隊員]</b></font>ほげほげ</b>」<br>01/06/(Mon) 21:52</font></td>
       <td width="70" bgcolor="#000000" align="center" valign="middle">
-        <img src="./image/upl/32162.gif" alt="砂糖" width="64" height="64">
+        <%= image_tag('34.gif') %>
       </td>
     </tr>
     <tr>
@@ -558,26 +558,26 @@
         <font size="2" color="#FFFFFF"><b><font color="orange"><a href="ranking6.cgi?id=munoumin" target="_blank">SHOUYU</a>@襄陽@豆板醤国</font>から伝説リプレイス部部隊へ</b> <br>「<b><font color="FFCC33"><b>[隊長]</b></font>寒いですね<br>雨が降ってきた</b>」<br>01/06/(Mon) 19:27</font>
       </td>
       <td width="70" bgcolor="#000000" align="center" valign="middle">
-        <img src="./image/upl/31672.gif" alt="砂糖" width="64" height="64">
+        <%= image_tag('34.gif') %>
       </td>
     </tr>
 
     </tbody></table>
     平原の人々へ:(5件)
     <table width="100%" bgcolor="880000"><tbody>
-    <tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><a href="ranking6.cgi?id=holo" target="_blank">砂糖</a>@平原@豆板醤国から</b><br><b>ここは平原です</b><br>01/06/(Mon) 18:03</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><img src="./image/upl/32109.gif" alt="ホロ" width="64" height="64"></td></tr>
+    <tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><a href="ranking6.cgi?id=holo" target="_blank">砂糖</a>@平原@豆板醤国から</b><br><b>ここは平原です</b><br>01/06/(Mon) 18:03</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td></tr>
 
     </tbody></table>
     SHOUYU宛密書:(5件)
     <table width="100%" bgcolor="008800"><tbody>
-    <form action="./mydata.cgi" method="post"></form><input type="hidden" name="id" value="dummy"><input type="hidden" name="pass" value="dummy"><input type="hidden" name="hcon" value="7"><input type="hidden" name="hid" value="haim"><input type="hidden" name="hpos" value="49"><input type="hidden" name="mode" value="COU_CHANGE"><tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><font color="skyblue">砂糖が豆板醤国への仕官を勧めています。</font><br></b>「<b>豆板醤国の使者:<br><br>士官してください<br><br><br></b>」<br><input type="hidden" name="hhid" value="砂糖"><input type="radio" name="sel" value="1">承諾する<input type="radio" name="sel" value="0">断る<input type="submit" value="返事"></font></td><td width="70" bgcolor="#000000"><img src="./image/upl/32132.gif" width="64" height="64" alt="砂糖"></td></tr>
+    <form action="./mydata.cgi" method="post"></form><input type="hidden" name="id" value="dummy"><input type="hidden" name="pass" value="dummy"><input type="hidden" name="hcon" value="7"><input type="hidden" name="hid" value="haim"><input type="hidden" name="hpos" value="49"><input type="hidden" name="mode" value="COU_CHANGE"><tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><font color="skyblue">砂糖が豆板醤国への仕官を勧めています。</font><br></b>「<b>豆板醤国の使者:<br><br>士官してください<br><br><br></b>」<br><input type="hidden" name="hhid" value="砂糖"><input type="radio" name="sel" value="1">承諾する<input type="radio" name="sel" value="0">断る<input type="submit" value="返事"></font></td><td width="70" bgcolor="#000000"><%= image_tag('34.gif') %></td></tr>
 
     </tbody></table>
   </td><td valign="top">
     豆板醤国宛:(15件)
     <table width="100%" bgcolor="000088"><tbody>
     <tr>
-      <td width="100%" bgcolor="#000000"><font size="2" color="FFCC33"><b><a href="ranking6.cgi?id=hentai2" target="_blank">砂糖</a>@西平@豆板醤国から豆板醤国へ</b></font><br><font size="2" color="#FFFFFF"><b>ようこそ<br>豆板醤へ<br><br>よろしく</b><br>01/06/(Mon) 22:02</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><img src="./image/upl/10304.gif" alt="SHOUYU" width="64" height="64"></td>
+      <td width="100%" bgcolor="#000000"><font size="2" color="FFCC33"><b><a href="ranking6.cgi?id=hentai2" target="_blank">砂糖</a>@西平@豆板醤国から豆板醤国へ</b></font><br><font size="2" color="#FFFFFF"><b>ようこそ<br>豆板醤へ<br><br>よろしく</b><br>01/06/(Mon) 22:02</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td>
     </tr>
     </tbody></table>
     伝説リプレイス部部隊宛:(5件)
