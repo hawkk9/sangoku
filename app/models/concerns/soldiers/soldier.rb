@@ -79,7 +79,7 @@ module Soldiers
         technology: 0
       },
       {
-        soldier_type: NO_NONE,
+        soldier_type: NO_S_NONE,
         soldier_rank: NO_S_RANK,
         officer_type: User::CHARM,
         name: '一揆軍',
