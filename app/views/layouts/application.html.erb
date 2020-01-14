@@ -13,7 +13,7 @@
     <%= javascript_pack_tag javascript_path %>
   </head>
 
-  <body background="./image/o.gif" bgcolor="#E0E088" text="" link="#CCAA88" vlink="#AA8855" alink="#AA8855" leftmargin="0" marginwidth="0" marginheight="0">
+  <body background="<%= image_path('o.gif') %>" bgcolor="#E0E088" text="" link="#CCAA88" vlink="#AA8855" alink="#AA8855" leftmargin="0" marginwidth="0" marginheight="0">
     <%= yield %>
   </body>
 </html>
