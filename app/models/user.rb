@@ -53,7 +53,7 @@ class User < ApplicationRecord
   end
 
   def message_logs
-    path = File.join(Rails.root, 'tmp', self.character_id)
+    path = File.join(Rails.root, 'tmp/user', self.character_id)
     lines = []
     if File.exist?(path)
       File.foreach(path) do |line|

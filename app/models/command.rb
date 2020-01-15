@@ -46,7 +46,7 @@ class Command < ApplicationRecord
 
   def execute
     log_messages = self.typed_command.execute(self.user)
-    # self.destroy
+    self.destroy
     self.decrement_user_command_no
     self.write_message_log_file(self.user.character_id, log_messages)
   end
@@ -75,7 +75,7 @@ class Command < ApplicationRecord
   end
 
   def write_message_log_file(file_name, messages)
-    path = File.join(Rails.root, 'tmp', file_name)
+    path = File.join(Rails.root, 'tmp/user', file_name)
     lines = []
     if File.exist?(path)
       File.foreach(path) do |line|
