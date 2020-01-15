@@ -45,7 +45,7 @@ class Command < ApplicationRecord
   belongs_to :user
 
   def execute
-    log_messages = self.typed_command.execute(self.user)
+    log_messages = self.typed_command.execute
     self.destroy
     self.decrement_user_command_no
     self.write_message_log_file(self.user.character_id, log_messages)
@@ -60,7 +60,7 @@ class Command < ApplicationRecord
 
   def inputed_label
     typed = self.typed_command
-    typed.class == Command ? COMMAND_LABEL_HASH[self.command_type] : typed.inputed_label(self.user)
+    typed.class == Command ? COMMAND_LABEL_HASH[self.command_type] : typed.inputed_label
   end
 
   protected
@@ -72,6 +72,10 @@ class Command < ApplicationRecord
     else
       self
     end
+  end
+
+  def message(body)
+    "<font color='navy'>●</font>#{body}"
   end
 
   def write_message_log_file(file_name, messages)
