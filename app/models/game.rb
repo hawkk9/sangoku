@@ -5,11 +5,7 @@ class Game < ApplicationRecord
   class << self
     def step
       game = Game.first
-      game.month += 1
-      if game.month > 12
-        game.year += 1
-        game.month = 1
-      end
+      game.add_month(1)
       game.save
     end
 
@@ -19,6 +15,14 @@ class Game < ApplicationRecord
 
     def is_harvest_month
       Game.first.month == HARVEST_MONTH
+    end
+  end
+
+  def add_month(month)
+    self.month += month
+    if self.month > 12
+      self.year += 1
+      self.month = 1
     end
   end
 end
