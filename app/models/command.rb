@@ -74,10 +74,6 @@ class Command < ApplicationRecord
     end
   end
 
-  def message(body)
-    "<font color='navy'>●</font>#{body}"
-  end
-
   def write_message_log_file(file_name, messages)
     path = File.join(Rails.root, 'tmp/user', file_name)
     lines = []
