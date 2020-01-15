@@ -51,17 +51,36 @@
               農民数
             </td>
             <td align="right">
-              200
+              <%= @user.town.farmer %>
             </td>
           </tr>
-          <tr><td>民忠</td><td align="right">0</td></tr>
-          <tr><td>農業値</td><td align="right" nowrap=""><%= image_tag('bar1.gif', width: "59%", height: 5) %><%= image_tag('bar2.gif', width: "41%", height: 5) %><br>551/922</td></tr>
-          <tr><td>商業値</td><td align="right" nowrap=""><%= image_tag('bar1.gif', width: "58%", height: 5) %><%= image_tag('bar2.gif', width: "42%", height: 5) %><br>559/951</td></tr>
-          <tr><td>技術値</td><td align="right" nowrap=""><%= image_tag('bar1.gif', width: "8%", height: 5) %><%= image_tag('bar2.gif', width: "92%", height: 5) %><br>86/999</td></tr>
-          <tr><td>城壁数</td><td align="right" nowrap=""><%= image_tag('bar1.gif', width: "32%", height: 5) %><%= image_tag('bar2.gif', width: "68%", height: 5) %><br>262/800</td></tr>
-          <tr><td>城壁耐久力</td><td align="right" nowrap=""><%= image_tag('bar1.gif', width: "28%", height: 5) %><%= image_tag('bar2.gif', width: "72%", height: 5) %><br>283/1000</td></tr>
-          <tr><td>米金相場</td><td align="right" nowrap="">1.2</td></tr>
-          <tr><td>税率</td><td align="right" nowrap="">0％</td></tr>
+          <tr>
+            <td>民忠</td>
+            <td align="right">0</td>
+          </tr>
+          <tr>
+            <td>農業値</td>
+            <td align="right" nowrap=""><%= image_tag('bar1.gif', width: "59%", height: 5) %><%= image_tag('bar2.gif', width: "41%", height: 5) %><br><%= @user.town.agriculture %>/922</td>
+          </tr>
+          <tr>
+            <td>商業値</td>
+            <td align="right" nowrap=""><%= image_tag('bar1.gif', width: "58%", height: 5) %><%= image_tag('bar2.gif', width: "42%", height: 5) %><br><%= @user.town.commerce %>/951</td>
+          </tr>
+          <tr>
+            <td>技術値</td>
+            <td align="right" nowrap=""><%= image_tag('bar1.gif', width: "8%", height: 5) %><%= image_tag('bar2.gif', width: "92%", height: 5) %><br><%= @user.town.technology %>/999</td>
+          </tr>
+          <tr>
+            <td>城壁数</td>
+            <td align="right" nowrap=""><%= image_tag('bar1.gif', width: "32%", height: 5) %><%= image_tag('bar2.gif', width: "68%", height: 5) %><br><%= @user.town.wall %>/800</td></tr>
+          <tr>
+            <td>城壁耐久力</td>
+            <td align="right" nowrap=""><%= image_tag('bar1.gif', width: "28%", height: 5) %><%= image_tag('bar2.gif', width: "72%", height: 5) %><br><%= @user.town.wall_durability %>/1000</td></tr>
+          <tr>
+            <td>米金相場</td>
+            <td align="right" nowrap="">1.2</td></tr>
+          <tr>
+            <td>税率</td><td align="right" nowrap="">0％</td></tr>
           </tbody>
         </table>
 
@@ -188,8 +207,6 @@
         <tr><td>ON率</td><th colspan="7">251 / 729</th><th>34.43％</th></tr>
         <tr><td>陣形</td><th colspan="3">伝説の陣</th><th colspan="5">攻守がそれぞれ１３％UP。特に苦手な陣も得意な陣も無い。</th></tr>
         <form action="./mydata.cgi" method="post"></form><tr><td>陣形変更</td><th colspan="10">
-          <input type="hidden" name="id" value="dummy">
-          <input type="hidden" name="pass" value="dummy">
           <input type="hidden" name="mode" value="ZINKEI">
 
           <select name="zinkei">
