@@ -513,16 +513,10 @@
 
     <textarea name="message" cols="60" rows="2"></textarea>
     <select name="mes_id"><option value="">選択してください(誤爆防止：個人画面で消せます)</option><option value="7">豆板醤国へ</option><option value="111">平原の人へ</option><option value="333">伝説リプレイス部部隊の人へ</option><option value="rudy">ルーデウスさんへ</option><option value="rudy">ルーデウスさんへ</option><option value="haim">シュトロハイムさんへ</option><option value="0">無所属状態の人へ</option></select>
-    <input type="hidden" name="id" value="dummy">
-    <input type="hidden" name="name" value="SHOUYU">
-    <input type="hidden" name="pass" value="dummy">
-    <input type="hidden" name="mode" value="MES_SEND">
     <input type="submit" value="送信"></form>
 
 
   <form action="./tegamirogu.cgi" method="post">
-    <input type="hidden" name="id" value="dummy">
-    <input type="hidden" name="pass" value="dummy">
     <input type="submit" value="手紙ログ">
   </form>
   <br><br>
@@ -602,7 +596,7 @@
 
     <tbody><tr><th colspan="4" bgcolor="#efffff">
       <% @user.message_logs.each do |message_log|  %>
-        <%= message_log %><br>
+        <%= message_log.html_safe %><br>
       <% end %>
     </th></tr>
     <form action="./mylog.cgi" method="post"></form>
