@@ -11,7 +11,7 @@ class ConscriptionCommand < ApplicationRecord
       self.user.soldier_type = self.soldier_type
       self.user.soldier_num += self.soldier_num
       self.user.save
-      messages << message("11月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>"
+      messages << message("#{Game.first.month}月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
     end
     messages
   end
