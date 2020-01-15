@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_132127) do
     t.integer "delete_turn", null: false
     t.integer "town_id", null: false
     t.string "email", null: false
+    t.integer "update_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["town_id"], name: "index_users_on_town_id"

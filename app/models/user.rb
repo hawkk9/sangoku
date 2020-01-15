@@ -62,4 +62,19 @@ class User < ApplicationRecord
     end
     lines
   end
+
+  def update_time_min_and_sec
+    (self.update_time / 60).minutes + (self.update_time % 60).seconds
+  end
+
+  def next_update_time
+    now = Time.new
+    now_min_and_sec = now.min.minutes + now.sec.seconds
+    now = now.change(hour: now.hour + 1) if now_min_and_sec > update_time_min_and_sec
+    now.change(min: update_time_min_and_sec / 1.minutes, sec: update_time_min_and_sec % 60.seconds)
+  end
+
+  def left_seconds_to_update_time
+    (next_update_time - Time.new).to_i
+  end
 end

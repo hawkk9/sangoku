@@ -28,6 +28,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :delete_turn, comment: "削除ターン", null: false
       t.belongs_to :town, comment: "位置", null: false, foreign_key: true
       t.string :email, comment: "メールアドレス", null: false
+      t.integer :update_time, comment: "更新時間(秒)", null: false
 
       t.timestamps
     end

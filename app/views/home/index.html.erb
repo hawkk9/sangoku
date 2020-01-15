@@ -272,7 +272,7 @@
             <%= button_to "【デバッグ機能】コマンド実行", dubug_execute_command_url, {method: :post} %>
             <br>
             <br><br>
-          </th></tr><tr><td><br>次のターンまで49分(2957秒)<br>放置削除ターンまで<font color="red">96</font>ターン<br><br></td></tr>
+          </th></tr><tr><td><br><%= "次のターンまで#{@user.left_seconds_to_update_time / 60}分(#{@user.left_seconds_to_update_time}秒)" %><br>放置削除ターンまで<font color="red"><%= @user.delete_turn %></font>ターン<br><br></td></tr>
           </tbody></table>
           <br><br>
         </td></tr></tbody></table>
