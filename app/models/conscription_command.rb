@@ -5,7 +5,10 @@ class ConscriptionCommand < ApplicationRecord
 
   def execute
     messages = []
-    messages << validate_can_employ
+    result = validate_can_employ
+    unless result.nil?
+      messages << result
+    end
     if messages.length == 0
       self.user.gold -= self.price
       self.user.soldier_type = self.soldier_type
