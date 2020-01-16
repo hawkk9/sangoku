@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :commands
   has_many :achievements
   belongs_to :town
+  has_one :town_defence
 
   def officer_type
     CHARM

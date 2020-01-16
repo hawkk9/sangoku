@@ -48,6 +48,7 @@ class ConscriptionCommand < ApplicationRecord
     self.increase_soldier_num / 10
   end
 
+  # HACK: soldier_typeやsoldier_numを変更した後に参照すると意図しない値になる
   def increase_soldier_num
     soldier_num = self.soldier_type == self.user.soldier_type ?
                     self.user.soldier_num + self.soldier_num : self.soldier_num

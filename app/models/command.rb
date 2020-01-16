@@ -22,6 +22,8 @@ class Command < ApplicationRecord
   CONSCRIPTION = 12
   TRAINING = 13
   MANY_TRAINING = 14
+  TOWN_DEFENCE = 15
+  BACK_TOWN_DEFENCE = 16
 
   COMMAND_LABEL_HASH = {
     nil => '-',
@@ -38,14 +40,21 @@ class Command < ApplicationRecord
     RICE_ALMS => '米施し',
     MANY_RICE_ALMS => '大量米施し',
 
-    CONSCRIPTION => '徴兵'
+    CONSCRIPTION => '徴兵',
+    TRAINING => '兵士訓練',
+    MANY_TRAINING => '兵士猛訓練',
+    TOWN_DEFENCE => '街の守備',
+    BACK_TOWN_DEFENCE => '後方守備',
+
+
   }.freeze
 
   has_one :conscription_command
   belongs_to :user
 
   def execute
-    log_messages = self.typed_command.execute
+    typed = self.typed_command
+    log_messages = typed.class.ancestors.include?(ApplicationRecord) ? typed.execute : typed.execute(self.user)
     self.destroy
     self.decrement_user_command_no
     self.write_message_log_file(self.user.character_id, log_messages)
@@ -57,7 +66,7 @@ class Command < ApplicationRecord
 
   def inputed_label
     typed = self.typed_command
-    typed.class == Command ? COMMAND_LABEL_HASH[self.command_type] : typed.inputed_label
+    typed.respond_to?(:inputed_label) ? typed.inputed_label : COMMAND_LABEL_HASH[self.command_type]
   end
 
   protected
@@ -66,8 +75,10 @@ class Command < ApplicationRecord
     case self.command_type
     when CONSCRIPTION
       self.conscription_command
+    when TOWN_DEFENCE
+      Commands::TownDefenceCommand.new
     else
-      self
+      nil
     end
   end
 

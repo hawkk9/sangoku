@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_132127) do
+ActiveRecord::Schema.define(version: 2020_01_16_151151) do
 
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 2020_01_15_132127) do
     t.integer "month", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "town_defences", force: :cascade do |t|
+    t.integer "town_id", null: false
+    t.integer "user_id", null: false
+    t.integer "order", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["town_id"], name: "index_town_defences_on_town_id"
+    t.index ["user_id"], name: "index_town_defences_on_user_id"
   end
 
   create_table "towns", force: :cascade do |t|
@@ -103,5 +113,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_132127) do
 
   add_foreign_key "commands", "users"
   add_foreign_key "conscription_commands", "commands", on_delete: :cascade
+  add_foreign_key "town_defences", "towns"
+  add_foreign_key "town_defences", "users"
   add_foreign_key "users", "towns"
 end
