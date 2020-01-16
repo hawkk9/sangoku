@@ -13,7 +13,11 @@ class ConscriptionCommand < ApplicationRecord
       self.user.gold -= self.price
       self.user.soldier_type = self.soldier_type
       self.user.soldier_num += self.soldier_num
+      self.user.training -= self.decrease_training
       self.user.save
+      self.town.farmer -= self.need_farmer
+      self.town.allegiance -= self.need_allegiance
+      self.town.save
       messages << message("#{Game.first.month}月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
     end
     messages
@@ -30,18 +34,22 @@ class ConscriptionCommand < ApplicationRecord
     "#{soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier_num}人:#{self.price}Ｇ）"
   end
 
-  protected
+  # protected
 
   def price
     self.soldier.gold * self.soldier_num
   end
 
   def need_farmer
-    self.soldier_num * 8
+    self.soldier_num * 4
   end
 
   def need_allegiance
     self.soldier_num / 10
+  end
+
+  def decrease_training
+    [self.soldier_num, self.user.training].min
   end
 
   def user
