@@ -593,7 +593,7 @@
 
 
     <tbody><tr><th colspan="4" bgcolor="#efffff">
-      <% @user.message_logs.each do |message_log|  %>
+      <% @user.message_logs.take(5).each do |message_log|  %>
         <%= message_log.html_safe %><br>
       <% end %>
     </th></tr>
