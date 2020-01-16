@@ -11,9 +11,9 @@ class ConscriptionCommand < ApplicationRecord
     end
     if messages.length == 0
       self.user.gold -= self.price
-      self.user.soldier_type = self.soldier_type
-      self.user.soldier_num += self.soldier_num
       self.user.training -= self.decrease_training
+      self.user.soldier_num = self.increased_soldier_num
+      self.user.soldier_type = self.soldier_type
       self.user.save
       self.town.farmer -= self.need_farmer
       self.town.allegiance -= self.need_allegiance
@@ -46,6 +46,12 @@ class ConscriptionCommand < ApplicationRecord
 
   def need_allegiance
     self.soldier_num / 10
+  end
+
+  def increased_soldier_num
+    soldier_num = self.soldier_type == self.user.soldier_type ?
+                    self.user.soldier_num + self.soldier_num : self.soldier_num
+    [soldier_num, self.user.leadership].min
   end
 
   def decrease_training
