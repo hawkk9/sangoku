@@ -10,15 +10,15 @@ class ConscriptionCommand < ApplicationRecord
       messages << result
     end
     if messages.length == 0
-      self.user.gold -= self.price
-      self.user.training -= self.decrease_training
-      self.user.soldier_num = self.increased_soldier_num
-      self.user.soldier_type = self.soldier_type
-      self.user.save
+      messages << message("#{Game.first.month}月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.increase_soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
       self.town.farmer -= self.need_farmer
       self.town.allegiance -= self.need_allegiance
       self.town.save
-      messages << message("#{Game.first.month}月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
+      self.user.gold -= self.price
+      self.user.training -= self.decrease_training
+      self.user.soldier_num += self.increase_soldier_num
+      self.user.soldier_type = self.soldier_type
+      self.user.save
     end
     messages
   end
@@ -34,28 +34,29 @@ class ConscriptionCommand < ApplicationRecord
     "#{soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier_num}人:#{self.price}Ｇ）"
   end
 
-  # protected
+  protected
 
   def price
-    self.soldier.gold * self.soldier_num
+    self.soldier.gold * self.increase_soldier_num
   end
 
   def need_farmer
-    self.soldier_num * 4
+    self.increase_soldier_num * 4
   end
 
   def need_allegiance
-    self.soldier_num / 10
+    self.increase_soldier_num / 10
   end
 
-  def increased_soldier_num
+  def increase_soldier_num
     soldier_num = self.soldier_type == self.user.soldier_type ?
                     self.user.soldier_num + self.soldier_num : self.soldier_num
-    [soldier_num, self.user.leadership].min
+    increased_soldier_num = [soldier_num, self.user.leadership].min
+    [increased_soldier_num - self.user.soldier_num, 0].max
   end
 
   def decrease_training
-    [self.soldier_num, self.user.training].min
+    [self.increase_soldier_num, self.user.training].min
   end
 
   def user
