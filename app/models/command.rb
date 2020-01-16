@@ -52,10 +52,7 @@ class Command < ApplicationRecord
   end
 
   def decrement_user_command_no
-    self.user.commands.each do |command|
-      command.command_no -= 1
-      command.save
-    end
+    self.user.commands.update_all(['command_no=command_no-1'])
   end
 
   def inputed_label
