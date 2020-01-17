@@ -52,6 +52,7 @@ class Command < ApplicationRecord
   }.freeze
 
   has_one :conscription_command
+  has_one :war_command
   belongs_to :user
 
   def execute
