@@ -41,7 +41,8 @@ ActiveRecord::Schema.define(version: 2020_01_17_151835) do
 
   create_table "countries", force: :cascade do |t|
     t.string "name", null: false
-    t.string "color_code", null: false
+    t.string "main_color", null: false
+    t.string "sub_color", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

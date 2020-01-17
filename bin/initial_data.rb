@@ -1,5 +1,5 @@
-Country.new({"id" => 1, "name" => "豆板醤国", "color_code" => "#800000"}).save
-Country.new({"id" => 2, "name" => "甘党国", "color_code" => "#0f6080"}).save
+Country.new({"id" => 1, "name" => "豆板醤国", "main_color" => "#800000", "sub_color" => "#ffcfcf"}).save
+Country.new({"id" => 2, "name" => "甘党国", "main_color" => "#0f6080", "sub_color" => "#efffff"}).save
 Town.new({"name" => "襄平", "x" => 8, "y" => 1, "country_id"=>1, "farmer"=>10000, "allegiance"=>100, "max_agriculture"=>1000, "agriculture"=>800, "max_commerce"=>1000, "commerce"=>800, "technology"=>800, "max_wall"=>800, "wall"=>800, "wall_durability"=>800, "created_at"=>nil, "updated_at"=>nil}).save
 Town.new({"name" => "渤海", "x" => 8, "y" => 2, "country_id"=>1, "farmer"=>10000, "allegiance"=>100, "max_agriculture"=>1000, "agriculture"=>800, "max_commerce"=>1000, "commerce"=>800, "technology"=>800, "max_wall"=>800, "wall"=>800, "wall_durability"=>800, "created_at"=>nil, "updated_at"=>nil}).save
 Town.new({"name" => "平原", "x" => 7, "y" => 2, "country_id"=>1, "farmer"=>10000, "allegiance"=>100, "max_agriculture"=>1000, "agriculture"=>800, "max_commerce"=>1000, "commerce"=>800, "technology"=>800, "max_wall"=>800, "wall"=>800, "wall_durability"=>800, "created_at"=>nil, "updated_at"=>nil}).save

@@ -11,7 +11,7 @@
       <% 10.times do |x| %>
         <% town = @towns.find_by(y: y, x: x) %>
         <% if town.present? %>
-          <th bgcolor="<%= town.country.color_code %>">
+          <th bgcolor="<%= town.country.main_color %>">
             <font size="2"><%= "#{town.name}［#{town.country.name}］" %></font><br>
             <input type="radio" name="town_id" value="<%= town.id %>">
           </th>
