@@ -1,18 +1,16 @@
 document.addEventListener("DOMContentLoaded",function(){
-  Array.from(document.getElementsByClassName('js-submit_command')).forEach(function(element) {
-    element.addEventListener('click', submit_command);
-  });
+  document.getElementById('js-submit_command').addEventListener('click', submit_command);
 });
 
 function submit_command() {
   const form = document.getElementById('command_form')
-  const button = this
-  const row = button.closest('tr')
-  const soldier_num = row.getElementsByClassName('js-soldier_num')[0].value
-  const soldier_type = row.getElementsByClassName('js-soldier_type')[0].value
+  const mode_radio = document.querySelector('input[name="mode"]:checked')
+  const mode = mode_radio && mode_radio.value
+  const town_id_radio = document.querySelector('input[name="town_id"]:checked')
+  const town_id = town_id_radio && town_id_radio.value
 
-  form.soldier_num.value = soldier_num
-  form.soldier_type.value = soldier_type
+  form.mode.value = mode
+  form.town_id.value = town_id
 
   form.submit()
 }

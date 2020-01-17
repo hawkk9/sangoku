@@ -13,7 +13,7 @@
         <% if town.present? %>
           <th bgcolor="<%= town.country.color_code %>">
             <font size="2"><%= "#{town.name}［#{town.country.name}］" %></font><br>
-            <input type="radio" name="num" value="<%= town.id %>">
+            <input type="radio" name="town_id" value="<%= town.id %>">
           </th>
         <% else %>
           <th>&nbsp;</th>

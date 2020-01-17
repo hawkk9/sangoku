@@ -1,5 +1,5 @@
 module InputCommand
-  def input_command_to_nos
+  def input_commands_and_redirect
     if params[:command_no].first == Command::ALL
       Command::MAX_NUM.times { |command_no| input_command(command_no) }
     else
