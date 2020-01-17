@@ -66,11 +66,16 @@ ActiveRecord::Schema.define(version: 2020_01_16_151151) do
   create_table "towns", force: :cascade do |t|
     t.string "name", null: false
     t.integer "country_id"
+    t.integer "x", null: false
+    t.integer "y", null: false
     t.integer "farmer", null: false
     t.integer "allegiance", null: false
+    t.integer "max_agriculture", null: false
     t.integer "agriculture", null: false
+    t.integer "max_commerce", null: false
     t.integer "commerce", null: false
     t.integer "technology", null: false
+    t.integer "max_wall", null: false
     t.integer "wall", null: false
     t.integer "wall_durability", null: false
     t.datetime "created_at", precision: 6, null: false

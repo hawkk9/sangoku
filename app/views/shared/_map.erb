@@ -1,0 +1,22 @@
+<table bgcolor="green" height="70%" width="100%" border="0" cellspacing="1">
+  <tbody>
+  <tr>
+    <td width="20" bgcolor="#F0F0F0">-</td>
+    <% (1..10).each do |x| %>
+      <td width="20" bgcolor="#D0C088"><%= x %></td>
+    <% end %>
+    <% (1..10).each do |y| %>
+    <tr>
+      <td bgcolor="#C0C088"><%= y %></td>
+      <% (1..10).each do |x| %>
+        <% town = @towns.find_by(y: y, x: x) %>
+        <% if town.present? %>
+          <th bgcolor="#0f6080"><font size="2"><%= town.name %>［豆板醤国］</font><br><input type="radio" name="num" value="<%= town.id %>"></th>
+        <% else %>
+          <th>&nbsp;</th>
+        <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+
+</tbody></table>

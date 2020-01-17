@@ -24,6 +24,7 @@ class Command < ApplicationRecord
   MANY_TRAINING = 14
   TOWN_DEFENCE = 15
   BACK_TOWN_DEFENCE = 16
+  WAR = 17
 
   COMMAND_LABEL_HASH = {
     nil => '-',
@@ -45,6 +46,7 @@ class Command < ApplicationRecord
     MANY_TRAINING => '兵士猛訓練',
     TOWN_DEFENCE => '街の守備',
     BACK_TOWN_DEFENCE => '後方守備',
+    WAR => '戦争',
 
 
   }.freeze
