@@ -504,7 +504,16 @@
 
 
   <hr>
-  <table width="100%" bgcolor="#0f6080" cellspacing="1"><tbody><tr><td bgcolor="#efffff"><font color="#0f6080">平原の守備(人):</font></td></tr></tbody></table>
+  <table width="100%" bgcolor="#0f6080" cellspacing="1">
+    <tbody>
+      <tr>
+        <td bgcolor="#efffff">
+          <font color="#0f6080"><%= "#{@user.town.name}の守備(#{@user.town.town_defences.count}人):" %><% @user.town.town_defences.each do |town_defences| %><%= town_defences.user.name %> <% end %>
+          </font>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <form action="mydata.cgi" method="post">
     ■手紙<br>
