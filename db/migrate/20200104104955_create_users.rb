@@ -16,7 +16,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :soldier_type, comment: "兵種", null: false
       t.integer :soldier_num, comment: "兵士数", null: false
       t.integer :training, comment: "訓練", null: false
-      t.integer :country_id, comment: "国ID", null: false, foreign_key: true
+      t.belongs_to :country, comment: "国ID", null: false, foreign_key: true
       t.integer :gold, comment: "金", null: false
       t.integer :rice, comment: "米", null: false
       t.integer :contributing, comment: "貢献", null: false

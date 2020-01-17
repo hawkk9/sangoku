@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   post '/war/update' => 'war#update'
 
   # デバッグ
-  post '/dubug/execute_command' => 'debug#execute_command'
+  post '/debug/execute_command' => 'debug#execute_command'
+  post '/debug/change_user' => 'debug#change_user'
 end

@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_151835) do
     t.integer "update_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["town_id"], name: "index_users_on_town_id"
   end
 
@@ -130,6 +131,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_151835) do
   add_foreign_key "conscription_commands", "commands", on_delete: :cascade
   add_foreign_key "town_defences", "towns"
   add_foreign_key "town_defences", "users"
+  add_foreign_key "users", "countries"
   add_foreign_key "users", "towns"
   add_foreign_key "war_commands", "commands", on_delete: :cascade
 end

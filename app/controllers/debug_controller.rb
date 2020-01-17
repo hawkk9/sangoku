@@ -7,4 +7,9 @@ class DebugController < ApplicationController
 
     redirect_to home_index_url
   end
+
+  def change_user
+    session[:user_id] = params[:id]
+    redirect_to home_index_url
+  end
 end

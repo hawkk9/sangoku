@@ -277,7 +277,8 @@
             ※マップを制作できます。<br>
             ※ゲームには関係ありません<br>
             ※面白いMAPなら次期のマップとして採用されるかも・・・<br>
-            <input type="submit" value="マップエディダー"></form>
+            <input type="submit" value="マップエディダー">
+          </form>
 
 
         </td><td align="right">
@@ -286,7 +287,12 @@
           <tr><th>
             <br><br>
             <%= button_to "画面RELODE", home_index_url, {method: :get} %>
-            <%= button_to "【デバッグ機能】コマンド実行", dubug_execute_command_url, {method: :post} %>
+            <%= button_to "【デバッグ機能】コマンド実行", debug_execute_command_url, {method: :post} %>
+            <form action="<%= debug_change_user_path %>" method="POST">
+              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+              <input type="text" name="id">
+              <input type="submit" value="【デバッグ機能】ユーザー変更">
+            </form>
             <br>
             <br><br>
           </th></tr><tr><td><br><%= "次のターンまで#{@user.left_seconds_to_update_time / 60}分(#{@user.left_seconds_to_update_time}秒)" %><br>放置削除ターンまで<font color="red"><%= @user.delete_turn %></font>ターン<br><br></td></tr>
@@ -391,8 +397,6 @@
           <input type="button" value="選択" onclick="CommSel()">
         </td>
           <td>
-
-
             <select name="command_type" size="10" id="command_type">
               <option value="<%= Command::NONE %>">何もしない
               </option><option value="<%= Command::WAIT %>">待機（更新時間＋１～１０分）
