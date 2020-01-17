@@ -78,6 +78,8 @@ class Command < ApplicationRecord
     case self.command_type
     when CONSCRIPTION
       self.conscription_command
+    when WAR
+      self.war_command
     when TOWN_DEFENCE
       Commands::TownDefenceCommand.new
     else
