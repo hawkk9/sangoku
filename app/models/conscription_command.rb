@@ -10,7 +10,7 @@ class ConscriptionCommand < ApplicationRecord
       messages << result
     end
     if messages.length == 0
-      messages << message("#{Game.first.month}月:#{user.soldier.name_with_rank}を<font color='red'>+#{self.increase_soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
+      messages << message("#{Game.first.month}月:#{self.soldier.name_with_rank}を<font color='red'>+#{self.increase_soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
       self.town.farmer -= self.need_farmer
       self.town.allegiance -= self.need_allegiance
       self.town.save
@@ -31,7 +31,7 @@ class ConscriptionCommand < ApplicationRecord
   end
 
   def inputed_label
-    "#{soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier_num}人:#{self.price}Ｇ）"
+    "#{self.soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier_num}人:#{self.price}Ｇ）"
   end
 
   protected
@@ -69,6 +69,6 @@ class ConscriptionCommand < ApplicationRecord
   end
 
   def soldier
-    self.user.soldier
+    Soldiers::Soldier.find_by_officer_and_type(self.user.officer_type, self.soldier_type)
   end
 end

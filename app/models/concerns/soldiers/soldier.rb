@@ -74,7 +74,7 @@ module Soldiers
         skill: nil,
         skill_label: nil,
         enable_equip: false,
-        gold: 20,
+        gold: 15,
         rank:0,
         technology: 0
       },

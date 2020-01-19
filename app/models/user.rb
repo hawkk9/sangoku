@@ -43,11 +43,11 @@ class User < ApplicationRecord
   end
 
   def attack
-    (self.charm + self.flag) * self.soldier.attack + self.strength + self.arm
+    ((self.charm + self.flag) * self.soldier.attack + self.strength + self.arm).to_i
   end
 
   def defence
-    (self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard
+    ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
   end
 
   def soldier

@@ -16,8 +16,8 @@ FactoryBot.define do
     soldier_num { 0 }
     training { 100 }
     country_id { 1 }
-    gold { 1000 }
-    rice { 1000 }
+    gold { 10000 }
+    rice { 10000 }
     contributing { 1000 }
     rank { 10000 }
     arm { 10.0 }
