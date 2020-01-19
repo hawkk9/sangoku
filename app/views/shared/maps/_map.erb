@@ -1,0 +1,26 @@
+<table bgcolor="#FFFFFF" width="100%" height="5" border="0" cellspacing="1">
+  <tbody>
+  <tr><th colspan="11" bgcolor="442200"><font color="FFFFFF"><%= "#{@game.year}年#{@game.month}月" %></font></th></tr>
+  <tr>
+    <td width="20" bgcolor="#F0F0F0">-</td>
+    <% 10.times do |x| %>
+      <td width="20" bgcolor="#D0C088"><%= x + 1 %></td>
+    <% end %>
+    <% 10.times do |y| %>
+    <tr>
+      <td bgcolor="#C0C088"><%= y + 1 %></td>
+      <% 10.times do |x| %>
+        <% town = @towns.find_by(y: y, x: x) %>
+        <% if town.present? %>
+          <th bgcolor="<%= town.country.main_color %>">
+            <font color="#ffffff"><%= town.name %></font>
+            <%= image_tag("m_#{town.level}.gif", title: "#{town.name}［#{town.country.name}］") %>
+          </th>
+        <% else %>
+          <th>&nbsp;</th>
+        <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+
+</tbody></table>
