@@ -12,7 +12,7 @@
       <% 10.times do |x| %>
         <% town = @towns.find_by(y: y, x: x) %>
         <% if town.present? %>
-          <th bgcolor="<%= town.country.main_color %>">
+          <th bgcolor="<%= @user.town != town ? town.country.main_color : '#efffff' %>">
             <font color="#ffffff"><%= town.name %></font>
             <%= image_tag("m_#{town.level}.gif", title: "#{town.name}［#{town.country.name}］") %>
           </th>

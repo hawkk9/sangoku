@@ -23,7 +23,7 @@
           <tbody bgcolor="<%= @user.country.sub_color %>">
           <tr>
             <th bgcolor="<%= @user.country.main_color %>" colspan="2">
-              <font color="<%= @user.country.sub_color %>">平原【都市レベル:2】【都市予算：4530Ｇ】</font>
+              <font color="<%= @user.country.sub_color %>"><%= @user.town.name %>【都市レベル:2】【都市予算：4530Ｇ】</font>
             </th>
           </tr>
           <tr>
@@ -36,7 +36,7 @@
           </tr>
           <tr>
             <td>
-              平原都知事（都市の責任者）
+              <%= @user.town.name %>都知事（都市の責任者）
             </td>
             <th bgcolor#d0c088="">
               パン
@@ -82,13 +82,13 @@
 
         <table width="100%" bgcolor="<%= @user.country.main_color %>" cellspacing="1">
           <tbody bgcolor="<%= @user.country.sub_color %>">
-          <tr><td>平原の守備(人)</td><td></td></tr>
-          <tr><td>平原の施設</td>
+          <tr><td><%= @user.town.name %>の守備(人)</td><td></td></tr>
+          <tr><td><%= @user.town.name %>の施設</td>
             <td>
               <table><tbody><tr><td>
                 <form action="./mydata.cgi" method="post">
                   <input type="hidden" name="douzyo_pos" value="7">
-                  <input type="submit" value="平原の道場">
+                  <input type="submit" value="<%= @user.town.name %>の道場">
                 </form>
               </td><td>
                 <form action="./mydata.cgi" method="post">
@@ -97,7 +97,7 @@
               </td><td>
                 <form action="./mydata.cgi" method="post">
                   <input type="hidden" name="type" value="7">
-                  <input type="submit" value="平原の都知事司令室">
+                  <input type="submit" value="<%= @user.town.name %>の都知事司令室">
                 </form>
 
 
@@ -143,7 +143,7 @@
             <form action="./mydata.cgi" method="post">
               <input type="hidden" name="mode" value="DOZYO">
               <select name="douzyo_pos">
-                <option value="0">晋陽 : 人望官道場(LV:1)</option><option value="1">南皮 : 文官道場(LV:1)</option><option value="2">薊 : 稲作道場(LV:5)</option><option value="3">北平 : 金策道場(LV:5)</option><option value="4">襄平 : 武官道場(LV:1)</option><option value="5">上党 : 戦闘道場(LV:2)</option><option value="6">業 : おみくじ道場(LV:5)</option><option value="7">平原 :道場無し (LV:0)</option><option value="8">北海 : 兵法道場(LV:3)</option><option value="9">西涼 : 統率官道場(LV:5)</option><option value="10">河内 :道場無し (LV:0)</option><option value="11">濮陽 :道場無し (LV:0)</option><option value="12">小沛 :道場無し (LV:0)</option><option value="13">下ひ :道場無し (LV:0)</option><option value="14">西平 : 戦闘道場(LV:3)</option><option value="15">天水 :道場無し (LV:0)</option><option value="16">安定 :道場無し (LV:0)</option><option value="17">長安 :道場無し (LV:0)</option><option value="18">洛陽 :道場無し (LV:0)</option><option value="19">陳留 :道場無し (LV:0)</option><option value="20">寿春 :道場無し (LV:0)</option><option value="21">武都 : 兵法道場(LV:5)</option><option value="22">漢中 :道場無し (LV:0)</option><option value="23">宛 :道場無し (LV:0)</option><option value="24">許昌 :道場無し (LV:0)</option><option value="25">汝南 :道場無し (LV:0)</option><option value="26">廬江 :道場無し (LV:0)</option><option value="27">梓潼 : 稲作道場(LV:5)</option><option value="28">上庸 :道場無し (LV:0)</option><option value="29">襄陽 :道場無し (LV:0)</option><option value="30">新野 :道場無し (LV:0)</option><option value="31">江夏 :道場無し (LV:0)</option><option value="32">柴桑 :道場無し (LV:0)</option><option value="33">建業 :道場無し (LV:0)</option><option value="34">成都 : 人望官道場(LV:5)</option><option value="35">江州 :道場無し (LV:0)</option><option value="36">永安 :道場無し (LV:0)</option><option value="37">江陵 :道場無し (LV:0)</option><option value="38">呉 : 金策道場(LV:4)</option><option value="39">建寧 : 文官道場(LV:5)</option><option value="40">武陵 : 人望官道場(LV:1)</option><option value="41">長沙 : 稲作道場(LV:5)</option><option value="42">会稽 :道場無し (LV:0)</option><option value="43">永昌 : 武官道場(LV:5)</option><option value="44">雲南 : 金策道場(LV:5)</option><option value="45">零陵 : 金策道場(LV:5)</option><option value="46">桂陽 : 統率官道場(LV:1)</option><option value="47">建安 : 戦闘道場(LV:5)</option><option value="48">交趾 : 文官道場(LV:1)</option><option value="49">南海 : 武官道場(LV:2)
+                <option value="0">晋陽 : 人望官道場(LV:1)</option><option value="1">南皮 : 文官道場(LV:1)</option><option value="2">薊 : 稲作道場(LV:5)</option><option value="3">北平 : 金策道場(LV:5)</option><option value="4">襄平 : 武官道場(LV:1)</option><option value="5">上党 : 戦闘道場(LV:2)</option><option value="6">業 : おみくじ道場(LV:5)</option><option value="7"><%= @user.town.name %> :道場無し (LV:0)</option><option value="8">北海 : 兵法道場(LV:3)</option><option value="9">西涼 : 統率官道場(LV:5)</option><option value="10">河内 :道場無し (LV:0)</option><option value="11">濮陽 :道場無し (LV:0)</option><option value="12">小沛 :道場無し (LV:0)</option><option value="13">下ひ :道場無し (LV:0)</option><option value="14">西平 : 戦闘道場(LV:3)</option><option value="15">天水 :道場無し (LV:0)</option><option value="16">安定 :道場無し (LV:0)</option><option value="17">長安 :道場無し (LV:0)</option><option value="18">洛陽 :道場無し (LV:0)</option><option value="19">陳留 :道場無し (LV:0)</option><option value="20">寿春 :道場無し (LV:0)</option><option value="21">武都 : 兵法道場(LV:5)</option><option value="22">漢中 :道場無し (LV:0)</option><option value="23">宛 :道場無し (LV:0)</option><option value="24">許昌 :道場無し (LV:0)</option><option value="25">汝南 :道場無し (LV:0)</option><option value="26">廬江 :道場無し (LV:0)</option><option value="27">梓潼 : 稲作道場(LV:5)</option><option value="28">上庸 :道場無し (LV:0)</option><option value="29">襄陽 :道場無し (LV:0)</option><option value="30">新野 :道場無し (LV:0)</option><option value="31">江夏 :道場無し (LV:0)</option><option value="32">柴桑 :道場無し (LV:0)</option><option value="33">建業 :道場無し (LV:0)</option><option value="34">成都 : 人望官道場(LV:5)</option><option value="35">江州 :道場無し (LV:0)</option><option value="36">永安 :道場無し (LV:0)</option><option value="37">江陵 :道場無し (LV:0)</option><option value="38">呉 : 金策道場(LV:4)</option><option value="39">建寧 : 文官道場(LV:5)</option><option value="40">武陵 : 人望官道場(LV:1)</option><option value="41">長沙 : 稲作道場(LV:5)</option><option value="42">会稽 :道場無し (LV:0)</option><option value="43">永昌 : 武官道場(LV:5)</option><option value="44">雲南 : 金策道場(LV:5)</option><option value="45">零陵 : 金策道場(LV:5)</option><option value="46">桂陽 : 統率官道場(LV:1)</option><option value="47">建安 : 戦闘道場(LV:5)</option><option value="48">交趾 : 文官道場(LV:1)</option><option value="49">南海 : 武官道場(LV:2)
               </option></select>
               <br><input type="submit" value="他都市道場へ移動"></form>
 
@@ -156,7 +156,7 @@
               <tbody bgcolor="<%= @user.country.sub_color %>">
               <tr>
                 <td>オ<br>ン<br>ラ<br>イ<br>ン</td><td>
-                卵焼き[武都]<b>SHOUYU()[平原]</b>
+                卵焼き[武都]<b>SHOUYU()[<%= @user.town.name %>]</b>
               </td>
               </tr>
               </tbody>
@@ -519,7 +519,7 @@
     ■手紙<br>
 
     <textarea name="message" cols="60" rows="2"></textarea>
-    <select name="mes_id"><option value="">選択してください(誤爆防止：個人画面で消せます)</option><option value="7">豆板醤国へ</option><option value="111">平原の人へ</option><option value="333">伝説リプレイス部部隊の人へ</option><option value="rudy">ルーデウスさんへ</option><option value="rudy">ルーデウスさんへ</option><option value="haim">シュトロハイムさんへ</option><option value="0">無所属状態の人へ</option></select>
+    <select name="mes_id"><option value="">選択してください(誤爆防止：個人画面で消せます)</option><option value="7">豆板醤国へ</option><option value="111"><%= @user.town.name %>の人へ</option><option value="333">伝説リプレイス部部隊の人へ</option><option value="rudy">ルーデウスさんへ</option><option value="rudy">ルーデウスさんへ</option><option value="haim">シュトロハイムさんへ</option><option value="0">無所属状態の人へ</option></select>
     <input type="submit" value="送信"></form>
 
 
@@ -564,9 +564,9 @@
     </tr>
 
     </tbody></table>
-    平原の人々へ:(5件)
+    <%= @user.town.name %>の人々へ:(5件)
     <table width="100%" bgcolor="880000"><tbody>
-    <tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><a href="ranking6.cgi?id=holo" target="_blank">砂糖</a>@平原@豆板醤国から</b><br><b>ここは平原です</b><br>01/06/(Mon) 18:03</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td></tr>
+    <tr><td width="100%" bgcolor="#000000"><font size="2" color="#FFFFFF"><b><a href="ranking6.cgi?id=holo" target="_blank">砂糖</a>@<%= @user.town.name %>@豆板醤国から</b><br><b>ここは<%= @user.town.name %>です</b><br>01/06/(Mon) 18:03</font></td><td width="70" bgcolor="#000000" align="center" valign="middle"><%= image_tag('34.gif') %></td></tr>
 
     </tbody></table>
     SHOUYU宛密書:(5件)
