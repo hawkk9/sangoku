@@ -2,7 +2,7 @@ class CommandController < ApplicationController
   include InputCommand
 
   def update
-    input_command_to_nos
+    input_commands_and_redirect
   end
 
   private
