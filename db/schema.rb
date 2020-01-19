@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_151835) do
     t.integer "country_id"
     t.integer "x", null: false
     t.integer "y", null: false
+    t.integer "level", null: false
     t.integer "farmer", null: false
     t.integer "allegiance", null: false
     t.integer "max_agriculture", null: false

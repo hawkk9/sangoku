@@ -5,6 +5,7 @@ class CreateTowns < ActiveRecord::Migration[6.0]
       t.integer :country_id, comment: "国ID"
       t.integer :x, comment: "X座標", null: false
       t.integer :y, comment: "Y座標", null: false
+      t.integer :level, comment: "都市レベル", null: false
       t.integer :farmer , comment: "農民数", null: false
       t.integer :allegiance , comment: "民忠", null: false
       t.integer :max_agriculture , comment: "農業最大値", null: false
