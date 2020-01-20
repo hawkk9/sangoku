@@ -1,7 +1,7 @@
 class WarCommand < ApplicationRecord
   include UserMessage
 
-  has_one :command
+  belongs_to :command
   belongs_to :town
 
   def execute
@@ -43,6 +43,19 @@ class WarCommand < ApplicationRecord
       turn += 1
     end
 
-    messages.reverse
+    attack_user_messages = messages.clone
+    attack_user_messages << self.battle_result_message(attack_user, defence_user)
+    write_user_log_file(attack_user, attack_user_messages.reverse)
+
+    defence_user_messages = messages.clone
+    defence_user_messages << self.battle_result_message(defence_user, attack_user)
+    write_user_log_file(defence_user, defence_user_messages.reverse)
+  end
+
+  def battle_result_message(user, opponent_user)
+    messages = []
+    user.soldier_num != 0 ? messages << message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
+      messages << message("#{user.name}は#{opponent_user.name}に敗北した。。8の貢献を得ました。")
+    messages
   end
 end

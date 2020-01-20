@@ -1,11 +1,11 @@
 class ConscriptionCommand < ApplicationRecord
   include UserMessage
 
-  has_one :command
+  belongs_to :command
 
   def execute
     messages = []
-    result = validate_can_employ
+    result = self.validate_can_employ
     unless result.nil?
       messages << result
     end
@@ -20,7 +20,7 @@ class ConscriptionCommand < ApplicationRecord
       self.user.soldier_type = self.soldier_type
       self.user.save
     end
-    messages
+    write_user_log_file(self.user, messages)
   end
 
   def validate_can_employ
