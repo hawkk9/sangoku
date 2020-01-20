@@ -33,12 +33,16 @@ class WarCommand < ApplicationRecord
       defence_damage = rand(1..defence_max_damage)
 
       defence_user.soldier_num -= attack_damage
-      defence_damage = 0 if defence_user.soldier_num > 0
+      if defence_user.soldier_num <= 0
+        defence_damage = 0
+      end
       attack_user.soldier_num -= defence_damage
+      attack_user.soldier_num = 0 if attack_user.soldier_num < 0
+      defence_user.soldier_num = 0 if defence_user.soldier_num < 0
       messages << message("ターン#{turn}:#{attack_user.name} 透波【Sランク】(無し) #{attack_user.soldier_num}人 ↓(-#{defence_damage}) |#{defence_user.name} ミラーマン(無し) #{defence_user.soldier_num}人 ↓(-#{attack_damage})")
       turn += 1
     end
 
-    messages
+    messages.reverse
   end
 end
