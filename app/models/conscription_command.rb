@@ -1,6 +1,4 @@
 class ConscriptionCommand < ApplicationRecord
-  include UserMessage
-
   belongs_to :command
 
   def execute
@@ -10,7 +8,7 @@ class ConscriptionCommand < ApplicationRecord
       messages << result
     end
     if messages.length == 0
-      messages << message("#{Game.first.month}月:#{self.soldier.name_with_rank}を<font color='red'>+#{self.increase_soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
+      messages << Message::MessageWriter.message("#{Game.first.month}月:#{self.soldier.name_with_rank}を<font color='red'>+#{self.increase_soldier_num}</font>徴兵しました。金：-<font color='#0000ff'>#{self.price}</font>")
       self.town.farmer -= self.need_farmer
       self.town.allegiance -= self.need_allegiance
       self.town.save
@@ -20,14 +18,14 @@ class ConscriptionCommand < ApplicationRecord
       self.user.soldier_type = self.soldier_type
       self.user.save
     end
-    write_user_log_file(self.user, messages)
+    Message::MessageWriter.write_user_log_file(self.user, messages)
   end
 
   def validate_can_employ
-    return message('【徴兵失敗】：金が足りませんです。') if self.price > self.user.gold
-    return message('【徴兵失敗】：農民が居ないので徴兵できませんでした。') if self.town.farmer < self.need_farmer
-    return message('【徴兵失敗】：民忠が低いです。') if self.town.allegiance < self.need_allegiance
-    return message('【徴兵失敗】：この都市にはその兵種を雇う技術が無いようです。') if self.town.technology < self.soldier.technology
+    return Message::MessageWriter.message('【徴兵失敗】：金が足りませんです。') if self.price > self.user.gold
+    return Message::MessageWriter.message('【徴兵失敗】：農民が居ないので徴兵できませんでした。') if self.town.farmer < self.need_farmer
+    return Message::MessageWriter.message('【徴兵失敗】：民忠が低いです。') if self.town.allegiance < self.need_allegiance
+    return Message::MessageWriter.message('【徴兵失敗】：この都市にはその兵種を雇う技術が無いようです。') if self.town.technology < self.soldier.technology
   end
 
   def inputed_label

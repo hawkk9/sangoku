@@ -603,7 +603,7 @@
 
     <tbody><tr><th colspan="4" bgcolor="<%= @user.country.sub_color %>">
       <% @user.message_logs.take(5).each do |message_log|  %>
-        <%= message_log.html_safe %><br>
+        <font color='navy'>●</font><%= message_log.html_safe %><br>
       <% end %>
     </th></tr>
     <form action="./mylog.cgi" method="post"></form>

@@ -1,7 +1,5 @@
 module Commands
   class TownDefenceCommand
-    include UserMessage
-
     CONTRIBUTING = 30
 
     def execute(user)
@@ -14,7 +12,8 @@ module Commands
       town_defence.order = min_order.nil? ? 0 : min_order - 1
       town_defence.save
 
-      messages << message("守備につきました貢献値+#{CONTRIBUTING}。")
+      messages << Message::MessageWriter.message("守備につきました貢献値+#{CONTRIBUTING}。")
+      Message::MessageWriter.write_user_log_file(user, messages)
     end
   end
 end
