@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   has_many :commands
   has_many :achievements
+  has_many :skills
   belongs_to :town
   belongs_to :country
   has_one :town_defence

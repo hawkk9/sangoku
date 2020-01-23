@@ -41,6 +41,18 @@ class WarCommand < ApplicationRecord
       turn += 1
     end
 
+    self.write_user_messages(attack_user, defence_user)
+    self.write_map_messages(attack_user, defence_user)
+  end
+
+  def battle_result_message(user, opponent_user)
+    messages = []
+    user.is_win ? messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
+      messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}に敗北した。。8の貢献を得ました。")
+    messages
+  end
+
+  def write_user_messages(attack_user, defence_user)
     attack_user_messages = messages.clone
     attack_user_messages << self.battle_result_message(attack_user, defence_user)
     Message::MessageWriter.write_user_log_file(attack_user, attack_user_messages.reverse)
@@ -48,7 +60,9 @@ class WarCommand < ApplicationRecord
     defence_user_messages = messages.clone
     defence_user_messages << self.battle_result_message(defence_user, attack_user)
     Message::MessageWriter.write_user_log_file(defence_user, defence_user_messages.reverse)
+  end
 
+  def write_map_messages(attack_user, defence_user)
     map_messages = []
     map_messages << Message::MessageWriter.message("#{attack_user.country.name}の#{attack_user.name}は#{self.town.name}（#{self.town.country.name}）へ攻め込みました！")
     if attack_user.is_win
@@ -59,12 +73,5 @@ class WarCommand < ApplicationRecord
       map_messages << Message::MessageWriter.message("#{defence_user.name}『勝ち！』 #{attack_user.name}『負け！』")
     end
     Message::MessageWriter.write_map_log_file(map_messages.reverse)
-  end
-
-  def battle_result_message(user, opponent_user)
-    messages = []
-    user.is_win ? messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
-      messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}に敗北した。。8の貢献を得ました。")
-    messages
   end
 end
