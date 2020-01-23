@@ -22,8 +22,8 @@ class WarCommand < ApplicationRecord
     messages = []
     turn = 0
 
-    attack_max_damage = (attack_user.attack - defence_user.defence) / 16
-    defence_max_damage = (defence_user.attack - attack_user.defence) / 16
+    attack_max_damage = (attack_user.attack - defence_user.defence) / 20 + 1
+    defence_max_damage = (defence_user.attack - attack_user.defence) / 20 + 1
     messages << Message::MessageWriter.message("【#{attack_user.name}の最大ダメージ：#{attack_max_damage}】【#{defence_user.name}の最大ダメージ：#{defence_max_damage}】")
 
     while attack_user.soldier_num > 0 && defence_user.soldier_num > 0
