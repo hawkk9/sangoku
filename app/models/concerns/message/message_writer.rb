@@ -10,6 +10,11 @@ module Message
         self.write_log_file(file_path, messages)
       end
 
+      def write_map_log_file(messages)
+        file_path = File.join(Rails.root, 'tmp/game/map')
+        self.write_log_file(file_path, messages)
+      end
+
       def write_log_file(file_path, messages)
         lines = []
         if File.exist?(file_path)

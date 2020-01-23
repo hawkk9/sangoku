@@ -54,7 +54,11 @@ class User < ApplicationRecord
     Soldiers::Soldier.find_by_officer_and_type(self.officer_type, self.soldier_type)
   end
 
-  def message_logs
+  def is_win
+    self.soldier_num != 0
+  end
+
+  def messages
     path = File.join(Rails.root, 'tmp/user', self.character_id)
     lines = []
     if File.exist?(path)

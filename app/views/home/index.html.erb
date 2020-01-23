@@ -497,10 +497,11 @@
 
 
 <tr><td colspan="2">
-  <table width="100%" bgcolor="#884422"><tbody><tr><td bgcolor="#D0C088">■マップログ<br><font color="green">●</font><font color="0088CC"><b>[仕官]</b></font>新しく山葵が豆板醤国に仕官しました。(6日15時52分5秒)
-    <br><font color="green">●</font>[放置]：唐辛子は削除されました。(6日15時40分37秒)
-    <br><font color="green">●</font>7月:<font color="orange">収穫</font>で貢献した各武将に米が支払われました。(6日15時1分22秒)
-    <br><br></td></tr></tbody></table>
+  <table width="100%" bgcolor="#884422"><tbody><tr><td bgcolor="#D0C088">■マップログ<br>
+    <% Game.map_messages.take(10).each do |map_message|  %>
+      <font color="green">●</font><%= map_message.html_safe %><br>
+    <% end %>
+    <br></td></tr></tbody></table>
 
 
   <hr>
@@ -602,8 +603,8 @@
 
 
     <tbody><tr><th colspan="4" bgcolor="<%= @user.country.sub_color %>">
-      <% @user.message_logs.take(5).each do |message_log|  %>
-        <font color='navy'>●</font><%= message_log.html_safe %><br>
+      <% @user.messages.take(5).each do |message|  %>
+        <font color='navy'>●</font><%= message.html_safe %><br>
       <% end %>
     </th></tr>
     <form action="./mylog.cgi" method="post"></form>
