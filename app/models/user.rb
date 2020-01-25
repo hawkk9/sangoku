@@ -43,6 +43,16 @@ class User < ApplicationRecord
     self.damage = rand(1..self.max_damage)
   end
 
+  def invoke_skills
+
+  end
+
+  def enabled_skills
+    self.skills.map do |skill|
+      Skill.options_by_skill(skill)
+    end.flatten
+  end
+
   def officer_type
     CHARM
   end

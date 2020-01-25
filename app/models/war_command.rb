@@ -3,13 +3,9 @@ class WarCommand < ApplicationRecord
   belongs_to :town
 
   def execute
-    messages = []
-
     attack_user = self.command.user
     defence_user = self.town.town_defences.order(:order).first.user
-    messages << self.battle(attack_user, defence_user)
-
-    messages.flatten
+    self.battle(attack_user, defence_user)
   end
 
   def inputed_label
@@ -24,10 +20,8 @@ class WarCommand < ApplicationRecord
 
     attack_user.opponent_user = defence_user
     defence_user.opponent_user = attack_user
-
     attack_user.calc_max_damage
     defence_user.calc_max_damage
-
     messages << Message::MessageWriter.message(
       "【#{attack_user.name}の最大ダメージ：#{attack_user.max_damage}】" \
       "【#{defence_user.name}の最大ダメージ：#{attack_user.max_damage}】"
@@ -36,6 +30,8 @@ class WarCommand < ApplicationRecord
     while attack_user.soldier_num > 0 && defence_user.soldier_num > 0
       attack_user.calc_damage
       defence_user.calc_damage
+
+      messages << self.invoke_skills(attack_user, defence_user)
 
       defence_user.soldier_num -= attack_user.damage
       if defence_user.soldier_num <= 0
@@ -50,8 +46,18 @@ class WarCommand < ApplicationRecord
       turn += 1
     end
 
+    messages.flatten!
     self.write_user_messages(messages, attack_user, defence_user)
     self.write_map_messages(attack_user, defence_user)
+  end
+
+  def invoke_skills(attack_user, defence_user)
+    messages = []
+    attack_user.enabled_skills.each do |skill|
+      message = skill[:invoker].call(attack_user, defence_user)
+      messages << message if message.present?
+    end
+    messages
   end
 
   def battle_result_message(user, opponent_user)

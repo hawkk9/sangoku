@@ -13,16 +13,20 @@ class Skill < ApplicationRecord
 
   SKILL_OPTIONS = [
     {
-      type: :ninja,
+      type: :strategy,
       level: 1,
+      invoker: Proc.new do |user, opponent_user|
+        odds = (user.intelligence + user.charm) / 11
+        if rand(1..100) <= odds
+          damage = rand(1..7)
+          opponent_user.soldier_num -= damage
+          Message::MessageWriter.message("【罠】#{user.name}が落とし穴を仕掛けました。#{opponent_user.name} 攻城兵 #{opponent_user.soldier_num}人 ↓(-#{damage})")
+        end
+      end
     }
   ]
 
   class << self
-    def filter_by_level(skills)
-
-    end
-
     def options_by_skill(skill)
       SKILL_OPTIONS.filter do |skill_option|
         (skill_option[:type] == skill.skill_type.to_sym) &&
