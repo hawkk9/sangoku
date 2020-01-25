@@ -47,9 +47,9 @@ class User < ApplicationRecord
 
   end
 
-  def enabled_skills
+  def enabled_skills(timings)
     self.skills.map do |skill|
-      Skill.options_by_skill(skill)
+      Skill.options_by_skill(skill, timings)
     end.flatten
   end
 

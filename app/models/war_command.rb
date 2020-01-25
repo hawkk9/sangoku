@@ -53,8 +53,12 @@ class WarCommand < ApplicationRecord
 
   def invoke_skills(attack_user, defence_user)
     messages = []
-    attack_user.enabled_skills.each do |skill|
+    attack_user.enabled_skills([Skill::ATTACK]).each do |skill|
       message = skill[:invoker].call(attack_user, defence_user)
+      messages << message if message.present?
+    end
+    defence_user.enabled_skills([Skill::DEFENCE]).each do |skill|
+      message = skill[:invoker].call(defence_user, attack_user)
       messages << message if message.present?
     end
     messages
