@@ -41,8 +41,8 @@ class WarCommand < ApplicationRecord
       attack_user.soldier_num = 0 if attack_user.soldier_num < 0
       defence_user.soldier_num = 0 if defence_user.soldier_num < 0
       messages << Message::MessageWriter.message(
-        "ターン#{turn}:#{attack_user.name} 透波【Sランク】(無し) #{attack_user.soldier_num}人 ↓(-#{defence_user.damage}) |" \
-        "#{defence_user.name} ミラーマン(無し) #{defence_user.soldier_num}人 ↓(-#{attack_user.damage})")
+        "ターン#{turn}:#{attack_user.name} #{attack_user.soldier.name_with_rank}(#{attack_user.soldier.attribute_label}) #{attack_user.soldier_num}人 ↓(-#{defence_user.damage}) |" \
+        "#{defence_user.name} #{defence_user.soldier.name_with_rank}(#{defence_user.soldier.attribute_label}) #{defence_user.soldier_num}人 ↓(-#{attack_user.damage})")
       turn += 1
     end
 
