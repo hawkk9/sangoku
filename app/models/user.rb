@@ -31,6 +31,18 @@ class User < ApplicationRecord
   belongs_to :country
   has_one :town_defence
 
+  attr_accessor :opponent_user
+  attr_accessor :max_damage
+  attr_accessor :damage
+
+  def calc_max_damage
+    self.max_damage = (self.attack - self.opponent_user.defence) / 20 + 1
+  end
+
+  def calc_damage
+    self.damage = rand(1..self.max_damage)
+  end
+
   def officer_type
     CHARM
   end

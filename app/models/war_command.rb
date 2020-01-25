@@ -22,26 +22,35 @@ class WarCommand < ApplicationRecord
     messages = []
     turn = 0
 
-    attack_max_damage = (attack_user.attack - defence_user.defence) / 20 + 1
-    defence_max_damage = (defence_user.attack - attack_user.defence) / 20 + 1
-    messages << Message::MessageWriter.message("【#{attack_user.name}の最大ダメージ：#{attack_max_damage}】【#{defence_user.name}の最大ダメージ：#{defence_max_damage}】")
+    attack_user.opponent_user = defence_user
+    defence_user.opponent_user = attack_user
+
+    attack_user.calc_max_damage
+    defence_user.calc_max_damage
+
+    messages << Message::MessageWriter.message(
+      "【#{attack_user.name}の最大ダメージ：#{attack_user.max_damage}】" \
+      "【#{defence_user.name}の最大ダメージ：#{attack_user.max_damage}】"
+    )
 
     while attack_user.soldier_num > 0 && defence_user.soldier_num > 0
-      attack_damage = rand(1..attack_max_damage)
-      defence_damage = rand(1..defence_max_damage)
+      attack_user.calc_damage
+      defence_user.calc_damage
 
-      defence_user.soldier_num -= attack_damage
+      defence_user.soldier_num -= attack_user.damage
       if defence_user.soldier_num <= 0
-        defence_damage = 0
+        defence_user.damage = 0
       end
-      attack_user.soldier_num -= defence_damage
+      attack_user.soldier_num -= defence_user.damage
       attack_user.soldier_num = 0 if attack_user.soldier_num < 0
       defence_user.soldier_num = 0 if defence_user.soldier_num < 0
-      messages << Message::MessageWriter.message("ターン#{turn}:#{attack_user.name} 透波【Sランク】(無し) #{attack_user.soldier_num}人 ↓(-#{defence_damage}) |#{defence_user.name} ミラーマン(無し) #{defence_user.soldier_num}人 ↓(-#{attack_damage})")
+      messages << Message::MessageWriter.message(
+        "ターン#{turn}:#{attack_user.name} 透波【Sランク】(無し) #{attack_user.soldier_num}人 ↓(-#{defence_user.damage}) |" \
+        "#{defence_user.name} ミラーマン(無し) #{defence_user.soldier_num}人 ↓(-#{attack_user.damage})")
       turn += 1
     end
 
-    self.write_user_messages(attack_user, defence_user)
+    self.write_user_messages(messages, attack_user, defence_user)
     self.write_map_messages(attack_user, defence_user)
   end
 
@@ -52,7 +61,7 @@ class WarCommand < ApplicationRecord
     messages
   end
 
-  def write_user_messages(attack_user, defence_user)
+  def write_user_messages(messages, attack_user, defence_user)
     attack_user_messages = messages.clone
     attack_user_messages << self.battle_result_message(attack_user, defence_user)
     Message::MessageWriter.write_user_log_file(attack_user, attack_user_messages.reverse)
