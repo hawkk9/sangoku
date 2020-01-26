@@ -39,23 +39,31 @@ class WarCommand < ApplicationRecord
       defence_user.calc_damage
 
       messages << self.invoke_battling_skills(attack_user, defence_user)
+      messages << self.handle_normal_attack(turn, attack_user, defence_user)
 
-      defence_user.soldier_num -= attack_user.damage
-      if defence_user.soldier_num <= 0
-        defence_user.damage = 0
-      end
-      attack_user.soldier_num -= defence_user.damage
-      attack_user.soldier_num = 0 if attack_user.soldier_num < 0
-      defence_user.soldier_num = 0 if defence_user.soldier_num < 0
-      messages << Message::MessageWriter.message(
-        "ターン#{turn}:#{attack_user.name} #{attack_user.soldier.name_with_rank}(#{attack_user.soldier.attribute_label}) #{attack_user.soldier_num}人 ↓(-#{defence_user.damage}) |" \
-        "#{defence_user.name} #{defence_user.soldier.name_with_rank}(#{defence_user.soldier.attribute_label}) #{defence_user.soldier_num}人 ↓(-#{attack_user.damage})")
       turn += 1
     end
 
     messages.flatten!
     self.write_user_messages(messages, attack_user, defence_user)
     self.write_map_messages(attack_user, defence_user)
+  end
+
+  def handle_normal_attack(turn, attack_user, defence_user)
+    messages = []
+    defence_user.soldier_num -= attack_user.damage
+    if defence_user.soldier_num <= 0
+      defence_user.damage = 0
+    end
+    attack_user.soldier_num -= defence_user.damage
+
+    messages << Message::MessageWriter.message(
+      "ターン#{turn}:#{attack_user.name} #{attack_user.soldier.name_with_rank}(#{attack_user.soldier.attribute_label})" \
+      " #{attack_user.corrected_soldier_num}人↓(-#{defence_user.damage}) |" \
+      "#{defence_user.name} #{defence_user.soldier.name_with_rank}(#{defence_user.soldier.attribute_label})" \
+      " #{defence_user.corrected_soldier_num}人 ↓(-#{attack_user.damage})"
+    )
+    messages
   end
 
   def invoke_battling_skills(attack_user, defence_user)

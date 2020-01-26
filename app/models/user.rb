@@ -44,14 +44,14 @@ class User < ApplicationRecord
     self.damage = rand(1..self.max_damage)
   end
 
-  def invoke_skills
-
-  end
-
   def enabled_skills(timings)
     self.skills.map do |skill|
       Skill.options_by_skill(skill, timings)
     end.flatten
+  end
+
+  def corrected_soldier_num
+    self.soldier_num > 0 ? self.soldier_num : 0
   end
 
   def officer_type
