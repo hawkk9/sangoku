@@ -169,6 +169,50 @@ class Skill < ApplicationRecord
       end,
       timings: []
     },
+    {
+      type: :plot,
+      level: 1,
+      battling: nil,
+      timings: []
+    },
+    {
+      type: :plot,
+      level: 2,
+      battling: nil,
+      timings: []
+    },
+    {
+      type: :plot,
+      level: 3,
+      battling: nil,
+      timings: []
+    },
+    {
+      type: :agitation,
+      level: 1,
+      battling: Proc.new do |user, opponent_user|
+        odds = user.charm / 11
+        if rand(1..100) <= odds
+          user.max_damage += 1
+          Message::MessageWriter.message(
+            "【鼓舞】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
+          )
+        end
+      end,
+      timings: []
+    },
+    {
+      type: :agitation,
+      level: 2,
+      battling: nil,
+      timings: []
+    },
+    {
+      type: :agitation,
+      level: 3,
+      battling: nil,
+      timings: []
+    },
   ]
 
   class << self
