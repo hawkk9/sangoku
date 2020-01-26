@@ -80,7 +80,7 @@ class Skill < ApplicationRecord
             damage = rand(1..5)
             opponent_user.soldier_num -= damage
             Message::MessageWriter.message(
-              "●【夜襲】#{user.name}が夜襲を仕掛けました。兵が数人倒されました。" \
+              "【夜襲】#{user.name}が夜襲を仕掛けました。兵が数人倒されました。" \
               "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
             )
           end
@@ -98,7 +98,7 @@ class Skill < ApplicationRecord
             damage = rand(1..7)
             opponent_user.soldier_num -= damage
             Message::MessageWriter.message(
-              "●【強襲】#{user.name}が強襲を仕掛けました。兵が数人倒されました。" \
+              "【強襲】#{user.name}が強襲を仕掛けました。兵が数人倒されました。" \
               "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
             )
           end
@@ -122,16 +122,15 @@ class Skill < ApplicationRecord
       type: :leader,
       level: 3,
       battling: Proc.new do |user, opponent_user|
-        if user.mode == :assault.to_s
-          odds = (user.intelligence + user.charm) / 7
-          if rand(1..100) <= odds
-            damage = rand(1..7)
-            opponent_user.soldier_num -= damage
-            Message::MessageWriter.message(
-              "●【強襲】#{user.name}が強襲を仕掛けました。兵が数人倒されました。" \
-              "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
-            )
-          end
+        odds = (user.intelligence + user.charm) / 11
+        if rand(1..100) <= odds
+          damage = rand(1..5)
+          opponent_user.soldier_num -= damage
+          user.soldier_num += damage
+          Message::MessageWriter.message(
+            "【洗脳】#{user.name}が#{opponent_user.name}の兵を洗脳しました。" \
+            "#{opponent_user.name} #{opponent_user.soldier_num}人 ↓(-#{damage}) #{user.name} #{user.soldier_num}人 ↑(+#{damage})" \
+          )
         end
       end,
       timings: []
@@ -143,7 +142,7 @@ class Skill < ApplicationRecord
       SKILL_OPTIONS.filter do |skill_option|
         (skill_option[:type] == skill.skill_type.to_sym) &&
           (skill_option[:level] <= skill.level) &&
-          ((skill_option[:timings] & timings).length == timings.length)
+          ((skill_option[:timings] & timings).length == skill_option[:timings].length)
       end
     end
   end
