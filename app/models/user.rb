@@ -34,6 +34,7 @@ class User < ApplicationRecord
   attr_accessor :opponent_user
   attr_accessor :max_damage
   attr_accessor :damage
+  attr_accessor :mode
 
   def calc_max_damage
     self.max_damage = (self.attack - self.opponent_user.defence) / 20 + 1

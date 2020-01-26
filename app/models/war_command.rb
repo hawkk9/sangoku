@@ -1,4 +1,9 @@
 class WarCommand < ApplicationRecord
+  enum mode: {
+   siege: 0, development: 1, gossip: 2,
+   ambush:3, assault: 4,
+  }
+
   belongs_to :command
   belongs_to :town
 
@@ -18,8 +23,10 @@ class WarCommand < ApplicationRecord
     messages = []
     turn = 0
 
+    attack_user.mode = self.mode
     attack_user.opponent_user = defence_user
     defence_user.opponent_user = attack_user
+
     attack_user.calc_max_damage
     defence_user.calc_max_damage
     messages << Message::MessageWriter.message(
@@ -31,7 +38,7 @@ class WarCommand < ApplicationRecord
       attack_user.calc_damage
       defence_user.calc_damage
 
-      messages << self.invoke_skills(attack_user, defence_user)
+      messages << self.invoke_battling_skills(attack_user, defence_user)
 
       defence_user.soldier_num -= attack_user.damage
       if defence_user.soldier_num <= 0
@@ -51,14 +58,14 @@ class WarCommand < ApplicationRecord
     self.write_map_messages(attack_user, defence_user)
   end
 
-  def invoke_skills(attack_user, defence_user)
+  def invoke_battling_skills(attack_user, defence_user)
     messages = []
     attack_user.enabled_skills([Skill::ATTACK]).each do |skill|
-      message = skill[:invoker].call(attack_user, defence_user)
+      message = skill[:battling].call(attack_user, defence_user)
       messages << message if message.present?
     end
     defence_user.enabled_skills([Skill::DEFENCE]).each do |skill|
-      message = skill[:invoker].call(defence_user, attack_user)
+      message = skill[:battling].call(defence_user, attack_user)
       messages << message if message.present?
     end
     messages
