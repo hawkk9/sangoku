@@ -274,6 +274,40 @@ class Skill < ApplicationRecord
       end,
       timings: []
     },
+    {
+      type: :anabasis,
+      level: 1,
+      battling: Proc.new do |user, opponent_user|
+        odds = user.strength / 10
+        if rand(1..100) <= odds
+          damage = rand(1..5)
+          Message::MessageWriter.message(
+            "【突貫】#{user.name}が突貫を仕掛けました。" \
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+          )
+        end
+      end,
+      timings: [ATTACK]
+    },
+    {
+      type: :anabasis,
+      level: 2,
+      battling: Proc.new do |user, opponent_user|
+        odds = user.strength / 11
+        if rand(1..100) <= odds
+          Message::MessageWriter.message(
+            "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
+          )
+        end
+      end,
+      timings: []
+    },
+    {
+      type: :anabasis,
+      level: 3,
+      battling: nil,
+      timings: []
+    },
   ]
 
   class << self
