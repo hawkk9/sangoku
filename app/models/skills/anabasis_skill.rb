@@ -1,5 +1,5 @@
 module Skills
-  class AnabasisSkill
+  class AnabasisSkill < Skills::BaseSkill
     EFFECTS = [{
       level: 1,
       effect: Proc.new do |user, opponent_user|
@@ -39,15 +39,5 @@ module Skills
       end,
       timings: [ATTACK]
     }]
-
-    def initialize(level)
-      @level = level
-    end
-
-    def battling_actions
-      EFFECTS.map do |effect|
-        effect[:battling] if effect[:level] <= @level
-      end.compact
-    end
   end
 end

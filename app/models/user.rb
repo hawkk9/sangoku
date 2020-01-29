@@ -44,10 +44,9 @@ class User < ApplicationRecord
     self.damage = rand(1..self.max_damage)
   end
 
-  def available_skills(timings)
-    self.skills.map do |skill|
-      Skill.options_by_skill(skill, timings)
-    end.flatten
+  def available_effects(timings)
+    typed_skills = self.skills.map(:typed_skill)
+    typed_skills.map { |typed_skill| typed_skill.effects(timings) }.flatten
   end
 
   def corrected_soldier_num

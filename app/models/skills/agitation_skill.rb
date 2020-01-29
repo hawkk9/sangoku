@@ -1,5 +1,5 @@
 module Skills
-  class AgitationSkill
+  class AgitationSkill < Skills::BaseSkill
     EFFECTS = [{
       level: 1,
       effect: Proc.new do |user, opponent_user|
@@ -13,15 +13,5 @@ module Skills
       end,
       timings: []
     }]
-
-    def initialize(level)
-      @level = level
-    end
-
-    def battling_actions
-      EFFECTS.map do |effect|
-        effect[:battling] if effect[:level] <= @level
-      end.compact
-    end
   end
 end

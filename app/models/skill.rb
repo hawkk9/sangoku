@@ -10,68 +10,29 @@ class Skill < ApplicationRecord
 
   belongs_to :user
 
-  ATTACK = 0
-  DEFENCE = 1
-
-  SKILL_CLASSES = [
-    {
-      type: :strategy,
-      class: Skills::StrategySkill
-    },
-    {
-      type: :tactics,
-      class: Skills::TacticsSkill
-    },
-
-    {
-      type: :leader,
-      class: Skills::LeaderSkill
-    },
-    {
-      type: :ninja,
-      class: Skills::NinjaSkill
-    },
-    {
-      type: :plot,
-      class: Skills::PlotSkill
-    },
-    {
-      type: :agitation,
-      class: Skills::AgitationSkill
-    },
-    {
-      type: :training,
-      class: Skills::TrainingSkill
-    },
-    {
-      type: :fight,
-      class: Skills::FightSkill
-    },
-    {
-      type: :anabasis,
-      class: Skills::AnabasisSkill
-    },
-    {
-      type: :bandit,
-      class: Skills::BanditSkill
-    },
-    {
-      type: :virtue,
-      class: Skills::VirtueSkill
-    },
-    {
-      type: :elite,
-      class: Skills::EliteSkill
-    },
-  ]
+  TYPE_CLASS_HASH = {
+    strategy: Skills::StrategySkill,
+    tactics: Skills::TacticsSkill,
+    leader: Skills::LeaderSkill,
+    ninja: Skills::NinjaSkill,
+    plot: Skills::PlotSkill,
+    agitation: Skills::AgitationSkill,
+    training: Skills::TrainingSkill,
+    fight: Skills::FightSkill,
+    anabasis: Skills::AnabasisSkill,
+    bandit: Skills::BanditSkill,
+    virtue: Skills::VirtueSkill,
+    elite: Skills::EliteSkill
+  }
 
   class << self
     def options_by_skill(skill, timings)
-      SKILL_CLASSES.filter do |skill_option|
-        (skill_option[:type] == skill.skill_type.to_sym) &&
-          (skill_option[:level] <= skill.level) &&
-          ((skill_option[:timings] & timings).length == skill_option[:timings].length)
-      end
+
     end
+  end
+
+  def typed_skill
+    cls = TYPE_CLASS_HASH[self.skill_type.to_sym]
+    cls.new(self.level)
   end
 end

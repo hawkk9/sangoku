@@ -68,11 +68,11 @@ class WarCommand < ApplicationRecord
 
   def invoke_battling_skills(attack_user, defence_user)
     messages = []
-    attack_user.available_skills([Skill::ATTACK]).each do |skill|
+    attack_user.available_effects([Skills::BaseSkill::ATTACK]).each do |skill|
       message = skill[:battling] && skill[:battling].call(attack_user, defence_user)
       messages << message if message.present?
     end
-    defence_user.available_skills([Skill::DEFENCE]).each do |skill|
+    defence_user.available_effects([Skills::BaseSkill::ATTACK]).each do |skill|
       message = skill[:battling] && skill[:battling].call(defence_user, attack_user)
       messages << message if message.present?
     end
