@@ -45,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def available_effects(timings)
-    typed_skills = self.skills.map(:typed_skill)
+    typed_skills = self.skills.map { |skill| skill.typed_skill }
     typed_skills.map { |typed_skill| typed_skill.effects(timings) }.flatten
   end
 
