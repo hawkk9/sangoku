@@ -69,8 +69,16 @@ class User < ApplicationRecord
     ((self.charm + self.flag) * self.soldier.attack + self.strength + self.arm).to_i
   end
 
+  def attack_percent
+
+  end
+
   def defence
     ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
+  end
+
+  def defence_percent
+
   end
 
   def soldier

@@ -4,6 +4,9 @@ module Skills
 
     ATTACK = 0
     DEFENCE = 1
+    BEFORE_BATTLE = 2
+    BATTLING = 3
+    AFTER_BATTLE = 4
 
     def initialize(level)
       @level = level
