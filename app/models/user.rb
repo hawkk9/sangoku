@@ -77,8 +77,8 @@ class User < ApplicationRecord
     Soldiers::Soldier.find_by_officer_and_type(self.officer_type, self.soldier_type)
   end
 
-  def is_win
-    self.soldier_num != 0
+  def is_win?
+    self.soldier_num > 0
   end
 
   def messages

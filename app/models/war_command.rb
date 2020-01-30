@@ -68,12 +68,12 @@ class WarCommand < ApplicationRecord
 
   def invoke_battling_skills(attack_user, defence_user)
     messages = []
-    attack_user.available_effects([Skills::BaseSkill::ATTACK]).each do |skill|
-      message = skill[:battling] && skill[:battling].call(attack_user, defence_user)
+    attack_user.available_effects([Skills::BaseSkill::ATTACK]).each do |effect|
+      message = effect.call(attack_user, defence_user)
       messages << message if message.present?
     end
-    defence_user.available_effects([Skills::BaseSkill::DEFENCE]).each do |skill|
-      message = skill[:battling] && skill[:battling].call(defence_user, attack_user)
+    defence_user.available_effects([Skills::BaseSkill::DEFENCE]).each do |effect|
+      message = effect.call(defence_user, attack_user)
       messages << message if message.present?
     end
     messages
@@ -81,7 +81,7 @@ class WarCommand < ApplicationRecord
 
   def battle_result_message(user, opponent_user)
     messages = []
-    user.is_win ? messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
+    user.is_win? ? messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
       messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}に敗北した。。8の貢献を得ました。")
     messages
   end
@@ -99,7 +99,7 @@ class WarCommand < ApplicationRecord
   def write_map_messages(attack_user, defence_user)
     map_messages = []
     map_messages << Message::MessageWriter.message("#{attack_user.country.name}の#{attack_user.name}は#{self.town.name}（#{self.town.country.name}）へ攻め込みました！")
-    if attack_user.is_win
+    if attack_user.is_win?
       map_messages << Message::MessageWriter.message("<font color='blue'>【勝利】</font>#{attack_user.name}は#{defence_user.name}を倒しました！")
       map_messages << Message::MessageWriter.message("#{defence_user.name}『負け！』 #{attack_user.name}『勝ち！』")
     else
