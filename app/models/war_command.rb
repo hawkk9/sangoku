@@ -9,9 +9,27 @@ class WarCommand < ApplicationRecord
 
   def execute
     attack_user = self.command.user
+    attack_user.mode = self.mode
+
+    # while
     defence_user = self.town.town_defences.order(:order).first.user
-    battle = Battles::UsersBattle.new(attack_user, defence_user, self)
+    battle = defence_user.nil? ? Battles::WallBattle.new(attack_user) : Battles::UsersBattle.new(attack_user, defence_user)
     battle.handle
+    self.write_map_messages(attack_user, defence_user)
+    # end
+  end
+
+  def write_map_messages(attack_user, defence_user)
+    map_messages = []
+    map_messages << Message::MessageWriter.message("#{attack_user.country.name}の#{attack_user.name}は#{@war_command.town.name}（#{@war_command.town.country.name}）へ攻め込みました！")
+    if attack_user.is_win?
+      map_messages << Message::MessageWriter.message("<font color='blue'>【勝利】</font>#{attack_user.name}は#{defence_user.name}を倒しました！")
+      map_messages << Message::MessageWriter.message("#{defence_user.name}『負け！』 #{attack_user.name}『勝ち！』")
+    else
+      map_messages << Message::MessageWriter.message("<font color='red'>【敗北】</font>#{attack_user.name}は#{defence_user.name}に敗北した。。")
+      map_messages << Message::MessageWriter.message("#{defence_user.name}『勝ち！』 #{attack_user.name}『負け！』")
+    end
+    Message::MessageWriter.write_map_log_file(map_messages.reverse)
   end
 
   def inputed_label

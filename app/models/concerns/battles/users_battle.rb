@@ -1,15 +1,13 @@
 module Battles
   class UsersBattle
-    def initialize(attack_user, defence_user, war_command)
+    def initialize(attack_user, defence_user)
       @attack_user = attack_user
       @defence_user = defence_user
-      @war_command = war_command
       @turn = 0
       @messages = []
     end
 
     def handle
-      @attack_user.mode = @war_command.mode
       @attack_user.opponent_user = @defence_user
       @defence_user.opponent_user = @attack_user
 
@@ -83,18 +81,7 @@ module Battles
       Message::MessageWriter.write_user_log_file(@defence_user, defence_user_messages.reverse)
     end
 
-    def write_map_messages
-      map_messages = []
-      map_messages << Message::MessageWriter.message("#{@attack_user.country.name}の#{@attack_user.name}は#{@war_command.town.name}（#{@war_command.town.country.name}）へ攻め込みました！")
-      if @attack_user.is_win?
-        map_messages << Message::MessageWriter.message("<font color='blue'>【勝利】</font>#{@attack_user.name}は#{@defence_user.name}を倒しました！")
-        map_messages << Message::MessageWriter.message("#{@defence_user.name}『負け！』 #{@attack_user.name}『勝ち！』")
-      else
-        map_messages << Message::MessageWriter.message("<font color='red'>【敗北】</font>#{@attack_user.name}は#{@defence_user.name}に敗北した。。")
-        map_messages << Message::MessageWriter.message("#{@defence_user.name}『勝ち！』 #{@attack_user.name}『負け！』")
-      end
-      Message::MessageWriter.write_map_log_file(map_messages.reverse)
-    end
+
 
     def battle_result_message(user, opponent_user)
       messages = []
