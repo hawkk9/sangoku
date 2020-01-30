@@ -10,11 +10,11 @@ module Skills
                             end
                    if enable
                      Message::MessageWriter.message(
-                       "●【夜襲】夜襲により攻守が－５%になりました"
+                       "【夜襲】夜襲により攻守が－５%になりました"
                      )
                    end
                  end,
-                 timings: [ATTACK]
+                 timings: [ATTACK, BEFORE_BATTLE]
                }, {
                  level: 2,
                  effect: Proc.new do |user, opponent_user|
