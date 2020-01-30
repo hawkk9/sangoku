@@ -12,7 +12,7 @@ module Skills
           )
         end
       end,
-      timings: [ATTACK]
+      timings: [ATTACK, BATTLING]
     },
     {
       level: 2,
@@ -24,7 +24,7 @@ module Skills
           )
         end
       end,
-      timings: [ATTACK]
+      timings: [ATTACK, BATTLING]
     },
     {
       level: 3,
@@ -37,7 +37,7 @@ module Skills
           )
         end
       end,
-      timings: [ATTACK]
+      timings: [ATTACK, BATTLING]
     }]
   end
 end

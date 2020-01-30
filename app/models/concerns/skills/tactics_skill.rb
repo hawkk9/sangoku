@@ -30,7 +30,7 @@ module Skills
                      end
                    end
                  end,
-                 timings: [ATTACK]
+                 timings: [ATTACK, BATTLING]
                },
                {
                  level: 3,
@@ -47,7 +47,7 @@ module Skills
                      end
                    end
                  end,
-                 timings: [ATTACK]
+                 timings: [ATTACK, BATTLING]
                }]
   end
 end

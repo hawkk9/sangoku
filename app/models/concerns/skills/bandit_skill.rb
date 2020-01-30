@@ -8,7 +8,7 @@ module Skills
           "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})" \
         )
       end,
-      timings: []
+      timings: [BATTLING]
     }]
   end
 end

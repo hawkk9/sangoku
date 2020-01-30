@@ -13,7 +13,7 @@ module Skills
           )
         end
       end,
-      timings: [DEFENCE]
+      timings: [DEFENCE, BATTLING]
     },
     {
       level: 2,
@@ -29,7 +29,7 @@ module Skills
           )
         end
       end,
-      timings: [DEFENCE]
+      timings: [DEFENCE, BATTLING]
     },
     {
       level: 3,
@@ -45,7 +45,7 @@ module Skills
           )
         end
       end,
-      timings: [DEFENCE]
+      timings: [DEFENCE, BATTLING]
     }]
   end
 end

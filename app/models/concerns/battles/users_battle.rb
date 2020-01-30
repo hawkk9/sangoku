@@ -13,6 +13,8 @@ module Battles
       @attack_user.opponent_user = @defence_user
       @defence_user.opponent_user = @attack_user
 
+      self.invoke_before_battle_skills
+
       @attack_user.calc_max_damage
       @defence_user.calc_max_damage
       @messages << Message::MessageWriter.message(
@@ -51,13 +53,21 @@ module Battles
       " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.damage})"
       )
     end
+
+    def invoke_before_battle_skills
+      self.invoke_skills([Skills::BaseSkill::BEFORE_BATTLE])
+    end
     
     def invoke_battling_skills
-      @attack_user.available_effects([Skills::BaseSkill::ATTACK]).each do |effect|
+      self.invoke_skills([Skills::BaseSkill::BATTLING])
+    end
+
+    def invoke_skills(timings)
+      @attack_user.available_effects([Skills::BaseSkill::ATTACK] + timings).each do |effect|
         message = effect.call(@attack_user, @defence_user)
         @messages << message if message.present?
       end
-      @defence_user.available_effects([Skills::BaseSkill::DEFENCE]).each do |effect|
+      @defence_user.available_effects([Skills::BaseSkill::DEFENCE] + timings).each do |effect|
         message = effect.call(@defence_user, @attack_user)
         @messages << message if message.present?
       end

@@ -14,7 +14,7 @@ module Skills
           )
         end
       end,
-      timings: []
+      timings: [BATTLING]
     }]
   end
 end

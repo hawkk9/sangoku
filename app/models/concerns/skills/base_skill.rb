@@ -15,7 +15,7 @@ module Skills
     def effects(timings)
       self.class::EFFECTS.map do |effect|
         effect[:effect] if effect[:level] <= @level &&
-          (effect[:timings] & timings).length >= timings.length
+          (effect[:timings] & timings).length >= effect[:timings].length
       end.compact
     end
   end
