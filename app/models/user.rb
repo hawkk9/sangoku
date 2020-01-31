@@ -31,13 +31,12 @@ class User < ApplicationRecord
   belongs_to :country
   has_one :town_defence
 
-  attr_accessor :opponent_user
   attr_accessor :max_damage
   attr_accessor :damage
   attr_accessor :mode
 
-  def calc_max_damage
-    self.max_damage = (self.attack - self.opponent_user.defence) / 20 + 1
+  def calc_max_damage(defence)
+    self.max_damage = (self.attack - defence) / 20 + 1
   end
 
   def calc_damage

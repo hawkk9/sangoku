@@ -1,4 +1,4 @@
-module Battles
+module Battle
   class WallBattle
     def initialize(attack_user)
       @attack_user = attack_user

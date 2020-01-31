@@ -1,25 +1,37 @@
-module Battles
+module Battle
   class UsersBattle
     def initialize(attack_user, defence_user)
       @attack_user = attack_user
       @defence_user = defence_user
+      @attacker_battle_param = Battle::BattleParam.new
+      @attacker_battle_param.user = attack_user
+      @defender_battle_param = Battle::BattleParam.new
+      @defender_battle_param.user = defence_user
       @turn = 0
       @messages = []
     end
 
     def handle
-      @attack_user.opponent_user = @defence_user
-      @defence_user.opponent_user = @attack_user
-
       self.invoke_before_battle_skills
 
-      @attack_user.calc_max_damage
-      @defence_user.calc_max_damage
+      @attack_user.calc_max_damage(@defence_user.defence)
+      @defence_user.calc_max_damage(@attack_user.defence)
       @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}の最大ダメージ：#{@attack_user.max_damage}】" \
       "【#{@defence_user.name}の最大ダメージ：#{@attack_user.max_damage}】"
       )
 
+      self.battle_loop
+
+      @messages.flatten!
+      
+      self.write_user_messages
+      self.write_map_messages
+    end
+    
+    protected
+
+    def battle_loop
       while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0
         @attack_user.calc_damage
         @defence_user.calc_damage
@@ -29,13 +41,7 @@ module Battles
 
         @turn += 1
       end
-      @messages.flatten!
-      
-      self.write_user_messages
-      self.write_map_messages
     end
-    
-    protected
 
     def handle_normal_attack
       @defence_user.soldier_num -= @attack_user.damage
@@ -62,7 +68,7 @@ module Battles
 
     def invoke_skills(timings)
       @attack_user.available_effects([Skills::BaseSkill::ATTACK] + timings).each do |effect|
-        message = effect.call(@attack_user, @defence_user)
+        message = effect.call(@attacker_battle_param, @defender_battle_param)
         @messages << message if message.present?
       end
       @defence_user.available_effects([Skills::BaseSkill::DEFENCE] + timings).each do |effect|
