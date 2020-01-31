@@ -31,16 +31,15 @@ class User < ApplicationRecord
   belongs_to :country
   has_one :town_defence
 
-  attr_accessor :max_damage
-  attr_accessor :damage
+  attr_accessor :battle_param
   attr_accessor :mode
 
   def calc_max_damage(defence)
-    self.max_damage = (self.attack - defence) / 20 + 1
+    self.battle_param.max_damage = (self.attack - defence) / 20 + 1
   end
 
   def calc_damage
-    self.damage = rand(1..self.max_damage)
+    self.battle_param.damage = rand(1..self.battle_param.max_damage)
   end
 
   def available_effects(timings)

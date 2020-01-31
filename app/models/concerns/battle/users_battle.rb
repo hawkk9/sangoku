@@ -3,10 +3,8 @@ module Battle
     def initialize(attack_user, defence_user)
       @attack_user = attack_user
       @defence_user = defence_user
-      @attacker_battle_param = Battle::BattleParam.new
-      @attacker_battle_param.user = attack_user
-      @defender_battle_param = Battle::BattleParam.new
-      @defender_battle_param.user = defence_user
+      @attack_user.battle_param = Battle::BattleParam.new
+      @defence_user.battle_param = Battle::BattleParam.new
       @turn = 0
       @messages = []
     end
@@ -68,7 +66,7 @@ module Battle
 
     def invoke_skills(timings)
       @attack_user.available_effects([Skills::BaseSkill::ATTACK] + timings).each do |effect|
-        message = effect.call(@attacker_battle_param, @defender_battle_param)
+        message = effect.call(@attack_user, @defence_user)
         @messages << message if message.present?
       end
       @defence_user.available_effects([Skills::BaseSkill::DEFENCE] + timings).each do |effect|
