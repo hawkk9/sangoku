@@ -21,6 +21,8 @@ module Battle
 
       self.battle_loop
 
+      self.invoke_after_battle_skills
+
       @messages.flatten!
       
       self.write_user_messages
@@ -57,19 +59,23 @@ module Battle
     end
 
     def invoke_before_battle_skills
-      self.invoke_skills([Skills::BaseSkill::BEFORE_BATTLE])
+      self.invoke_skills(Skills::BaseSkill::TIMINGS[:before_battle])
     end
     
     def invoke_battling_skills
-      self.invoke_skills([Skills::BaseSkill::BATTLING])
+      self.invoke_skills(Skills::BaseSkill::TIMINGS[:battling])
     end
 
-    def invoke_skills(timings)
-      @attack_user.available_effects([Skills::BaseSkill::ATTACK] + timings).each do |effect|
+    def invoke_after_battle_skills
+      self.invoke_skills(Skills::BaseSkill::TIMINGS[:after_battle])
+    end
+
+    def invoke_skills(timing)
+      @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
         message = effect.call(@attack_user, @defence_user)
         @messages << message if message.present?
       end
-      @defence_user.available_effects([Skills::BaseSkill::DEFENCE] + timings).each do |effect|
+      @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
         message = effect.call(@defence_user, @attack_user)
         @messages << message if message.present?
       end

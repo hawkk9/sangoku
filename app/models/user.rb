@@ -42,9 +42,9 @@ class User < ApplicationRecord
     self.battle_param.damage = rand(1..self.battle_param.max_damage)
   end
 
-  def available_effects(timings)
-    typed_skills = self.skills.map { |skill| skill.typed_skill }
-    typed_skills.map { |typed_skill| typed_skill.effects(timings) }.flatten
+  def available_effects(timing, conditions)
+    typed_skills = self.skills.map(&:typed_skill)
+    typed_skills.map { |typed_skill| typed_skill.available_effects(timing, conditions) }.flatten
   end
 
   def corrected_soldier_num
