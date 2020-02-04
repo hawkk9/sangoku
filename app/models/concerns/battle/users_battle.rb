@@ -12,11 +12,16 @@ module Battle
     def handle
       self.invoke_before_battle_skills
 
-      @attack_user.calc_max_damage(@defence_user.defence)
-      @defence_user.calc_max_damage(@attack_user.defence)
+      @messages << Message::MessageWriter.message(
+        "【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
+        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
+      )
+
+      @attack_user.calc_max_damage(@defence_user.defence(true))
+      @defence_user.calc_max_damage(@attack_user.defence(true))
       @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
-      "【#{@defence_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】"
+      "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"
       )
 
       self.battle_loop

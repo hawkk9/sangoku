@@ -35,7 +35,7 @@ class User < ApplicationRecord
   attr_accessor :mode
 
   def calc_max_damage(defence)
-    self.battle_param.max_damage = (self.attack - defence) / 20 + 1
+    self.battle_param.max_damage = (self.attack(true) - defence) / 20 + 1
   end
 
   def calc_damage
@@ -63,20 +63,20 @@ class User < ApplicationRecord
     OFFICER_TYPE_EQUIP_LABEL_HASH[self.officer_type]
   end
 
-  def attack
-    ((self.charm + self.flag) * self.soldier.attack + self.strength + self.arm).to_i
+  def attack(enable_percent = false)
+    attack = (self.charm + self.flag) * self.soldier.attack + self.strength + self.arm
+    attack *= self.battle_param.attack_percent if enable_percent
+    attack.to_i
   end
 
-  def attack_percent
-
+  def defence(enable_percent = false)
+    defence = ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
+    defence *= self.battle_param.defence_percent if enable_percent
+    defence.to_i
   end
 
-  def defence
-    ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
-  end
-
-  def defence_percent
-
+  def attack_and_defence_label(enable_percent = false)
+    "（攻：守＝#{self.attack(enable_percent)}：#{self.defence(enable_percent)}）"
   end
 
   def soldier

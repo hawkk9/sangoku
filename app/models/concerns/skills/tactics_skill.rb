@@ -10,8 +10,9 @@ module Skills
                      user.intelligence > opponent_user.intelligence
                    end
           if enable
+            opponent_user.battle_param.add_status_percents(-0.05)
             Message::MessageWriter.message(
-              "【夜襲】夜襲により攻守が－５%になりました"
+              "【不意打ち】不意打ちにより攻守が－５%になりました"
             )
           end
         end,
