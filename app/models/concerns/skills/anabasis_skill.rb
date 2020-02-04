@@ -1,6 +1,6 @@
 module Skills
   class AnabasisSkill < Skills::BaseSkill
-    EFFECTS = [{
+    BATTLING_EFFECTS = [{
                  level: 1,
                  effect: Proc.new do |user, opponent_user|
                    odds = user.strength / 10
@@ -12,7 +12,7 @@ module Skills
                      )
                    end
                  end,
-                 timings: [ATTACK, BATTLING]
+                 conditions: [CONDITIONS[:attack]]
                },
                {
                  level: 2,
@@ -20,24 +20,24 @@ module Skills
                    odds = user.strength / 11
                    if rand(1..100) <= odds
                      Message::MessageWriter.message(
-                       "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
+                       "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
                      )
                    end
                  end,
-                 timings: [ATTACK, BATTLING]
+                 conditions: [CONDITIONS[:attack]]
                },
                {
                  level: 3,
                  effect: Proc.new do |user, opponent_user|
                    odds = user.strength / 14
                    if rand(1..100) <= odds
-                     user.damage = user.damage * 2
+                     user.battle_param.damage = user.battle_param.damage * 2
                      Message::MessageWriter.message(
                        "【正拳突き】#{user.name}の正拳突き！"
                      )
                    end
                  end,
-                 timings: [ATTACK, BATTLING]
+                 conditions: [CONDITIONS[:attack]]
                }]
   end
 end

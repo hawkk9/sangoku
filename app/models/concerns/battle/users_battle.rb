@@ -15,8 +15,8 @@ module Battle
       @attack_user.calc_max_damage(@defence_user.defence)
       @defence_user.calc_max_damage(@attack_user.defence)
       @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.max_damage}】" \
-      "【#{@defence_user.name}の最大ダメージ：#{@attack_user.max_damage}】"
+        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
+      "【#{@defence_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】"
       )
 
       self.battle_loop
@@ -26,7 +26,6 @@ module Battle
       @messages.flatten!
       
       self.write_user_messages
-      self.write_map_messages
     end
     
     protected
@@ -44,17 +43,17 @@ module Battle
     end
 
     def handle_normal_attack
-      @defence_user.soldier_num -= @attack_user.damage
+      @defence_user.soldier_num -= @attack_user.battle_param.damage
       if @defence_user.soldier_num <= 0
-        @defence_user.damage = 0
+        @defence_user.battle_param.damage = 0
       end
-      @attack_user.soldier_num -= @defence_user.damage
+      @attack_user.soldier_num -= @defence_user.battle_param.damage
 
       @messages << Message::MessageWriter.message(
         "ターン#{@turn}:#{@attack_user.name} #{@attack_user.soldier.name_with_rank}(#{@attack_user.soldier.attribute_label})" \
-      " #{@attack_user.corrected_soldier_num}人↓(-#{@defence_user.damage}) |" \
+      " #{@attack_user.corrected_soldier_num}人↓(-#{@defence_user.battle_param.damage}) |" \
       "#{@defence_user.name} #{@defence_user.soldier.name_with_rank}(#{@defence_user.soldier.attribute_label})" \
-      " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.damage})"
+      " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.battle_param.damage})"
       )
     end
 

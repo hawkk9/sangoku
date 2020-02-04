@@ -28,7 +28,7 @@ module Skills
       end
     end
 
-    def available_affects(timing, conditions)
+    def available_effects(timing, conditions)
       case timing
       when TIMINGS[:before_battle]
         self.effects_filter_by_conditions(@before_battle_effects, conditions)

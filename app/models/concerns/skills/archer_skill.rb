@@ -1,6 +1,6 @@
 module Skills
   class InfantrySkill < Skills::BaseSkill
-    EFFECTS = [{
+    BATTLING_EFFECTS = [{
                  level: 1,
                  effect: Proc.new do |user, opponent_user|
                    odds = user.charm / 11
@@ -13,7 +13,7 @@ module Skills
                      )
                    end
                  end,
-                 timings: [BATTLING]
+                 conditions: []
                }]
   end
 end

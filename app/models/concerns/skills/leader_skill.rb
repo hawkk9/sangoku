@@ -1,6 +1,6 @@
 module Skills
   class LeaderSkill < Skills::BaseSkill
-    EFFECTS = [{
+    BATTLING_EFFECTS = [{
                  level: 3,
                  effect: Proc.new do |user, opponent_user|
                    odds = (user.intelligence + user.charm) / 11
@@ -14,7 +14,7 @@ module Skills
           )
                    end
                  end,
-                 timings: [BATTLING]
+                 conditions: []
                }]
   end
 end
