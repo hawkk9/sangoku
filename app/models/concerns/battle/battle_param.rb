@@ -5,6 +5,7 @@ module Battle
     attr_accessor :damage
     attr_accessor :attack_percent
     attr_accessor :defence_percent
+    attr_accessor :mode
 
     def initialize
       self.down_num = 0

@@ -50,7 +50,7 @@ module Skills
       {
         level: 2,
         effect: Proc.new do |user, opponent_user|
-          if user.mode == :ambush.to_s
+          if user.battle_param.mode == :ambush.to_s
             odds = (user.strength + user.intelligence) / 10
             if rand(1..100) <= odds
               damage = rand(1..5)
@@ -67,7 +67,7 @@ module Skills
       {
         level: 3,
         effect: Proc.new do |user, opponent_user|
-          if user.mode == :assault.to_s
+          if user.battle_param.mode == :assault.to_s
             odds = (user.intelligence + user.charm) / 7
             if rand(1..100) <= odds
               damage = rand(1..7)

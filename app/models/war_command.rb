@@ -9,11 +9,10 @@ class WarCommand < ApplicationRecord
 
   def execute
     attack_user = self.command.user
-    attack_user.mode = self.mode
 
     # while
     defence_user = self.town.town_defences.order(:order).first.user
-    battle = defence_user.nil? ? Battle::WallBattle.new(attack_user) : Battle::UsersBattle.new(attack_user, defence_user)
+    battle = defence_user.nil? ? Battle::WallBattle.new(attack_user) : Battle::UsersBattle.new(attack_user, defence_user, self.mode)
     battle.handle
     self.write_map_messages(attack_user, defence_user)
     # end

@@ -1,10 +1,11 @@
 module Battle
   class UsersBattle
-    def initialize(attack_user, defence_user)
+    def initialize(attack_user, defence_user, mode)
       @attack_user = attack_user
       @defence_user = defence_user
       @attack_user.battle_param = Battle::BattleParam.new
       @defence_user.battle_param = Battle::BattleParam.new
+      @attack_user.battle_param.mode = mode
       @turn = 0
       @messages = []
     end
