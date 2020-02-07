@@ -17,6 +17,32 @@ module Skills
           end
         end,
         conditions: [CONDITIONS[:attack]]
+      },
+      {
+        level: 2,
+        effect: Proc.new do |user, opponent_user|
+          enable = [user.strength, user.intelligence].max >= 130
+          if enable
+            opponent_user.battle_param.add_status_percents(-0.05)
+            Message::MessageWriter.message(
+              "【夜襲】夜襲により攻守が－５%になりました"
+            )
+          end
+        end,
+        conditions: [CONDITIONS[:attack]]
+      },
+      {
+        level: 3,
+        effect: Proc.new do |user, opponent_user|
+          enable = [user.strength, user.intelligence].max >= 160
+          if enable
+            opponent_user.battle_param.add_status_percents(-0.05)
+            Message::MessageWriter.message(
+              "【強襲】強襲により攻守が－５%になりました"
+            )
+          end
+        end,
+        conditions: [CONDITIONS[:attack]]
       }
     ]
 
