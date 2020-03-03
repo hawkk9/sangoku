@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :town do
     name { '平原' }
-    country_id { 1 }
     x { 0 }
     y { 0 }
     level { 1 }

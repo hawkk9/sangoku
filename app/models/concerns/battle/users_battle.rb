@@ -78,11 +78,11 @@ module Battle
     def invoke_skills(timing)
       @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
         message = effect.call(@attack_user, @defence_user, @battle_context, true)
-        @messages << message if message.present?
+        @messages += message
       end
       @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
         message = effect.call(@defence_user, @attack_user, @battle_context, false)
-        @messages << message if message.present?
+        @messages += message
       end
     end
 

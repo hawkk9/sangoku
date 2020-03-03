@@ -5,11 +5,15 @@ module Battle
     attr_accessor :damage
     attr_accessor :attack_percent
     attr_accessor :defence_percent
+    attr_accessor :attack_correction
+    attr_accessor :defence_correction
 
     def initialize
       self.down_num = 0
       self.attack_percent = 1
       self.defence_percent = 1
+      self.attack_correction = 0
+      self.defence_correction = 0
     end
 
     def add_status_percents(percent)

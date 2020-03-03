@@ -25,7 +25,6 @@ FactoryBot.define do
     book { 0.0 }
     flag { 10.0 }
     delete_turn { 48 }
-    town_id { 1 }
     email { 'hoge' }
     update_time { (30.minutes+30.seconds).to_i }
   end

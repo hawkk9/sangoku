@@ -62,15 +62,21 @@ class User < ApplicationRecord
     OFFICER_TYPE_EQUIP_LABEL_HASH[self.officer_type]
   end
 
-  def attack(enable_percent = false)
+  def attack(in_battle = false)
     attack = (self.charm + self.flag) * self.soldier.attack + self.strength + self.arm
-    attack *= self.battle_param.attack_percent if enable_percent
+    if in_battle
+      attack += self.battle_param.attack_correction
+      attack *= self.battle_param.attack_percent
+    end
     attack.to_i
   end
 
-  def defence(enable_percent = false)
+  def defence(in_battle = false)
     defence = ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
-    defence *= self.battle_param.defence_percent if enable_percent
+    if in_battle
+      defence += self.battle_param.defence_correction
+      defence *= self.battle_param.defence_percent
+    end
     defence.to_i
   end
 
