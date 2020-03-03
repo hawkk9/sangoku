@@ -1,11 +1,11 @@
 module Battle
   class UsersBattle
-    def initialize(attack_user, defence_user, mode)
+    def initialize(attack_user, defence_user, war_command)
       @attack_user = attack_user
       @defence_user = defence_user
       @attack_user.battle_param = Battle::BattleParam.new
       @defence_user.battle_param = Battle::BattleParam.new
-      @attack_user.battle_param.mode = mode
+      @battle_context = Battle.BattleContext.new(war_command.mode, war_command.town)
       @turn = 0
       @messages = []
     end
@@ -37,7 +37,7 @@ module Battle
     protected
 
     def battle_loop
-      while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0
+      while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0 && @turn < @turn_limit
         @attack_user.calc_damage
         @defence_user.calc_damage
 
@@ -77,11 +77,11 @@ module Battle
 
     def invoke_skills(timing)
       @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
-        message = effect.call(@attack_user, @defence_user)
+        message = effect.call(@attack_user, @defence_user, @battle_context, true)
         @messages << message if message.present?
       end
       @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
-        message = effect.call(@defence_user, @attack_user)
+        message = effect.call(@defence_user, @attack_user, @battle_context, false)
         @messages << message if message.present?
       end
     end
@@ -95,8 +95,6 @@ module Battle
       defence_user_messages << self.battle_result_message(@defence_user, @attack_user)
       Message::MessageWriter.write_user_log_file(@defence_user, defence_user_messages.reverse)
     end
-
-
 
     def battle_result_message(user, opponent_user)
       messages = []

@@ -1,9 +1,5 @@
 module Skills
   class BaseSkill
-    BEFORE_BATTLE_EFFECTS = []
-    BATTLING_EFFECTS = []
-    AFTER_BATTLE_EFFECTS = []
-
     CONDITIONS = {
       attack: 0,
       defence: 1
@@ -15,11 +11,25 @@ module Skills
       after_battle: 2,
     }.freeze
 
+    class << self
+      def before_battle_effects
+        []
+      end
+
+      def battling_effects
+        []
+      end
+
+      def after_battle_effects
+        []
+      end
+    end
+
     def initialize(level)
       @level = level
-      @before_battle_effects = self.effects_filter_by_level(self.class::BEFORE_BATTLE_EFFECTS)
-      @battling_effects = self.effects_filter_by_level(self.class::BATTLING_EFFECTS)
-      @after_battle_effects = self.effects_filter_by_level(self.class::AFTER_BATTLE_EFFECTS)
+      @before_battle_effects = self.effects_filter_by_level(self.class::before_battle_effects)
+      @battling_effects = self.effects_filter_by_level(self.class::battling_effects)
+      @after_battle_effects = self.effects_filter_by_level(self.class::after_battle_effects)
     end
 
     def effects_filter_by_level(effects)
