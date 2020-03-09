@@ -5,7 +5,7 @@ module Battle
       @defence_user = defence_user
       @attack_user.battle_param = Battle::BattleParam.new
       @defence_user.battle_param = Battle::BattleParam.new
-      @battle_context = Battle.BattleContext.new(war_command.mode, war_command.town)
+      @battle_context = Battle::BattleContext.new(war_command.mode, war_command.town)
       @turn = 0
       @messages = []
     end
@@ -37,7 +37,7 @@ module Battle
     protected
 
     def battle_loop
-      while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0 && @turn < @turn_limit
+      while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0 && @turn < @battle_context.turn_limit
         @attack_user.calc_damage
         @defence_user.calc_damage
 

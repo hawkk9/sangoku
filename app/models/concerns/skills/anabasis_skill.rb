@@ -6,7 +6,7 @@ module Skills
           {
             level: 3,
             effect: method(:houi_before_battle_effect),
-            conditions: [CONDITIONS[:attack]]
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
           }
         ]
       end
@@ -16,12 +16,12 @@ module Skills
           {
             level: 1,
             effect: method(:tokkan_battling_effect),
-            conditions: [CONDITIONS[:attack]]
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
           },
           {
             level: 2,
             effect: method(:syokuji_battling_effect),
-            conditions: [CONDITIONS[:attack]]
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
           }
         ]
       end

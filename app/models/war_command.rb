@@ -12,7 +12,7 @@ class WarCommand < ApplicationRecord
 
     # while
     defence_user = self.town.town_defences.order(:order).first.user
-    battle = defence_user.nil? ? Battle::WallBattle.new(attack_user) : Battle::UsersBattle.new(attack_user, defence_user, self.mode)
+    battle = defence_user.nil? ? Battle::WallBattle.new(attack_user) : Battle::UsersBattle.new(attack_user, defence_user, self)
     battle.handle
     self.write_map_messages(attack_user, defence_user)
     # end
