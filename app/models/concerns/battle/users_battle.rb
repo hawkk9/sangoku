@@ -3,8 +3,8 @@ module Battle
     def initialize(attack_user, defence_user, war_command)
       @attack_user = attack_user
       @defence_user = defence_user
-      @attack_user.battle_param = Battle::BattleParam.new
-      @defence_user.battle_param = Battle::BattleParam.new
+      @attack_user.battle_param = Battle::BattleParam.new(@attack_user)
+      @defence_user.battle_param = Battle::BattleParam.new(@defence_user)
       @battle_context = Battle::BattleContext.new(war_command.mode, war_command.town)
       @turn = 0
       @messages = []
