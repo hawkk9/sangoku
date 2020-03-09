@@ -25,6 +25,10 @@ module Battle
       "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"
       )
 
+      @messages << Message::MessageWriter.message(
+        "【最大戦闘ターン数】＝#{@battle_context.turn_limit}"
+      )
+
       self.battle_loop
 
       self.invoke_after_battle_skills
