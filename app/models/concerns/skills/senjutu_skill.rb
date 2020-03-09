@@ -1,5 +1,5 @@
 module Skills
-  class TacticsSkill < Skills::BaseSkill
+  class SenjutuSkill < Skills::BaseSkill
     BEFORE_BATTLE_EFFECTS = [
       {
         level: 1,

@@ -1,5 +1,5 @@
 module Skills
-  class AgitationSkill < Skills::BaseSkill
+  class SendouSkill < Skills::BaseSkill
     class << self
       def before_battle_effects
         [

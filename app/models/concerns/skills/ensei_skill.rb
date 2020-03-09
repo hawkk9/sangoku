@@ -1,5 +1,5 @@
 module Skills
-  class AnabasisSkill < Skills::BaseSkill
+  class EnseiSkill < Skills::BaseSkill
     class << self
       def before_battle_effects
         [

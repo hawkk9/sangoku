@@ -1,5 +1,5 @@
 module Skills
-  class InfantrySkill < Skills::BaseSkill
+  class KyujutuSkill < Skills::BaseSkill
     BATTLING_EFFECTS = [{
                  level: 1,
                  effect: Proc.new do |user, opponent_user|

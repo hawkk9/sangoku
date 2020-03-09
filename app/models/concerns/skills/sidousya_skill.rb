@@ -1,5 +1,5 @@
 module Skills
-  class LeaderSkill < Skills::BaseSkill
+  class SidousyaSkill < Skills::BaseSkill
     BATTLING_EFFECTS = [{
                  level: 3,
                  effect: Proc.new do |user, opponent_user|

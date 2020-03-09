@@ -1,5 +1,5 @@
 module Skills
-  class NinjaSkill < Skills::BaseSkill
+  class NinjutuSkill < Skills::BaseSkill
     class << self
       def battling_effects
         [

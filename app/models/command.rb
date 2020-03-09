@@ -58,8 +58,8 @@ class Command < ApplicationRecord
   def execute
     typed = self.typed_command
     typed.class.ancestors.include?(ApplicationRecord) ? typed.execute : typed.execute(self.user)
-    self.destroy
-    self.decrement_user_command_no
+    # self.destroy
+    # self.decrement_user_command_no
   end
 
   def decrement_user_command_no

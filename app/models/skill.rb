@@ -1,28 +1,32 @@
 class Skill < ApplicationRecord
   enum skill_type: {
-    infantry: 0, cavalry: 1, archer: 2,
-    move: 3, strategy: 4, tactics: 5,
-    leader: 6, ninja: 7, plot: 8,
-    agitation: 9, training: 10, fight: 11,
-    anabasis: 12, besieging:13, bandit: 14,
-    virtue: 15, elite: 16,
+    hohei: 0, bajutu: 1, kyujutu: 2,
+    idou: 3, senryaku: 4, senjutu: 5,
+    sidousya: 6, ninjutu: 7, bouryaku: 8,
+    sendou: 9, noukyou: 10, kakutou: 11,
+    ensei: 12, roujyou:13, sanzoku: 14,
+    jintoku: 15, seiei: 16,
   }
 
   belongs_to :user
 
   TYPE_CLASS_HASH = {
-    strategy: Skills::StrategySkill,
-    tactics: Skills::TacticsSkill,
-    leader: Skills::LeaderSkill,
-    ninja: Skills::NinjaSkill,
-    plot: Skills::PlotSkill,
-    agitation: Skills::AgitationSkill,
-    training: Skills::TrainingSkill,
-    fight: Skills::FightSkill,
-    anabasis: Skills::AnabasisSkill,
-    bandit: Skills::BanditSkill,
-    virtue: Skills::VirtueSkill,
-    elite: Skills::EliteSkill
+    hohei: Skills::HoheiSkill,
+    bajutu: Skills::BajutuSkill,
+    kyujutu: Skills::KyujutuSkill,
+    senryaku: Skills::SenryakuSkill,
+    senjutu: Skills::SenjutuSkill,
+    sidousya: Skills::SidousyaSkill,
+    ninjutu: Skills::NinjutuSkill,
+    bouryaku: Skills::BouryakuSkill,
+    sendou: Skills::SendouSkill,
+    noukyou: Skills::NoukyouSkill,
+    kakutou: Skills::KakutouSkill,
+    ensei: Skills::EnseiSkill,
+    roujou: Skills::RoujouSkill,
+    sanzoku: Skills::SanzokuSkill,
+    jintoku: Skills::JintokuSkill,
+    seiei: Skills::SeieiSkill
   }
 
   class << self

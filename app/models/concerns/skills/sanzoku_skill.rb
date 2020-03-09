@@ -1,5 +1,5 @@
 module Skills
-  class BanditSkill < Skills::BaseSkill
+  class SanzokuSkill < Skills::BaseSkill
     BEFORE_BATTLE_EFFECTS = [
       {
         level: 2,
