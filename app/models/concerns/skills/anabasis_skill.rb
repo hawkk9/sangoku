@@ -29,7 +29,7 @@ module Skills
       def tokkan_battling_effect(user, opponent_user, battle_context, is_attack)
         messages = []
         odds = user.strength / 10
-        if rand(1..100) <= odds
+        if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
           messages << Message::MessageWriter.message(
             "【突貫】#{user.name}が突貫を仕掛けました。" \
@@ -42,7 +42,7 @@ module Skills
       def syokuji_battling_effect(user, opponent_user, battle_context, is_attack)
         messages = []
         odds = user.strength / 11
-        if rand(1..100) <= odds
+        if Util::Calculator::draw_lots(odds)
           user.battle_param.max_damage += 1
           messages << Message::MessageWriter.message(
             "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
