@@ -80,8 +80,8 @@ class User < ApplicationRecord
     defence.to_i
   end
 
-  def attack_and_defence_label(enable_percent = false)
-    "（攻：守＝#{self.attack(enable_percent)}：#{self.defence(enable_percent)}）"
+  def attack_and_defence_label(in_battle = false)
+    "（攻：守＝#{self.attack(in_battle)}：#{self.defence(in_battle)}）"
   end
 
   def soldier

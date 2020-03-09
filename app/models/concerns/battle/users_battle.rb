@@ -11,6 +11,11 @@ module Battle
     end
 
     def handle
+      @messages << Message::MessageWriter.message(
+        "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
+        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
+      )
+
       self.invoke_before_battle_skills
 
       @messages << Message::MessageWriter.message(
