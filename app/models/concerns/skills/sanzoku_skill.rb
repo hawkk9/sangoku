@@ -1,45 +1,74 @@
 module Skills
   class SanzokuSkill < Skills::BaseSkill
-    BEFORE_BATTLE_EFFECTS = [
-      {
-        level: 2,
-        effect: Proc.new do |user, opponent_user|
-        end,
-        conditions: [CONDITIONS[:attack]]
-      }
-    ]
-    BATTLING_EFFECTS = [
-      {
-        level: 3,
-        effect: Proc.new do |user, opponent_user|
-          need_down_num = (2100 / user.intelligence) + 3
-          if user.battle_param.down_num >= need_down_num
-            user.battle_param.down_num = 0
-            user.battle_param.max_damage += rand(1..3)
-            Message::MessageWriter.message(
-              "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})" \
-            )
-          end
-        end,
-        conditions: [CONDITIONS[:attack]]
-      }
-    ]
-    AFTER_BATTLE_EFFECTS = [
-      {
-        level: 1,
-        effect: Proc.new do |user, opponent_user|
-          if user.is_win?
-            product = rand(2..5)
-            price = user.intelligence * product
-            opponent_user.gold -= price
-            opponent_user.gold -= price
-            Message::MessageWriter.message(
-              "【追い剥ぎ】#{price}Ｇと#{price}米を#{user.name}から奪われました！" \
-            )
-          end
-        end,
-        conditions: [CONDITIONS[:attack]]
-      }
-    ]
+    class << self
+      def before_battle_effects
+        [
+          {
+            level: 2,
+            effect: method(:goudatu_before_battle_effect),
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+          }
+        ]
+      end
+
+      def battling_effects
+        [
+          {
+            level: 3,
+            effect: method(:sikabane_battling_effect),
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+          }
+        ]
+      end
+
+      def after_battle_effects
+        [
+          {
+            level: 1,
+            effect: method(:oihagi_after_battle_effect),
+            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+          }
+        ]
+      end
+
+      def oihagi_after_battle_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
+        if user.is_win?
+          product = rand(2..5)
+          price = user.intelligence * product
+          opponent_user.gold -= price
+          user.gold += price
+          messages << Message::MessageWriter.message(
+            "【追い剥ぎ】#{price}Ｇと#{price}米を#{user.name}から奪われました！" \
+          )
+        end
+        messages
+      end
+
+      def goudatu_before_battle_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
+        if user.intelligence >= opponent_user.intelligence
+          user.battle_param.attack_correction += opponent_user.arm
+          messages << Message::MessageWriter.message(
+            "#{opponent_user.name}の武器(#{opponent_user.arm})の威力が#{user.name}の攻撃力に追加されました！" \
+          )
+        end
+        messages
+      end
+
+      def sikabane_battling_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
+        need_down_num = (2100 / user.intelligence) + 3
+        down_num = opponent_user.battle_param.before_soldier_num - opponent_user.soldier_num
+        if (down_num - user.battle_param.down_correction) >= need_down_num
+          user.battle_param.down_correction += need_down_num
+          user.battle_param.max_damage += rand(1..3)
+          messages << Message::MessageWriter.message(
+            "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})" \
+          )
+        end
+        messages
+      end
+    end
   end
 end
