@@ -1,7 +1,7 @@
 module Battle
   class BattleParam
     attr_accessor :before_soldier_num
-    attr_accessor :max_damage
+    attr_reader :max_damage
     attr_accessor :damage
     attr_accessor :attack_percent
     attr_accessor :defence_percent
@@ -21,6 +21,11 @@ module Battle
     def add_status_percents(percent)
       self.attack_percent += percent
       self.defence_percent += percent
+    end
+
+    def max_damage=(value)
+      @max_damage = value
+      @max_damage = 1 if value < 1
     end
   end
 end

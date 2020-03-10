@@ -23,7 +23,7 @@ class Skill < ApplicationRecord
     noukyou: Skills::NoukyouSkill,
     kakutou: Skills::KakutouSkill,
     ensei: Skills::EnseiSkill,
-    roujou: Skills::RoujouSkill,
+    roujyou: Skills::RoujouSkill,
     sanzoku: Skills::SanzokuSkill,
     jintoku: Skills::JintokuSkill,
     seiei: Skills::SeieiSkill
