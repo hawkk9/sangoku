@@ -37,7 +37,9 @@ module Skills
           product = rand(2..5)
           price = user.intelligence * product
           opponent_user.gold -= price
+          opponent_user.rice -= price
           user.gold += price
+          user.rice += price
           messages << Message::MessageWriter.message(
             "【追い剥ぎ】#{price}Ｇと#{price}米を#{user.name}から奪われました！" \
           )
