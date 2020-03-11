@@ -11,6 +11,7 @@ module Battle
 
     def initialize(user)
       self.before_soldier_num = user.soldier_num
+      self.max_damage = 0
       self.attack_percent = 1
       self.defence_percent = 1
       self.attack_correction = 0

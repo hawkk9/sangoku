@@ -34,7 +34,7 @@ class User < ApplicationRecord
   attr_accessor :battle_param
 
   def calc_max_damage(defence)
-    self.battle_param.max_damage = (self.attack(true) - defence) / 20 + 1
+    self.battle_param.max_damage += (self.attack(true) - defence) / 20 + 1
   end
 
   def calc_damage
