@@ -10,7 +10,7 @@ module Skills
           },
           {
             level: 3,
-            effect: method(:kasei_before_battle_effect),
+            effect: method(:nouminkasei_before_battle_effect),
             conditions: []
           },
         ]
@@ -27,31 +27,36 @@ module Skills
       end
 
       def keiryaku_before_battle_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
         turn = user.charm / 10
-        turn *= -1 unless is_attack
-        battle_context.turn_limit = battle_context.turn_limit + turn
-        Message::MessageWriter.message(
+        battle_context.turn_limit = battle_context.turn_limit + (turn * (is_attack ? 1 : -1))
+        messages << Message::MessageWriter.message(
           "【計略】戦闘ターン数が#{turn}#{is_attack ? '増加' : '減少'}しました！（最大戦闘ターン数＝#{battle_context.turn_limit}）"
         )
-      end
-
-      def kasei_before_battle_effect(user, opponent_user, battle_context, is_attack)
-        deno = battle_context.town.allegiance != 0 ? 400 / battle_context.town.allegiance : 10
-        num = user.charm / deno
-        user.sholdier_num += num
-        Message::MessageWriter.message(
-          "【農民加勢】#{user.name}の兵数が上昇しました！(#{user.name}の兵数＝#{user.soldier_num})"
-        )
+        messages
       end
 
       def kobu_battling_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
         odds = user.charm / 11
-        if rand(1..100) <= odds
+        if Util::Calculator::draw_lots(odds)
           user.battle_param.max_damage += 1
-          Message::MessageWriter.message(
+          messages << Message::MessageWriter.message(
             "【鼓舞】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
           )
         end
+        messages
+      end
+
+      def nouminkasei_before_battle_effect(user, opponent_user, battle_context, is_attack)
+        messages = []
+        deno = battle_context.town.allegiance != 0 ? 400 / battle_context.town.allegiance : 10
+        num = user.charm / deno
+        user.soldier_num += num
+        messages << Message::MessageWriter.message(
+          "【農民加勢】#{user.name}の兵数が上昇しました！(#{user.name}の兵数＝#{user.soldier_num})"
+        )
+        messages
       end
     end
   end
