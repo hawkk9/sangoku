@@ -26,7 +26,7 @@ module Skills
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
           min_damage = user.battle_param.max_damage / 2
-          user.battle_param.damage = [user.battle_param.damage, min_damage].max
+          user.battle_param.damage = [user.battle_param.damage, min_damage].max if battle_param.damage != 0
           messages << Message::MessageWriter.message(
             "【会心の一撃】#{user.name}の会心の一撃！"
           )
