@@ -29,7 +29,7 @@ module Skills
       def keiryaku_before_battle_effect(user, opponent_user, battle_context, is_attack)
         turn = user.charm / 10
         turn *= -1 unless is_attack
-        battle_context.turn_limit += turn
+        battle_context.turn_limit = battle_context.turn_limit + turn
         Message::MessageWriter.message(
           "【計略】戦闘ターン数が#{turn}#{is_attack ? '増加' : '減少'}しました！（最大戦闘ターン数＝#{battle_context.turn_limit}）"
         )

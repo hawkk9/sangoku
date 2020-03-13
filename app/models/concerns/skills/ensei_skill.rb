@@ -62,7 +62,7 @@ module Skills
           "【包囲】#{opponent_user.name}の攻撃力の#{down_attack_percent}％が#{user.name}の守備力になりました。"
         )
         turn = user.leadership / 10
-        battle_context.turn_limit += turn
+        battle_context.turn_limit = battle_context.turn_limit + turn
         messages << Message::MessageWriter.message(
           "【包囲】#{user.name}により戦闘ターンが#{turn}ターン増加しました。"
         )

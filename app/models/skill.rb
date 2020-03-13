@@ -14,6 +14,7 @@ class Skill < ApplicationRecord
     hohei: Skills::HoheiSkill,
     bajutu: Skills::BajutuSkill,
     kyujutu: Skills::KyujutuSkill,
+    idou: Skills::IdouSkill,
     senryaku: Skills::SenryakuSkill,
     senjutu: Skills::SenjutuSkill,
     sidousya: Skills::SidousyaSkill,
