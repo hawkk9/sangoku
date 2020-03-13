@@ -19,6 +19,11 @@ module Battle
       self.invoke_before_battle_skills
 
       @messages << Message::MessageWriter.message(
+        "【#{@attack_user.name}（攻：守＝#{(@attack_user.battle_param.attack_percent * 100).to_i}%：#{(@attack_user.battle_param.defence_percent * 100).to_i}%）】" \
+        "【#{@defence_user.name}（攻：守＝#{(@defence_user.battle_param.attack_percent * 100).to_i}%：#{(@defence_user.battle_param.defence_percent * 100).to_i}%）】"
+      )
+
+      @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
       )
