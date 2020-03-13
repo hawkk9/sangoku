@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_01_23_142402) do
     t.integer "charm", null: false
     t.integer "charm_exp", null: false
     t.integer "soldier_type", null: false
+    t.integer "formation", null: false
     t.integer "soldier_num", null: false
     t.integer "training", null: false
     t.integer "country_id", null: false

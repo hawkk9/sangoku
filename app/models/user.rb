@@ -24,6 +24,10 @@ class User < ApplicationRecord
     CHARM => '旗'
   }
 
+  enum formation: {
+    gyorin: 0
+  }
+
   has_many :commands
   has_many :achievements
   has_many :skills
