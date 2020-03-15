@@ -16,6 +16,61 @@ module Formations
       densetu: []
     }
 
+    LABEL_HASH = {
+      gyorin: {
+        name: '魚鱗の陣',
+        description: '攻撃力１５％UP。偃月の陣、鶴翼の陣、長蛇の陣に対しては１５％→３５％。'
+      },
+      gangetu: {
+        name: '偃月の陣',
+        description: ''
+      },
+      gankou: {
+        name: '雁行の陣',
+        description: ''
+      },
+      kakuyoku: {
+        name: '鶴翼の陣',
+        description: ''
+      },
+      housi: {
+        name: '鋒矢の陣',
+        description: ''
+      },
+      kouyaku: {
+        name: '衝軛の陣',
+        description: ''
+      },
+      tyouda: {
+        name: '長蛇の陣',
+        description: ''
+      },
+      houen: {
+        name: '方円の陣',
+        description: ''
+      },
+      kurumagakari: {
+        name: '車懸り陣',
+        description: ''
+      },
+      tora: {
+        name: '虎の陣',
+        description: ''
+      },
+      moroha: {
+        name: '諸刃の陣',
+        description: ''
+      },
+      donjin: {
+        name: '鈍刃の陣',
+        description: ''
+      },
+      densetu: {
+        name: '伝説の陣',
+        description: ''
+      }
+    }
+
     class << self
       def formation_correction_hash
         {

@@ -58,6 +58,10 @@ class User < ApplicationRecord
     Formations::Formation.formation_correction_hash[self.formation.to_sym]
   end
 
+  def formation_name
+    Formations::Formation::LABEL_HASH[self.formation.to_sym][:name]
+  end
+
   def corrected_soldier_num
     self.soldier_num > 0 ? self.soldier_num : 0
   end

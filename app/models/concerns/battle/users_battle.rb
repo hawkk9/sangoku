@@ -12,6 +12,10 @@ module Battle
 
     def handle
       @messages << Message::MessageWriter.message(
+        "#{@attack_user.country.name}の#{@attack_user.name}（#{@attack_user.formation_name}）は#{@defence_user.name}（#{@defence_user.formation_name}）と戦闘しました！"
+      )
+
+      @messages << Message::MessageWriter.message(
         "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
       )
