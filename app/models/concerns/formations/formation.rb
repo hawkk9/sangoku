@@ -80,7 +80,7 @@ module Formations
           kakuyoku: method(:kakuyoku_correction),
           housi: nil,
           kouyaku: method(:kouyaku_correction),
-          tyouda: method(:gyorin_correction),
+          tyouda: method(:tyouda_correction),
           houen: method(:gyorin_correction),
           kurumagakari: method(:gyorin_correction),
           tora: nil,
@@ -131,6 +131,14 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           user.battle_param.attack_percent += 30
         end
+      end
+
+      def tyouda_correction(user, opponent_user, battle_context, is_attack)
+        percent = 20
+        if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
+          percent = 50
+        end
+        user.battle_param.attack_percent += percent
       end
     end
   end
