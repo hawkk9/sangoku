@@ -53,12 +53,13 @@ module Formations
       end
 
       def gankou_correction(user, opponent_user, battle_context, is_attack)
-        correction = opponent_user.soldier_num - user.soldier_num
-        return if correction <= 0
+        percent = 15
+        correction = 5
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
-          correction *= 2
+          percent = 35
         end
-        user.battle_param.attack_correction += correction
+        user.battle_param.defence_percent += percent
+        user.battle_param.defence_correction += correction
       end
     end
   end
