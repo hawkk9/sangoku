@@ -23,12 +23,12 @@ module Formations
           gangetu: method(:gangetu_correction),
           gankou: method(:gankou_correction),
           kakuyoku: method(:kakuyoku_correction),
-          housi: method(:gyorin_correction),
-          kouyaku: method(:gyorin_correction),
+          housi: nil,
+          kouyaku: method(:kouyaku_correction),
           tyouda: method(:gyorin_correction),
           houen: method(:gyorin_correction),
           kurumagakari: method(:gyorin_correction),
-          tora: method(:gyorin_correction),
+          tora: nil,
           moroha: method(:gyorin_correction),
           donjin: method(:gyorin_correction),
           densetu: method(:gyorin_correction)
@@ -69,6 +69,13 @@ module Formations
           correction *= 2
         end
         user.battle_param.attack_correction += correction
+      end
+
+      def kouyaku_correction(user, opponent_user, battle_context, is_attack)
+        user.battle_param.add_status_percents(10)
+        if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
+          user.battle_param.attack_percent += 30
+        end
       end
     end
   end

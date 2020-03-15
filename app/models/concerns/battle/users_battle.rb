@@ -16,8 +16,8 @@ module Battle
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
       )
 
-      self.handle_formation_correction
       self.invoke_before_battle_skills
+      self.handle_formation_correction
 
       @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}（攻：守＝#{@attack_user.battle_param.attack_percent}%：#{@attack_user.battle_param.defence_percent}%）】" \
@@ -79,8 +79,10 @@ module Battle
     end
 
     def handle_formation_correction
-      @attack_user.formation_correction.call(@attack_user, @defence_user, @battle_context, true)
-      @defence_user.formation_correction.call(@defence_user, @attack_user, @battle_context, true)
+      correction = @attack_user.formation_correction
+      correction.call(@attack_user, @defence_user, @battle_context, true) unless correction.nil?
+      correction = @defence_user.formation_correction
+      correction.call(@defence_user, @attack_user, @battle_context, true) unless correction.nil?
     end
 
     def invoke_before_battle_skills
