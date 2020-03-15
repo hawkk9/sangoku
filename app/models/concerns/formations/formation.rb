@@ -84,9 +84,9 @@ module Formations
           houen: method(:houen_correction),
           kurumagakari: method(:kurumagakari_correction),
           tora: nil,
-          moroha: method(:gyorin_correction),
-          donjin: method(:gyorin_correction),
-          densetu: method(:gyorin_correction)
+          moroha: method(:moroha_correction),
+          donjin: method(:donjin_correction),
+          densetu: method(:densetu_correction)
         }
       end
 
@@ -154,6 +154,22 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           user.battle_param.attack_percent += 30
         end
+      end
+
+      def moroha_correction(user, opponent_user, battle_context, is_attack)
+        correction = user.defence
+        user.battle_param.defence_correction -= correction
+        user.battle_param.attack_correction += correction
+      end
+
+      def donjin_correction(user, opponent_user, battle_context, is_attack)
+        correction = user.attack / 2
+        user.battle_param.attack_correction -= correction
+        user.battle_param.defence_correction += correction
+      end
+
+      def densetu_correction(user, opponent_user, battle_context, is_attack)
+        user.battle_param.add_status_percents(13)
       end
     end
   end
