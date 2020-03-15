@@ -81,7 +81,7 @@ module Formations
           housi: nil,
           kouyaku: method(:kouyaku_correction),
           tyouda: method(:tyouda_correction),
-          houen: method(:gyorin_correction),
+          houen: method(:houen_correction),
           kurumagakari: method(:gyorin_correction),
           tora: nil,
           moroha: method(:gyorin_correction),
@@ -139,6 +139,14 @@ module Formations
           percent = 50
         end
         user.battle_param.attack_percent += percent
+      end
+
+      def houen_correction(user, opponent_user, battle_context, is_attack)
+        percent = 30
+        if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
+          percent = 50
+        end
+        user.battle_param.defence_percent += percent
       end
     end
   end
