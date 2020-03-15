@@ -82,7 +82,7 @@ module Formations
           kouyaku: method(:kouyaku_correction),
           tyouda: method(:tyouda_correction),
           houen: method(:houen_correction),
-          kurumagakari: method(:gyorin_correction),
+          kurumagakari: method(:kurumagakari_correction),
           tora: nil,
           moroha: method(:gyorin_correction),
           donjin: method(:gyorin_correction),
@@ -147,6 +147,13 @@ module Formations
           percent = 50
         end
         user.battle_param.defence_percent += percent
+      end
+
+      def kurumagakari_correction(user, opponent_user, battle_context, is_attack)
+        user.battle_param.add_status_percents(10)
+        if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
+          user.battle_param.attack_percent += 30
+        end
       end
     end
   end
