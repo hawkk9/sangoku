@@ -44,7 +44,7 @@ module Skills
                    user.intelligence > opponent_user.intelligence
                  end
         if enable
-          opponent_user.battle_param.add_status_percents(-0.05)
+          opponent_user.battle_param.add_status_percents(-5)
           messages << Message::MessageWriter.message(
             "【不意打ち】不意打ちにより攻守が－５%になりました"
           )
@@ -57,7 +57,7 @@ module Skills
         if battle_context.mode == :yasyu.to_s
           enable = [user.strength, user.intelligence].max >= 130
           if enable
-            opponent_user.battle_param.add_status_percents(-0.05)
+            opponent_user.battle_param.add_status_percents(-5)
             messages << Message::MessageWriter.message(
               "【夜襲】夜襲により攻守が-5%になりました"
             )
@@ -71,7 +71,7 @@ module Skills
         if battle_context.mode == :kyousyu.to_s
           enable = [user.strength, user.intelligence].max >= 160
           if enable
-            opponent_user.battle_param.add_status_percents(-0.1)
+            opponent_user.battle_param.add_status_percents(-10)
             messages << Message::MessageWriter.message(
               "【強襲】強襲により攻守が-10%になりました"
             )

@@ -16,11 +16,12 @@ module Battle
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
       )
 
+      self.handle_formation_percent
       self.invoke_before_battle_skills
 
       @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}（攻：守＝#{(@attack_user.battle_param.attack_percent * 100).to_i}%：#{(@attack_user.battle_param.defence_percent * 100).to_i}%）】" \
-        "【#{@defence_user.name}（攻：守＝#{(@defence_user.battle_param.attack_percent * 100).to_i}%：#{(@defence_user.battle_param.defence_percent * 100).to_i}%）】"
+        "【#{@attack_user.name}（攻：守＝#{@attack_user.battle_param.attack_percent}%：#{@attack_user.battle_param.defence_percent}%）】" \
+        "【#{@defence_user.name}（攻：守＝#{@defence_user.battle_param.attack_percent}%：#{@defence_user.battle_param.defence_percent}%）】"
       )
 
       @messages << Message::MessageWriter.message(
@@ -77,6 +78,11 @@ module Battle
       )
     end
 
+    def handle_formation_percent
+      @attack_user.formation_percent.call(@attack_user, @defence_user, @battle_context, true)
+      @defence_user.formation_percent.call(@defence_user, @attack_user, @battle_context, true)
+    end
+
     def invoke_before_battle_skills
       self.invoke_skills(Skills::BaseSkill::TIMINGS[:before_battle])
     end
@@ -90,11 +96,11 @@ module Battle
     end
 
     def invoke_skills(timing)
-      @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
+      @attack_user.available_skill_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
         message = effect.call(@attack_user, @defence_user, @battle_context, true)
         @messages += message
       end
-      @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
+      @defence_user.available_skill_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
         message = effect.call(@defence_user, @attack_user, @battle_context, false)
         @messages += message
       end

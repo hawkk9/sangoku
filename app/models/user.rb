@@ -25,7 +25,10 @@ class User < ApplicationRecord
   }
 
   enum formation: {
-    gyorin: 0
+    gyorin: 0, gangetu: 1, kakuyoku: 2,
+    housi: 3, kouyaku: 4, tyouda: 5,
+    houen: 6, kurumagakari: 7, tora: 8,
+    moroha: 9, donjin: 10, densetu: 11
   }
 
   has_many :commands
@@ -45,9 +48,13 @@ class User < ApplicationRecord
     self.battle_param.damage = rand(1..self.battle_param.max_damage)
   end
 
-  def available_effects(timing, conditions)
+  def available_skill_effects(timing, conditions)
     typed_skills = self.skills.map(&:typed_skill)
     typed_skills.map { |typed_skill| typed_skill.available_effects(timing, conditions) }.flatten
+  end
+
+  def formation_percent
+    Formations::Formation.formation_percent_hash[self.formation.to_sym]
   end
 
   def corrected_soldier_num
@@ -71,6 +78,7 @@ class User < ApplicationRecord
     if in_battle
       attack += self.battle_param.attack_correction
       attack *= self.battle_param.attack_percent
+      attack /= 100
     end
     attack.to_i
   end
@@ -80,6 +88,7 @@ class User < ApplicationRecord
     if in_battle
       defence += self.battle_param.defence_correction
       defence *= self.battle_param.defence_percent
+      defence /= 100
     end
     defence.to_i
   end

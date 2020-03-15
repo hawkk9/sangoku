@@ -55,7 +55,7 @@ module Skills
         messages = []
         max = user.leadership / 12
         down_attack_percent = rand(1..max)
-        gain = opponent_user.attack * (down_attack_percent / 100.0)
+        gain = opponent_user.attack * down_attack_percent / 100
         opponent_user.battle_param.attack_correction -= gain
         user.battle_param.defence_correction += gain
         messages << Message::MessageWriter.message(
