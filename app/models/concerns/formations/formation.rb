@@ -22,7 +22,7 @@ module Formations
           gyorin: method(:gyorin_correction),
           gangetu: method(:gangetu_correction),
           gankou: method(:gankou_correction),
-          kakuyoku: method(:gyorin_correction),
+          kakuyoku: method(:kakuyoku_correction),
           housi: method(:gyorin_correction),
           kouyaku: method(:gyorin_correction),
           tyouda: method(:gyorin_correction),
@@ -60,6 +60,15 @@ module Formations
         end
         user.battle_param.defence_percent += percent
         user.battle_param.defence_correction += correction
+      end
+
+      def kakuyoku_correction(user, opponent_user, battle_context, is_attack)
+        correction = user.soldier_num - opponent_user.soldier_num
+        return if correction <= 0
+        if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
+          correction *= 2
+        end
+        user.battle_param.attack_correction += correction
       end
     end
   end
