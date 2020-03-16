@@ -42,12 +42,13 @@ class User < ApplicationRecord
   attr_accessor :battle_param
 
   def calc_max_damage(defence)
-    self.battle_param.max_damage += (self.attack(true) - defence) / 20 + 1
+    diff = self.attack(true) - defence
+    self.battle_param.max_damage += (self.attack(true) - defence) / 20 if diff > 0
   end
 
   def calc_advantageous(opponent_user)
     messages = []
-    if self.soldier.is_advantageous(opponent_user.soldier.attribute)
+    if self.soldier.is_advantageous(opponent_user.soldier.attribute) && !self.battle_param.disable_advantageous
       self.battle_param.max_damage += 2
       messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
     end
