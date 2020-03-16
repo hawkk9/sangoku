@@ -40,7 +40,7 @@ module Skills
         odds = (user.intelligence + user.charm) / 14
         if Util::Calculator::draw_lots(odds)
           recovery = rand(1..5)
-          user.battle_param.max_damage += 1
+          user.battle_param.calc_max_damage(1)
           user.soldier_num += recovery
           messages << Message::MessageWriter.message(
             "【援軍】#{user.name}に援軍が到着しました。味方の攻撃力が上昇しました。" \
@@ -57,7 +57,7 @@ module Skills
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
           opponent_user.soldier_num -= damage
-          opponent_user.battle_param.max_damage -= 1
+          opponent_user.battle_param.calc_max_damage(1)
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}が水攻めを仕掛けました。敵軍の攻撃力が低下しました。" \
             "#{opponent_user.name} (最大ダメージ＝#{opponent_user.battle_param.max_damage})" \

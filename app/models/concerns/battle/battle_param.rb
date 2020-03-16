@@ -1,8 +1,8 @@
 module Battle
   class BattleParam
     attr_accessor :before_soldier_num
-    attr_writer :max_damage
     attr_accessor :damage
+    attr_reader :max_damage
     attr_accessor :attack_percent
     attr_accessor :defence_percent
     attr_accessor :attack_correction
@@ -11,8 +11,8 @@ module Battle
     attr_accessor :disable_advantageous
 
     def initialize(user)
+      @max_damage = 1
       self.before_soldier_num = user.soldier_num
-      self.max_damage = 0
       self.attack_percent = 100
       self.defence_percent = 100
       self.attack_correction = 0
@@ -26,8 +26,9 @@ module Battle
       self.defence_percent += percent
     end
 
-    def max_damage
-      @max_damage > 1 ? @max_damage : 1
+    def calc_max_damage(value)
+      @max_damage += value
+      @max_damage = 1 if @max_damage < 1
     end
   end
 end

@@ -43,7 +43,7 @@ module Skills
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
-          user.battle_param.max_damage += 1
+          user.battle_param.calc_max_damage(1)
           messages << Message::MessageWriter.message(
             "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
           )
