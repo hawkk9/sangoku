@@ -45,6 +45,15 @@ class User < ApplicationRecord
     self.battle_param.max_damage += (self.attack(true) - defence) / 20 + 1
   end
 
+  def calc_advantageous(opponent_user)
+    messages = []
+    if self.soldier.is_advantageous(opponent_user.soldier.attribute)
+      self.battle_param.max_damage += 2
+      messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
+    end
+    messages
+  end
+
   def calc_damage
     self.battle_param.damage = rand(1..self.battle_param.max_damage)
   end

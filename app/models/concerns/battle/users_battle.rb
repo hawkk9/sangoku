@@ -35,6 +35,8 @@ module Battle
 
       @attack_user.calc_max_damage(@defence_user.defence(true))
       @defence_user.calc_max_damage(@attack_user.defence(true))
+      @messages << @attack_user.calc_advantageous(@defence_user)
+      @messages << @defence_user.calc_advantageous(@attack_user)
       @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
       "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"

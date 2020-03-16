@@ -466,6 +466,12 @@ module Soldiers
       },
     ]
 
+    ADVANTAGEOUS_HASH = {
+      INFANTRY => ARCHER,
+      CAVALRY => INFANTRY,
+      ARCHER => CAVALRY
+    }
+
     class << self
       def can_employ_soldiers(user)
         can_employ_soldier_options(user).map {|soldier_option| Soldier.new(soldier_option)}
@@ -552,6 +558,10 @@ module Soldiers
       label = User::OFFICER_TYPE_STATUS_LABEL_HASH[officer_type]
       label = "(#{label}＋#{User::OFFICER_TYPE_EQUIP_LABEL_HASH[officer_type]})" if enable_equip
       label
+    end
+
+    def is_advantageous(opponent_attribute)
+      opponent_attribute == ADVANTAGEOUS_HASH[self.attribute]
     end
 
     def before_buttle
