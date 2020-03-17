@@ -79,11 +79,15 @@ class User < ApplicationRecord
     self.soldier_num > 0 ? self.soldier_num : 0
   end
 
-  def officer_type
+  def officer_type_main_status_hash
     {
       STRENGTH => self.strength, INTELLIGENCE => self.intelligence,
       LEADERSHIP => self.leadership, CHARM => self.charm
     }
+  end
+
+  def officer_type
+    self.officer_type_main_status_hash
       .max_by{ |type, value| value }
       .first
   end
@@ -97,7 +101,7 @@ class User < ApplicationRecord
   end
 
   def attack(in_battle = false)
-    attack = (self.charm + self.flag) * self.soldier.attack + self.strength + self.arm
+    attack = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.attack + self.arm
     if in_battle
       attack = attack * self.battle_param.attack_percent / 100
       attack += self.battle_param.attack_correction
@@ -106,12 +110,19 @@ class User < ApplicationRecord
   end
 
   def defence(in_battle = false)
-    defence = ((self.charm + self.flag) * self.soldier.defense + (self.training / 2) + self.guard).to_i
+    defence = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.defense + (self.training / 2) + self.guard
     if in_battle
       defence = defence * self.battle_param.defence_percent / 100
       defence += self.battle_param.defence_correction
     end
     defence.to_i
+  end
+
+  def equipment_param
+    {
+      STRENGTH => 0, INTELLIGENCE => self.book,
+      LEADERSHIP => 0, CHARM => self.flag
+    }[self.officer_type] if self.soldier.enable_equip
   end
 
   def attack_and_defence_label(in_battle = false)
