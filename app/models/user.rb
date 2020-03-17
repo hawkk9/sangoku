@@ -80,7 +80,12 @@ class User < ApplicationRecord
   end
 
   def officer_type
-    CHARM
+    {
+      STRENGTH => self.strength, INTELLIGENCE => self.intelligence,
+      LEADERSHIP => self.leadership, CHARM => self.charm
+    }
+      .max_by{ |type, value| value }
+      .first
   end
 
   def officer_type_label
