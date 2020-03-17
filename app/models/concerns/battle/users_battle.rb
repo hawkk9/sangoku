@@ -12,10 +12,6 @@ module Battle
 
     def handle
       @messages << Message::MessageWriter.message(
-        "#{@attack_user.country.name}の#{@attack_user.name}（#{@attack_user.formation_name}）は#{@defence_user.name}（#{@defence_user.formation_name}）と戦闘しました！"
-      )
-
-      @messages << Message::MessageWriter.message(
         "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
       )
@@ -23,28 +19,7 @@ module Battle
       self.invoke_before_battle_skills
       self.handle_formation_correction
 
-      @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}（攻：守＝#{@attack_user.battle_param.attack_percent}%：#{@attack_user.battle_param.defence_percent}%）】" \
-        "【#{@defence_user.name}（攻：守＝#{@defence_user.battle_param.attack_percent}%：#{@defence_user.battle_param.defence_percent}%）】"
-      )
-
-      @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
-        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
-      )
-
-      @attack_user.calc_max_damage(@defence_user.defence(true))
-      @defence_user.calc_max_damage(@attack_user.defence(true))
-      @messages << @attack_user.calc_advantageous(@defence_user)
-      @messages << @defence_user.calc_advantageous(@attack_user)
-      @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
-      "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"
-      )
-
-      @messages << Message::MessageWriter.message(
-        "【最大戦闘ターン数】＝#{@battle_context.turn_limit}"
-      )
+      self.write_before_battle_messages
 
       self.battle_loop
 
@@ -112,6 +87,35 @@ module Battle
         message = effect.call(@defence_user, @attack_user, @battle_context, false)
         @messages += message
       end
+    end
+
+    def write_before_battle_messages
+      @messages << Message::MessageWriter.message(
+        "#{@attack_user.country.name}の#{@attack_user.name}（#{@attack_user.formation_name}）は#{@defence_user.name}（#{@defence_user.formation_name}）と戦闘しました！"
+      )
+
+      @messages << Message::MessageWriter.message(
+        "【#{@attack_user.name}（攻：守＝#{@attack_user.battle_param.attack_percent}%：#{@attack_user.battle_param.defence_percent}%）】" \
+        "【#{@defence_user.name}（攻：守＝#{@defence_user.battle_param.attack_percent}%：#{@defence_user.battle_param.defence_percent}%）】"
+      )
+
+      @messages << Message::MessageWriter.message(
+        "【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
+        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
+      )
+
+      @attack_user.calc_max_damage(@defence_user.defence(true))
+      @defence_user.calc_max_damage(@attack_user.defence(true))
+      @messages << @attack_user.calc_advantageous(@defence_user)
+      @messages << @defence_user.calc_advantageous(@attack_user)
+      @messages << Message::MessageWriter.message(
+        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
+      "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"
+      )
+
+      @messages << Message::MessageWriter.message(
+        "【最大戦闘ターン数】＝#{@battle_context.turn_limit}"
+      )
     end
 
     def write_user_messages
