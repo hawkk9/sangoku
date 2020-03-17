@@ -48,7 +48,9 @@ class User < ApplicationRecord
 
   def calc_advantageous(opponent_user)
     messages = []
-    if self.soldier.is_advantageous(opponent_user.soldier.attribute) && !self.battle_param.disable_advantageous
+    return messages if self.battle_param.disable_advantageous
+    return messages if self.battle_param.disable_formation || opponent_user.battle_param.disable_formation
+    if self.soldier.is_advantageous(opponent_user.soldier.attribute)
       self.battle_param.calc_max_damage(2)
       messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
     end
@@ -65,6 +67,7 @@ class User < ApplicationRecord
   end
 
   def formation_correction
+    return nil if self.battle_param.disable_formation
     Formations::Formation.formation_correction_hash[self.formation.to_sym]
   end
 

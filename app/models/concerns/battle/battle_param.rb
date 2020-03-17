@@ -9,6 +9,7 @@ module Battle
     attr_accessor :defence_correction
     attr_accessor :down_correction
     attr_accessor :disable_advantageous
+    attr_accessor :disable_formation
 
     def initialize(user)
       @max_damage = 1
@@ -19,6 +20,7 @@ module Battle
       self.defence_correction = 0
       self.down_correction = 0
       self.disable_advantageous = false
+      self.disable_formation = false
     end
 
     def add_status_percents(percent)
