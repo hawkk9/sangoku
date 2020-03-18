@@ -12,9 +12,7 @@ FactoryBot.define do
     leadership_exp { 0 }
     charm { 100 }
     charm_exp { 0 }
-    soldier_type { Soldiers::Soldier::C_INFANTRY }
     formation { :gyorin }
-    soldier_num { 65 }
     training { 100 }
     country_id { 1 }
     gold { 10000 }
