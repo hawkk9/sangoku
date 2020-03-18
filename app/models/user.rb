@@ -38,6 +38,7 @@ class User < ApplicationRecord
   belongs_to :town
   belongs_to :country
   has_one :town_defence
+  has_one :soldier
 
   attr_accessor :battle_param
 
@@ -127,10 +128,6 @@ class User < ApplicationRecord
 
   def attack_and_defence_label(in_battle = false)
     "（攻：守＝#{self.attack(in_battle)}：#{self.defence(in_battle)}）"
-  end
-
-  def soldier
-    Soldiers::Soldier.find_by_officer_and_type(self.officer_type, self.soldier_type)
   end
 
   def is_win?
