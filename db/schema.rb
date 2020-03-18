@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_142402) do
+ActiveRecord::Schema.define(version: 2020_03_18_213700) do
 
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 2020_01_23_142402) do
     t.index ["user_id"], name: "index_skills_on_user_id"
   end
 
+  create_table "soldiers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "rank", null: false
+    t.integer "attribute", null: false
+    t.integer "soldier_num", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_soldiers_on_user_id"
+  end
+
   create_table "town_defences", force: :cascade do |t|
     t.integer "town_id", null: false
     t.integer "user_id", null: false
@@ -107,9 +117,7 @@ ActiveRecord::Schema.define(version: 2020_01_23_142402) do
     t.integer "leadership_exp", null: false
     t.integer "charm", null: false
     t.integer "charm_exp", null: false
-    t.integer "soldier_type", null: false
     t.integer "formation", null: false
-    t.integer "soldier_num", null: false
     t.integer "training", null: false
     t.integer "country_id", null: false
     t.integer "gold", null: false
@@ -142,6 +150,7 @@ ActiveRecord::Schema.define(version: 2020_01_23_142402) do
   add_foreign_key "commands", "users"
   add_foreign_key "conscription_commands", "commands", on_delete: :cascade
   add_foreign_key "skills", "users"
+  add_foreign_key "soldiers", "users"
   add_foreign_key "town_defences", "towns"
   add_foreign_key "town_defences", "users"
   add_foreign_key "users", "countries"
