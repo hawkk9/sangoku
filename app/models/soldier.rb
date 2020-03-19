@@ -12,8 +12,17 @@ class Soldier < ApplicationRecord
     cavalry: 2,
     archer: 3
   }, _prefix: true
+  
+  ConcreteSoldier = Struct.new(
+    :soldier_rank, :officer_type, :name,
+    :attack, :defense, :soldier_type,
+    :skill, :skill_label, :enable_equip,
+    :gold, :need_rank, :technology, keyword_init: true
+  )
 
   belongs_to :user
+
+  delegate :name, to: :@concrete_soldier
 
   ATTRIBUTE_LABEL_HASH = {
     none: '無し',
@@ -44,7 +53,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: false,
       gold: 15,
-      rank:0,
+      need_rank:0,
       technology: 0
     },
     {
@@ -58,7 +67,7 @@ class Soldier < ApplicationRecord
       skill_label: '投石器：石を投げて攻撃する',
       enable_equip: false,
       gold: 20,
-      rank:0,
+      need_rank:0,
       technology: 0
     },
     {
@@ -72,7 +81,7 @@ class Soldier < ApplicationRecord
       skill_label: '',
       enable_equip: true,
       gold: 60,
-      rank:5001,
+      need_rank:5001,
       technology: 200
     },
     {
@@ -86,7 +95,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: false,
       gold: 15,
-      rank:0,
+      need_rank:0,
       technology: 0
     },
     {
@@ -100,7 +109,7 @@ class Soldier < ApplicationRecord
       skill_label: '掛け声：攻撃力が上がる',
       enable_equip: true,
       gold: 20,
-      rank:0,
+      need_rank:0,
       technology: 0
     },
     {
@@ -114,7 +123,7 @@ class Soldier < ApplicationRecord
       skill_label: '',
       enable_equip: true,
       gold: 40,
-      rank:5001,
+      need_rank:5001,
       technology: 200
     },
     {
@@ -128,7 +137,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 40,
-      rank:5001,
+      need_rank:5001,
       technology: 200
     },
     {
@@ -142,7 +151,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 40,
-      rank:5001,
+      need_rank:5001,
       technology: 200
     },
     {
@@ -156,7 +165,7 @@ class Soldier < ApplicationRecord
       skill_label: '竹槍：竹槍で敵を倒すぞ',
       enable_equip: true,
       gold: 50,
-      rank:8000,
+      need_rank:8000,
       technology: 200
     },
     {
@@ -170,7 +179,7 @@ class Soldier < ApplicationRecord
       skill_label: 'すごい刀：攻撃力＋１０',
       enable_equip: true,
       gold: 50,
-      rank:8000,
+      need_rank:8000,
       technology: 200
     },
     {
@@ -184,7 +193,7 @@ class Soldier < ApplicationRecord
       skill_label: '火縄銃：火縄銃で殴る',
       enable_equip: true,
       gold: 50,
-      rank:8000,
+      need_rank:8000,
       technology: 200
     },
     {
@@ -198,7 +207,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 70,
-      rank:11001,
+      need_rank:11001,
       technology: 500
     },
     {
@@ -212,7 +221,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 70,
-      rank:11001,
+      need_rank:11001,
       technology: 500
     },
     {
@@ -226,7 +235,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 70,
-      rank:11001,
+      need_rank:11001,
       technology: 500
     },
     {
@@ -240,7 +249,7 @@ class Soldier < ApplicationRecord
       skill_label: '鉄槍：鉄でできている槍',
       enable_equip: true,
       gold: 85,
-      rank:14500,
+      need_rank:14500,
       technology: 500
     },
     {
@@ -254,7 +263,7 @@ class Soldier < ApplicationRecord
       skill_label: '先祖伝来の刀：攻撃力＋２０',
       enable_equip: true,
       gold: 85,
-      rank:14500,
+      need_rank:14500,
       technology: 500
     },
     {
@@ -268,7 +277,7 @@ class Soldier < ApplicationRecord
       skill_label: '火縄銃：火縄銃で攻撃',
       enable_equip: true,
       gold: 85,
-      rank:14500,
+      need_rank:14500,
       technology: 500
     },
     {
@@ -282,7 +291,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 160,
-      rank:18000,
+      need_rank:18000,
       technology: 800
     },
     {
@@ -296,7 +305,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 160,
-      rank:18000,
+      need_rank:18000,
       technology: 800
     },
     {
@@ -310,7 +319,7 @@ class Soldier < ApplicationRecord
       skill_label: nil,
       enable_equip: true,
       gold: 160,
-      rank:18000,
+      need_rank:18000,
       technology: 800
     },
     {
@@ -324,7 +333,7 @@ class Soldier < ApplicationRecord
       skill_label: '檄文：味方の攻撃力があがる',
       enable_equip: true,
       gold: 175,
-      rank:22000,
+      need_rank:22000,
       technology: 800
     },
     {
@@ -338,7 +347,7 @@ class Soldier < ApplicationRecord
       skill_label: '渾身の一撃：渾身の一撃を加える',
       enable_equip: true,
       gold: 175,
-      rank:22000,
+      need_rank:22000,
       technology: 800
     },
     {
@@ -352,7 +361,7 @@ class Soldier < ApplicationRecord
       skill_label: '雑賀筒：雑賀産の火縄銃',
       enable_equip: true,
       gold: 175,
-      rank:22000,
+      need_rank:22000,
       technology: 800
     },
     {
@@ -368,7 +377,7 @@ class Soldier < ApplicationRecord
 戦闘終了後兵士数＋５',
       enable_equip: true,
       gold: 220,
-      rank:26000,
+      need_rank:26000,
       technology: 950
     },
     {
@@ -383,7 +392,7 @@ class Soldier < ApplicationRecord
 攻＆守＝（武＋知＋統＋人望）×1.5',
       enable_equip: true,
       gold: 20,
-      rank:22000,
+      need_rank:22000,
       technology: 0
     },
     {
@@ -397,7 +406,7 @@ class Soldier < ApplicationRecord
       skill_label: '敵の攻守値をコピー(扇動スキル３（農民加勢）の効果は適応されない)',
       enable_equip: false,
       gold: 250,
-      rank:0,
+      need_rank:0,
       technology: 990
     },
     {
@@ -413,7 +422,7 @@ class Soldier < ApplicationRecord
 すべて運に任せろ。',
       enable_equip: true,
       gold: 175,
-      rank:0,
+      need_rank:0,
       technology: 800
     },
     {
@@ -429,7 +438,7 @@ class Soldier < ApplicationRecord
 すべて運に任せろ。',
       enable_equip: true,
       gold: 175,
-      rank:0,
+      need_rank:0,
       technology: 800,
       achievement: Achievement::MACAO
     },
@@ -446,7 +455,7 @@ class Soldier < ApplicationRecord
 すべて運に任せろ。',
       enable_equip: true,
       gold: 175,
-      rank:0,
+      need_rank:0,
       technology: 800,
       achievement: Achievement::LAS_VEGAS
     },
@@ -459,10 +468,11 @@ class Soldier < ApplicationRecord
   }
 
   after_initialize do
-    @param = SOLDIER_PARAMS.find do |option|
+    param_hash = SOLDIER_PARAMS.find do |option|
       (option[:officer_type].nil? || option[:officer_type] == self.user.officer_type) &&
         option[:soldier_type] == self.soldier_type.to_sym && option[:soldier_rank] == self.rank.to_sym
     end
+    @concrete_soldier = ConcreteSoldier.new(param_hash)
   end
 
   class << self
@@ -487,10 +497,6 @@ class Soldier < ApplicationRecord
   def soldier_rank_label
     RANK_LABEL_HASH[@option[:soldier_rank]]
   end
-
-  # def officer_type
-  #   @option[:officer_type]
-  # end
 
   def base_status_label
     label = User::OFFICER_TYPE_STATUS_LABEL_HASH[officer_type]
