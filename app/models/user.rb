@@ -111,7 +111,7 @@ class User < ApplicationRecord
   end
 
   def defence(in_battle = false)
-    defence = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.defense + (self.training / 2) + self.guard
+    defence = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.defence + (self.training / 2) + self.guard
     if in_battle
       defence = defence * self.battle_param.defence_percent / 100
       defence += self.battle_param.defence_correction
@@ -120,10 +120,11 @@ class User < ApplicationRecord
   end
 
   def equipment_param
+    return 0 unless self.soldier.enable_equip
     {
       STRENGTH => 0, INTELLIGENCE => self.book,
       LEADERSHIP => 0, CHARM => self.flag
-    }[self.officer_type] if self.soldier.enable_equip
+    }[self.officer_type]
   end
 
   def attack_and_defence_label(in_battle = false)

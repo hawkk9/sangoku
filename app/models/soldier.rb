@@ -15,14 +15,14 @@ class Soldier < ApplicationRecord
   
   ConcreteSoldier = Struct.new(
     :soldier_rank, :officer_type, :name,
-    :attack, :defense, :soldier_type,
+    :attack, :defence, :soldier_type,
     :skill, :skill_label, :enable_equip,
     :gold, :need_rank, :technology, keyword_init: true
   )
 
   belongs_to :user
 
-  delegate :name, to: :@concrete_soldier
+  delegate :name, :attack, :defence, :enable_equip, to: :@concrete_soldier
 
   ATTRIBUTE_LABEL_HASH = {
     none: '無し',
@@ -47,7 +47,7 @@ class Soldier < ApplicationRecord
       officer_type: User::STRENGTH,
       name: '農民',
       attack: 0.8,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: nil,
@@ -61,7 +61,7 @@ class Soldier < ApplicationRecord
       officer_type: User::STRENGTH,
       name: '一領具足',
       attack: 0.8,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: '投石器：石を投げて攻撃する',
@@ -75,7 +75,7 @@ class Soldier < ApplicationRecord
       officer_type: User::STRENGTH,
       name: '足軽兵',
       attack: 0.45,
-      defense: 0.25,
+      defence: 0.25,
       soldier_type: :infantry,
       skill: nil,
       skill_label: '',
@@ -89,7 +89,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '民衆',
       attack: 0.8,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: nil,
@@ -103,7 +103,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '一揆軍',
       attack: 0.8,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: '掛け声：攻撃力が上がる',
@@ -117,7 +117,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '民兵',
       attack: 0.75,
-      defense: 0.35,
+      defence: 0.35,
       soldier_type: :infantry,
       skill: nil,
       skill_label: '',
@@ -131,7 +131,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '暴走族',
       attack: 0.9,
-      defense: 0.2,
+      defence: 0.2,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: nil,
@@ -145,7 +145,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: 'やくざ',
       attack: 1.1,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: nil,
       skill_label: nil,
@@ -159,7 +159,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '一向一揆軍',
       attack: 0.75,
-      defense: 0.35,
+      defence: 0.35,
       soldier_type: :infantry,
       skill: nil,
       skill_label: '竹槍：竹槍で敵を倒すぞ',
@@ -173,7 +173,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '地侍',
       attack: 0.9,
-      defense: 0.2,
+      defence: 0.2,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: 'すごい刀：攻撃力＋１０',
@@ -187,7 +187,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '種子島の人',
       attack: 1.1,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: nil,
       skill_label: '火縄銃：火縄銃で殴る',
@@ -201,7 +201,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '自警団の青年',
       attack: 0.9,
-      defense: 0.4,
+      defence: 0.4,
       soldier_type: :infantry,
       skill: nil,
       skill_label: nil,
@@ -215,7 +215,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '海賊',
       attack: 1.1,
-      defense: 0.2,
+      defence: 0.2,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: nil,
@@ -229,7 +229,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '倭寇',
       attack: 1.3,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: nil,
       skill_label: nil,
@@ -243,7 +243,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '長島一揆軍',
       attack: 0.9,
-      defense: 0.4,
+      defence: 0.4,
       soldier_type: :infantry,
       skill: nil,
       skill_label: '鉄槍：鉄でできている槍',
@@ -257,7 +257,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '豪族',
       attack: 1.1,
-      defense: 0.2,
+      defence: 0.2,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: '先祖伝来の刀：攻撃力＋２０',
@@ -271,7 +271,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '雑賀衆',
       attack: 1.3,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: '',
       skill_label: '火縄銃：火縄銃で攻撃',
@@ -285,7 +285,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '皇兵',
       attack: 1.2,
-      defense: 0.5,
+      defence: 0.5,
       soldier_type: :infantry,
       skill: nil,
       skill_label: nil,
@@ -299,7 +299,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '武士',
       attack: 1.4,
-      defense: 0.3,
+      defence: 0.3,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: nil,
@@ -313,7 +313,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '義賊',
       attack: 1.7,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: nil,
       skill_label: nil,
@@ -327,7 +327,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '本願寺顕如',
       attack: 1.7,
-      defense: 0,
+      defence: 0,
       soldier_type: :infantry,
       skill: nil,
       skill_label: '檄文：味方の攻撃力があがる',
@@ -341,7 +341,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '落ち武者',
       attack: 1.7,
-      defense: 0,
+      defence: 0,
       soldier_type: :cavalry,
       skill: nil,
       skill_label: '渾身の一撃：渾身の一撃を加える',
@@ -355,7 +355,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '孫一軍',
       attack: 1.7,
-      defense: 0,
+      defence: 0,
       soldier_type: :archer,
       skill: nil,
       skill_label: '雑賀筒：雑賀産の火縄銃',
@@ -369,7 +369,7 @@ class Soldier < ApplicationRecord
       officer_type: User::CHARM,
       name: '革命軍',
       attack: 1.7,
-      defense: 0.6,
+      defence: 0.6,
       soldier_type: :none,
       skill: nil,
       skill_label: '農民数に関係なく徴兵できる。
@@ -385,7 +385,7 @@ class Soldier < ApplicationRecord
       officer_type: nil,
       name: '攻城兵',
       attack: 1.5,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: '攻城戦において、
@@ -400,7 +400,7 @@ class Soldier < ApplicationRecord
       officer_type: nil,
       name: 'ミラーマン',
       attack: 0,
-      defense: 0,
+      defence: 0,
       soldier_type: :none,
       skill: nil,
       skill_label: '敵の攻守値をコピー(扇動スキル３（農民加勢）の効果は適応されない)',
@@ -414,7 +414,7 @@ class Soldier < ApplicationRecord
       officer_type: nil,
       name: 'モンテカルロ隊',
       attack: 1.0,
-      defense: 0.5,
+      defence: 0.5,
       soldier_type: :none,
       skill: nil,
       skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）
@@ -430,7 +430,7 @@ class Soldier < ApplicationRecord
       officer_type: nil,
       name: 'マカオ隊',
       attack: 1.5,
-      defense: 0.75,
+      defence: 0.75,
       soldier_type: :none,
       skill: nil,
       skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×1.5
@@ -447,7 +447,7 @@ class Soldier < ApplicationRecord
       officer_type: nil,
       name: 'ラスベガス隊',
       attack: 2.0,
-      defense: 1.0,
+      defence: 1.0,
       soldier_type: :none,
       skill: nil,
       skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×2.0
@@ -495,7 +495,11 @@ class Soldier < ApplicationRecord
   end
 
   def soldier_rank_label
-    RANK_LABEL_HASH[@option[:soldier_rank]]
+    RANK_LABEL_HASH[self.rank]
+  end
+
+  def soldier_type_label
+    ATTRIBUTE_LABEL_HASH[self.soldier_type]
   end
 
   def base_status_label

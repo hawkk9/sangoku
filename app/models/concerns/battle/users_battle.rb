@@ -52,9 +52,9 @@ module Battle
       @attack_user.soldier_num -= @defence_user.battle_param.damage
 
       @messages << Message::MessageWriter.message(
-        "ターン#{@turn}:#{@attack_user.name} #{@attack_user.soldier.name_with_rank}(#{@attack_user.soldier.attribute_label})" \
+        "ターン#{@turn}:#{@attack_user.name} #{@attack_user.soldier.name_with_rank}(#{@attack_user.soldier.soldier_type_label})" \
       " #{@attack_user.corrected_soldier_num}人↓(-#{@defence_user.battle_param.damage}) |" \
-      "#{@defence_user.name} #{@defence_user.soldier.name_with_rank}(#{@defence_user.soldier.attribute_label})" \
+      "#{@defence_user.name} #{@defence_user.soldier.name_with_rank}(#{@defence_user.soldier.soldier_type_label})" \
       " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.battle_param.damage})"
       )
     end
