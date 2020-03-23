@@ -3,6 +3,7 @@ require 'factory_bot'
 include FactoryBot::Syntax::Methods
 FactoryBot.find_definitions
 
+create(:game)
 country1 = create(:country, name: '豆板醤国', main_color: '#800000', sub_color: '#ffcfcf')
 country2 = create(:country, name: '甘党国', main_color: '#0f6080', sub_color: '#efffff')
 create(:town, name: '襄平', x: 8, y: 1, country: country1)
@@ -47,5 +48,7 @@ create(:town, name: '街亭', x: 3, y: 2, country: country1)
 create(:town, name: '柴桑', x: 6, y: 7, country: country1)
 user1 = create(:user, name: '醤油', character_id: 'soyu', country: country1, town: town1)
 user2 = create(:user, name: '砂糖', character_id: 'sato', country: country2, town: town2)
+create(:soldier, user: user1)
+create(:soldier, user: user2)
 create(:game)
 

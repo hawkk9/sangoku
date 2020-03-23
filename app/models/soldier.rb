@@ -23,8 +23,12 @@ class Soldier < ApplicationRecord
 
   delegate :name, :attack, :defence, :name_with_rank, :soldier_type_label, :enable_equip, to: :@concrete_soldier
 
-  after_initialize do
-    @concrete_soldier = Soldiers::ConcreteSoldier.to_concrete_soldier(self)
+  after_initialize do |soldier|
+    @concrete_soldier = Soldiers::ConcreteSoldier.to_concrete_soldier(
+      soldier.user.officer_type,
+      soldier.soldier_type,
+      soldier.rank
+    )
   end
 
   def is_advantageous(opponent_soldier_type)

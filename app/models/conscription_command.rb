@@ -1,4 +1,18 @@
 class ConscriptionCommand < ApplicationRecord
+  enum soldier_rank: {
+    none: 0, none_sp: 1, c: 2, c_sp: 3,
+    b: 4, b_sp: 5, a: 6, a_sp: 7,
+    s: 8, siege: 9, monte: 10, macao: 11,
+    vegas: 12, mirror: 13
+  }, _prefix: true
+
+  enum soldier_type: {
+    none: 0,
+    infantry: 1,
+    cavalry: 2,
+    archer: 3
+  }, _prefix: true
+
   belongs_to :command
 
   def execute
@@ -14,8 +28,8 @@ class ConscriptionCommand < ApplicationRecord
       self.town.save
       self.user.gold -= self.price
       self.user.training -= self.decrease_training
-      self.user.soldier_num += self.increase_soldier_num
-      self.user.soldier_type = self.soldier_type
+      self.user.soldier.num += self.increase_soldier_num
+      self.user.soldier.soldier_type = self.soldier_type
       self.user.save
     end
     Message::MessageWriter.write_user_log_file(self.user, messages)
@@ -48,10 +62,10 @@ class ConscriptionCommand < ApplicationRecord
 
   # HACK: soldier_typeやsoldier_numを変更した後に参照すると意図しない値になる
   def increase_soldier_num
-    soldier_num = self.soldier_type == self.user.soldier_type ?
-                    self.user.soldier_num + self.soldier_num : self.soldier_num
+    soldier_num = self.soldier_type == self.user.soldier.soldier_type ?
+                    self.user.soldier.num + self.soldier_num : self.soldier_num
     increased_soldier_num = [soldier_num, self.user.leadership].min
-    [increased_soldier_num - self.user.soldier_num, 0].max
+    [increased_soldier_num - self.user.soldier.num, 0].max
   end
 
   def decrease_training
@@ -67,6 +81,10 @@ class ConscriptionCommand < ApplicationRecord
   end
 
   def soldier
-    Soldiers::Soldier.find_by_officer_and_type(self.user.officer_type, self.soldier_type)
+    @soldier = Soldiers::ConcreteSoldier.to_concrete_soldier(
+      self.user.officer_type,
+      self.soldier_rank,
+      self.soldier_type
+    )
   end
 end

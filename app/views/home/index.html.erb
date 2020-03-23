@@ -195,7 +195,7 @@
         <tr>
           <td>兵種</td>
           <th colspan="4"><%= "#{@user.soldier.name_with_rank}:#{@user.soldier.soldier_type_label}" %></th>
-          <td>兵士</td><th><%= @user.soldier.soldier_num %></th><td>訓練</td><th><%= @user.training %></th></tr>
+          <td>兵士</td><th><%= @user.soldier.num %></th><td>訓練</td><th><%= @user.training %></th></tr>
         <tr><td>武器</td><th colspan="7">竹槍</th><th><%= @user.arm %></th></tr>
         <tr><td>防具</td><th colspan="7">普通のTシャツ</th><th><%= @user.guard %></th></tr>
         <tr><td>書物</td><th colspan="7">二コ厨入門書</th><th><%= @user.book %></th></tr>
@@ -509,7 +509,7 @@
     <tbody>
       <tr>
         <td bgcolor="<%= @user.country.sub_color %>">
-          <font color="<%= @user.country.main_color %>"><%= "#{@user.town.name}の守備(#{@user.town.town_defences.count}人):" %><% @user.town.town_defences.each do |town_defence| %><%= "#{town_defence.user.name}(#{town_defence.user.soldier.soldier_num})" %> <% end %>
+          <font color="<%= @user.country.main_color %>"><%= "#{@user.town.name}の守備(#{@user.town.town_defences.count}人):" %><% @user.town.town_defences.each do |town_defence| %><%= "#{town_defence.user.name}(#{town_defence.user.soldier.num})" %> <% end %>
           </font>
         </td>
       </tr>

@@ -459,10 +459,10 @@ module Soldiers
         end
       end
 
-      def to_concrete_soldier(soldier)
+      def to_concrete_soldier(officer_type, soldier_type, soldier_rank)
         param = SOLDIER_PARAMS.find do |param|
-          (param[:officer_type].nil? || param[:officer_type] == soldier.user.officer_type) &&
-            param[:soldier_type] == soldier.soldier_type.to_sym && param[:soldier_rank] == soldier.rank.to_sym
+          (param[:officer_type].nil? || param[:officer_type] == officer_type) &&
+            param[:soldier_type] == soldier_type.to_sym && param[:soldier_rank] == soldier_rank.to_sym
         end
         self.new(param)
       end
