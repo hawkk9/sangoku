@@ -11,7 +11,7 @@ module Skills
         ]
       end
 
-      def sennou_battling_effect(user, opponent_user, battle_context, is_attack)
+      def sennou_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = (user.intelligence + user.charm) / 11
         if Util::Calculator::draw_lots(odds)

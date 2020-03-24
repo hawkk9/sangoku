@@ -11,7 +11,7 @@ module Skills
         ]
       end
 
-      def tousou_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def tousou_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         odds = 75
         if Util::Calculator::draw_lots(odds)

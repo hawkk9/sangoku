@@ -1,12 +1,8 @@
 module Battle
   class BattleContext
-    attr_accessor :mode
-    attr_accessor :town
     attr_reader :turn_limit
 
-    def initialize(mode, town)
-      @mode = mode
-      @town = town
+    def initialize
       @turn_limit = 37
     end
 

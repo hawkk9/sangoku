@@ -8,26 +8,32 @@ class WarCommand < ApplicationRecord
   belongs_to :town
 
   def execute
-    attack_user = self.command.user
+    attack_user = Battle::AttackUser.new(
+      self.command.user,
+      self.mode
+    )
 
     # while
-    defence_user = self.town.town_defences.order(:order).first.user
-    battle = defence_user.nil? ? Battle::WallBattle.new(attack_user) : Battle::UsersBattle.new(attack_user, defence_user, self)
-    battle.handle
-    self.write_map_messages(attack_user, defence_user)
+    user = self.town.town_defences.order(:order).first.user
+    if user.present?
+      defence_user = Battle::DefenceUser.new(
+        user
+      )
+      battle = Battle::UsersBattle.new(attack_user, defence_user)
+    else
+      battle = Battle::WallBattle.new(attack_user)
+    end
+    battle.start
+    self.write_map_messages(attack_user)
     # end
   end
 
-  def write_map_messages(attack_user, defence_user)
+  def write_map_messages(attack_user)
     map_messages = []
-    map_messages << Message::MessageWriter.message("#{attack_user.country.name}の#{attack_user.name}は#{self.town.name}（#{self.town.country.name}）へ攻め込みました！")
-    if attack_user.is_win?
-      map_messages << Message::MessageWriter.message("<font color='blue'>【勝利】</font>#{attack_user.name}は#{defence_user.name}を倒しました！")
-      map_messages << Message::MessageWriter.message("#{defence_user.name}『負け！』 #{attack_user.name}『勝ち！』")
-    else
-      map_messages << Message::MessageWriter.message("<font color='red'>【敗北】</font>#{attack_user.name}は#{defence_user.name}に敗北した。。")
-      map_messages << Message::MessageWriter.message("#{defence_user.name}『勝ち！』 #{attack_user.name}『負け！』")
-    end
+    map_messages << Message::MessageWriter.message(
+      "#{attack_user.country.name}の#{attack_user.name}は" \
+      "#{self.town.name}（#{self.town.country.name}）へ攻め込みました！"
+    )
     Message::MessageWriter.write_map_log_file(map_messages.reverse)
   end
 

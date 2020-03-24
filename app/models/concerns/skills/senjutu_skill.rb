@@ -36,7 +36,7 @@ module Skills
         ]
       end
 
-      def fuiuti_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def fuiuti_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         enable = if user.strength >= user.intelligence
                    user.strength > opponent_user.strength
@@ -52,7 +52,7 @@ module Skills
         messages
       end
 
-      def yasyu_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def yasyu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if battle_context.mode == :yasyu.to_s
           enable = [user.strength, user.intelligence].max >= 130
@@ -66,7 +66,7 @@ module Skills
         messages
       end
 
-      def kyousyu_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def kyousyu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if battle_context.mode == :kyousyu.to_s
           enable = [user.strength, user.intelligence].max >= 160
@@ -80,7 +80,7 @@ module Skills
         messages
       end
 
-      def yasyu_battling_effect(user, opponent_user, battle_context, is_attack)
+      def yasyu_battling_effect(user, opponent_user, battle_context)
         messages = []
         if battle_context.mode == :yasyu.to_s
           odds = (user.strength + user.intelligence) / 10
@@ -96,7 +96,7 @@ module Skills
         messages
       end
 
-      def kyousyu_battling_effect(user, opponent_user, battle_context, is_attack)
+      def kyousyu_battling_effect(user, opponent_user, battle_context)
         messages = []
         if battle_context.mode == :kyousyu.to_s
           odds = (user.intelligence + user.charm) / 7

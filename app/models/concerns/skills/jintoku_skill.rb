@@ -16,7 +16,7 @@ module Skills
         ]
       end
 
-      def kasei_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def kasei_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         up_max_damage = (user.charm - opponent_user.charm) / 50
         return messages if up_max_damage < 1
@@ -27,7 +27,7 @@ module Skills
         messages
       end
 
-      def iatu_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def iatu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         gain = (user.charm - opponent_user.charm) / 30
         return messages if gain < 1

@@ -26,9 +26,10 @@ module Skills
         ]
       end
 
-      def keiryaku_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def keiryaku_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         turn = user.charm / 10
+        is_attack = user.class == Battle::AttackUser
         battle_context.turn_limit = battle_context.turn_limit + (turn * (is_attack ? 1 : -1))
         messages << Message::MessageWriter.message(
           "【計略】戦闘ターン数が#{turn}#{is_attack ? '増加' : '減少'}しました！（最大戦闘ターン数＝#{battle_context.turn_limit}）"
@@ -36,7 +37,7 @@ module Skills
         messages
       end
 
-      def kobu_battling_effect(user, opponent_user, battle_context, is_attack)
+      def kobu_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.charm / 11
         if Util::Calculator::draw_lots(odds)
@@ -48,7 +49,7 @@ module Skills
         messages
       end
 
-      def nouminkasei_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def nouminkasei_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         deno = battle_context.town.allegiance != 0 ? 400 / battle_context.town.allegiance : 10
         num = user.charm / deno

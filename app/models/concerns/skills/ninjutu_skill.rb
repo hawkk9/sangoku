@@ -26,7 +26,7 @@ module Skills
         ]
       end
 
-      def genei_battling_effect(user, opponent_user, battle_context, is_attack)
+      def genei_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.leadership / 11
         if Util::Calculator::draw_lots(odds)
@@ -38,7 +38,7 @@ module Skills
         messages
       end
 
-      def oukyu_after_battle_effect(user, opponent_user, battle_context, is_attack)
+      def oukyu_after_battle_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.leadership / 3
         if Util::Calculator::draw_lots(odds)
@@ -53,7 +53,7 @@ module Skills
         messages
       end
 
-      def ukenagasi_battling_effect(user, opponent_user, battle_context, is_attack)
+      def ukenagasi_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.leadership / 13
         if Util::Calculator::draw_lots(odds)

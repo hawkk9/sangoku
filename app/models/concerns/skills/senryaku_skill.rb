@@ -21,7 +21,7 @@ module Skills
         ]
       end
 
-      def otosiana_battling_effect(user, opponent_user, battle_context, is_attack)
+      def otosiana_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = (user.intelligence + user.charm) / 11
         if Util::Calculator::draw_lots(odds)
@@ -35,7 +35,7 @@ module Skills
         messages
       end
 
-      def engun_battling_effect(user, opponent_user, battle_context, is_attack)
+      def engun_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = (user.intelligence + user.charm) / 14
         if Util::Calculator::draw_lots(odds)
@@ -51,7 +51,7 @@ module Skills
         messages
       end
 
-      def mizuzeme_battling_effect(user, opponent_user, battle_context, is_attack)
+      def mizuzeme_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = (user.intelligence + user.charm) / 13
         if Util::Calculator::draw_lots(odds)

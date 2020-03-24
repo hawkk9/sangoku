@@ -90,7 +90,7 @@ module Formations
         }
       end
 
-      def gyorin_correction(user, opponent_user, battle_context, is_attack)
+      def gyorin_correction(user, opponent_user, battle_context)
         percent = 15
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 35
@@ -98,7 +98,7 @@ module Formations
         user.battle_param.attack_percent += percent
       end
 
-      def gangetu_correction(user, opponent_user, battle_context, is_attack)
+      def gangetu_correction(user, opponent_user, battle_context)
         correction = opponent_user.soldier.num - user.soldier.num
         return if correction <= 0
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
@@ -107,7 +107,7 @@ module Formations
         user.battle_param.attack_correction += correction
       end
 
-      def gankou_correction(user, opponent_user, battle_context, is_attack)
+      def gankou_correction(user, opponent_user, battle_context)
         percent = 15
         correction = 5
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
@@ -117,7 +117,7 @@ module Formations
         user.battle_param.defence_correction += correction
       end
 
-      def kakuyoku_correction(user, opponent_user, battle_context, is_attack)
+      def kakuyoku_correction(user, opponent_user, battle_context)
         correction = user.soldier.num - opponent_user.soldier.num
         return if correction <= 0
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
@@ -126,14 +126,14 @@ module Formations
         user.battle_param.attack_correction += correction
       end
 
-      def kouyaku_correction(user, opponent_user, battle_context, is_attack)
+      def kouyaku_correction(user, opponent_user, battle_context)
         user.battle_param.add_status_percents(10)
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           user.battle_param.attack_percent += 30
         end
       end
 
-      def tyouda_correction(user, opponent_user, battle_context, is_attack)
+      def tyouda_correction(user, opponent_user, battle_context)
         percent = 20
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 50
@@ -141,7 +141,7 @@ module Formations
         user.battle_param.attack_percent += percent
       end
 
-      def houen_correction(user, opponent_user, battle_context, is_attack)
+      def houen_correction(user, opponent_user, battle_context)
         percent = 30
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 50
@@ -149,26 +149,26 @@ module Formations
         user.battle_param.defence_percent += percent
       end
 
-      def kurumagakari_correction(user, opponent_user, battle_context, is_attack)
+      def kurumagakari_correction(user, opponent_user, battle_context)
         user.battle_param.add_status_percents(10)
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           user.battle_param.attack_percent += 30
         end
       end
 
-      def moroha_correction(user, opponent_user, battle_context, is_attack)
+      def moroha_correction(user, opponent_user, battle_context)
         correction = user.defence
         user.battle_param.defence_correction -= correction
         user.battle_param.attack_correction += correction
       end
 
-      def donjin_correction(user, opponent_user, battle_context, is_attack)
+      def donjin_correction(user, opponent_user, battle_context)
         correction = user.attack / 2
         user.battle_param.attack_correction -= correction
         user.battle_param.defence_correction += correction
       end
 
-      def densetu_correction(user, opponent_user, battle_context, is_attack)
+      def densetu_correction(user, opponent_user, battle_context)
         user.battle_param.add_status_percents(13)
       end
     end

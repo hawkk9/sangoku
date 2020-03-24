@@ -31,7 +31,7 @@ module Skills
         ]
       end
 
-      def oihagi_after_battle_effect(user, opponent_user, battle_context, is_attack)
+      def oihagi_after_battle_effect(user, opponent_user, battle_context)
         messages = []
         if user.is_win?
           product = rand(2..5)
@@ -47,7 +47,7 @@ module Skills
         messages
       end
 
-      def goudatu_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def goudatu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if user.intelligence >= opponent_user.intelligence
           user.battle_param.attack_correction += opponent_user.arm
@@ -58,7 +58,7 @@ module Skills
         messages
       end
 
-      def sikabane_battling_effect(user, opponent_user, battle_context, is_attack)
+      def sikabane_battling_effect(user, opponent_user, battle_context)
         messages = []
         need_down_num = (2100 / user.intelligence) + 3
         down_num = opponent_user.battle_param.before_soldier_num - opponent_user.soldier.num

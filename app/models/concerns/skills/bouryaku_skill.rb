@@ -21,7 +21,7 @@ module Skills
         ]
       end
 
-      def yuudou_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def yuudou_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if user.intelligence > opponent_user.intelligence
           if user.soldier.is_advantageous(opponent_user.soldier.soldier_type)
@@ -39,7 +39,7 @@ module Skills
         messages
       end
 
-      def bundan_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def bundan_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.intelligence / 2.5
         if Util::Calculator::draw_lots(odds)
@@ -55,7 +55,7 @@ module Skills
         messages
       end
 
-      def konran_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def konran_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if (user.soldier.num * 5) > opponent_user.soldier.num
           odds = [(user.intelligence / 3), 50].min

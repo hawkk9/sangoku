@@ -1,16 +1,16 @@
 module Battle
   class UsersBattle
-    def initialize(attack_user, defence_user, war_command)
+    def initialize(attack_user, defence_user)
       @attack_user = attack_user
       @defence_user = defence_user
       @attack_user.battle_param = Battle::BattleParam.new(@attack_user)
       @defence_user.battle_param = Battle::BattleParam.new(@defence_user)
-      @battle_context = Battle::BattleContext.new(war_command.mode, war_command.town)
+      @battle_context = Battle::BattleContext.new
       @turn = 0
       @messages = []
     end
 
-    def handle
+    def start
       @messages << Message::MessageWriter.message(
         "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
@@ -28,6 +28,7 @@ module Battle
       @messages.flatten!
       
       self.write_user_messages
+      self.write_map_messages
     end
     
     protected
@@ -133,6 +134,27 @@ module Battle
       user.is_win? ? messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}を倒した！8の貢献を得ました。") :
         messages << Message::MessageWriter.message("#{user.name}は#{opponent_user.name}に敗北した。。8の貢献を得ました。")
       messages
+    end
+
+
+    def write_map_messages
+      map_messages = []
+      if @attack_user.is_win?
+        map_messages << Message::MessageWriter.message(
+          "<font color='blue'>【勝利】</font>#{@attack_user.name}は#{@defence_user.name}を倒しました！"
+        )
+        map_messages << Message::MessageWriter.message(
+          "#{@defence_user.name}『負け！』 #{@attack_user.name}『勝ち！』"
+        )
+      else
+        map_messages << Message::MessageWriter.message(
+          "<font color='red'>【敗北】</font>#{@attack_user.name}は#{@defence_user.name}に敗北した。。"
+        )
+        map_messages << Message::MessageWriter.message(
+          "#{@defence_user.name}『勝ち！』 #{@attack_user.name}『負け！』"
+        )
+      end
+      Message::MessageWriter.write_map_log_file(map_messages.reverse)
     end
   end
 end

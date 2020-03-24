@@ -21,7 +21,7 @@ module Skills
         ]
       end
 
-      def ganseki_battling_effect(user, opponent_user, battle_context, is_attack)
+      def ganseki_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
@@ -34,7 +34,7 @@ module Skills
         messages
       end
 
-      def zoutiku_battling_effect(user, opponent_user, battle_context, is_attack)
+      def zoutiku_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 13
         if Util::Calculator::draw_lots(odds)
@@ -49,7 +49,7 @@ module Skills
         messages
       end
 
-      def sanada_battling_effect(user, opponent_user, battle_context, is_attack)
+      def sanada_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 50
         if Util::Calculator::draw_lots(odds)

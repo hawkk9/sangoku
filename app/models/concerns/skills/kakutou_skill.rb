@@ -21,7 +21,7 @@ module Skills
         ]
       end
 
-      def kaisin_battling_effect(user, opponent_user, battle_context, is_attack)
+      def kaisin_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
@@ -34,7 +34,7 @@ module Skills
         messages
       end
 
-      def kiai_battling_effect(user, opponent_user, battle_context, is_attack)
+      def kiai_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
@@ -46,7 +46,7 @@ module Skills
         messages
       end
 
-      def seiken_battling_effect(user, opponent_user, battle_context, is_attack)
+      def seiken_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 14
         if Util::Calculator::draw_lots(odds)

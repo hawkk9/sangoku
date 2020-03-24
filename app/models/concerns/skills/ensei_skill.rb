@@ -26,7 +26,7 @@ module Skills
         ]
       end
 
-      def tokkan_battling_effect(user, opponent_user, battle_context, is_attack)
+      def tokkan_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
@@ -40,7 +40,7 @@ module Skills
         messages
       end
 
-      def syokuji_battling_effect(user, opponent_user, battle_context, is_attack)
+      def syokuji_battling_effect(user, opponent_user, battle_context)
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
@@ -52,7 +52,7 @@ module Skills
         messages
       end
 
-      def houi_before_battle_effect(user, opponent_user, battle_context, is_attack)
+      def houi_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         max = user.leadership / 12
         down_attack_percent = rand(1..max)
