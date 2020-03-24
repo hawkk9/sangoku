@@ -30,6 +30,7 @@ class ConscriptionCommand < ApplicationRecord
       self.user.training -= self.decrease_training
       self.user.soldier.num += self.increase_soldier_num
       self.user.soldier.soldier_type = self.soldier_type
+      self.user.soldier.save
       self.user.save
     end
     Message::MessageWriter.write_user_log_file(self.user, messages)
@@ -83,8 +84,8 @@ class ConscriptionCommand < ApplicationRecord
   def soldier
     @soldier = Soldiers::ConcreteSoldier.to_concrete_soldier(
       self.user.officer_type,
-      self.soldier_rank,
-      self.soldier_type
+      self.soldier_type,
+    self.soldier_rank
     )
   end
 end
