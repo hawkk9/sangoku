@@ -31,12 +31,12 @@ module Skills
         messages = []
         gain = (user.charm - opponent_user.charm) / 30
         return messages if gain < 1
-        opponent_user.soldier_num -= gain
-        user.soldier_num += gain
+        opponent_user.soldier.num -= gain
+        user.soldier.num += gain
         messages << Message::MessageWriter.message(
           "【威圧】#{opponent_user.name}を威圧しました。" \
-          "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{gain})" \
-          "#{user.name} #{user.soldier.name_with_rank} #{user.soldier_num}人 (+#{gain})"
+          "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{gain})" \
+          "#{user.name} #{user.soldier.name_with_rank} #{user.soldier.num}人 (+#{gain})"
         )
         messages
       end

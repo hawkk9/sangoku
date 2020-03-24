@@ -28,7 +28,7 @@ module Skills
           damage = rand(1..5)
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}の岩石落とし！" \
-            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
           )
         end
         messages
@@ -42,7 +42,7 @@ module Skills
           opponent_user.battle_param.calc_max_damage(rand(1..4))
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}の増築！" \
-            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})" \
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})" \
             "(最大ダメージ＝#{opponent_user.battle_param.max_damage})"
           )
         end
@@ -53,10 +53,10 @@ module Skills
         messages = []
         odds = user.strength / 50
         if Util::Calculator::draw_lots(odds)
-          damage = opponent_user.soldier_num / 2
+          damage = opponent_user.soldier.num / 2
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}の真田丸！" \
-            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
           )
         end
         messages

@@ -99,7 +99,7 @@ module Formations
       end
 
       def gangetu_correction(user, opponent_user, battle_context, is_attack)
-        correction = opponent_user.soldier_num - user.soldier_num
+        correction = opponent_user.soldier.num - user.soldier.num
         return if correction <= 0
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           correction *= 2
@@ -118,7 +118,7 @@ module Formations
       end
 
       def kakuyoku_correction(user, opponent_user, battle_context, is_attack)
-        correction = user.soldier_num - opponent_user.soldier_num
+        correction = user.soldier.num - opponent_user.soldier.num
         return if correction <= 0
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           correction *= 2

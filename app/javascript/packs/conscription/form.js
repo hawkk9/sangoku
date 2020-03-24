@@ -12,7 +12,7 @@ function submit_command() {
   const soldier_type = row.getElementsByClassName('js-soldier_type')[0].value
   const soldier_rank = row.getElementsByClassName('js-soldier_rank')[0].value
 
-  form.soldier_num.value = soldier_num
+  form.soldier.num.value = soldier_num
   form.soldier_type.value = soldier_type
   form.soldier_rank.value = soldier_rank
 

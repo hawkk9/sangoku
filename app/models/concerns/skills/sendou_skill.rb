@@ -52,9 +52,9 @@ module Skills
         messages = []
         deno = battle_context.town.allegiance != 0 ? 400 / battle_context.town.allegiance : 10
         num = user.charm / deno
-        user.soldier_num += num
+        user.soldier.num += num
         messages << Message::MessageWriter.message(
-          "【農民加勢】#{user.name}の兵数が上昇しました！(#{user.name}の兵数＝#{user.soldier_num})"
+          "【農民加勢】#{user.name}の兵数が上昇しました！(#{user.name}の兵数＝#{user.soldier.num})"
         )
         messages
       end

@@ -51,7 +51,7 @@ class User < ApplicationRecord
     messages = []
     return messages if self.battle_param.disable_advantageous
     return messages if self.battle_param.disable_formation || opponent_user.battle_param.disable_formation
-    if self.soldier.is_advantageous(opponent_user.soldier.attribute)
+    if self.soldier.is_advantageous(opponent_user.soldier.soldier_type)
       self.battle_param.calc_max_damage(2)
       messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
     end
@@ -77,7 +77,7 @@ class User < ApplicationRecord
   end
 
   def corrected_soldier_num
-    self.soldier_num > 0 ? self.soldier_num : 0
+    self.soldier.num > 0 ? self.soldier.num : 0
   end
 
   def officer_type_main_status_hash
@@ -132,7 +132,7 @@ class User < ApplicationRecord
   end
 
   def is_win?
-    self.soldier_num > 0
+    self.soldier.num > 0
   end
 
   def messages

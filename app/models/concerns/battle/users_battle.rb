@@ -33,7 +33,7 @@ module Battle
     protected
 
     def battle_loop
-      while @attack_user.soldier_num > 0 && @defence_user.soldier_num > 0 && @turn < @battle_context.turn_limit
+      while @attack_user.soldier.num > 0 && @defence_user.soldier.num > 0 && @turn < @battle_context.turn_limit
         @attack_user.calc_damage
         @defence_user.calc_damage
 
@@ -45,11 +45,11 @@ module Battle
     end
 
     def handle_normal_attack
-      @defence_user.soldier_num -= @attack_user.battle_param.damage
-      if @defence_user.soldier_num <= 0
+      @defence_user.soldier.num -= @attack_user.battle_param.damage
+      if @defence_user.soldier.num <= 0
         @defence_user.battle_param.damage = 0
       end
-      @attack_user.soldier_num -= @defence_user.battle_param.damage
+      @attack_user.soldier.num -= @defence_user.battle_param.damage
 
       @messages << Message::MessageWriter.message(
         "ターン#{@turn}:#{@attack_user.name} #{@attack_user.soldier.name_with_rank}(#{@attack_user.soldier.soldier_type_label})" \

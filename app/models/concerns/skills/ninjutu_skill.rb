@@ -42,10 +42,10 @@ module Skills
         messages = []
         odds = user.leadership / 3
         if Util::Calculator::draw_lots(odds)
-          downed_num = user.battle_param.before_soldier_num - user.soldier_num
+          downed_num = user.battle_param.before_soldier_num - user.soldier.num
           return messages if downed_num <= 0
           recovery_num = (downed_num * (rand(1..5) / 10.0)).to_i
-          user.soldier_num += recovery_num
+          user.soldier.num += recovery_num
           messages << Message::MessageWriter.message(
             "【応急処置】#{user.name}の兵が#{recovery_num}人、復帰しました"
           )

@@ -26,10 +26,10 @@ module Skills
         odds = (user.intelligence + user.charm) / 11
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..7)
-          opponent_user.soldier_num -= damage
+          opponent_user.soldier.num -= damage
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}が落とし穴を仕掛けました。" \
-            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
           )
         end
         messages
@@ -41,11 +41,11 @@ module Skills
         if Util::Calculator::draw_lots(odds)
           recovery = rand(1..5)
           user.battle_param.calc_max_damage(1)
-          user.soldier_num += recovery
+          user.soldier.num += recovery
           messages << Message::MessageWriter.message(
             "【援軍】#{user.name}に援軍が到着しました。味方の攻撃力が上昇しました。" \
             "#{user.name} (最大ダメージ＝#{user.battle_param.max_damage})" \
-            "#{opponent_user.soldier.name_with_rank} #{user.soldier_num}人 ↑(+#{recovery})"
+            "#{opponent_user.soldier.name_with_rank} #{user.soldier.num}人 ↑(+#{recovery})"
           )
         end
         messages
@@ -56,12 +56,12 @@ module Skills
         odds = (user.intelligence + user.charm) / 13
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
-          opponent_user.soldier_num -= damage
+          opponent_user.soldier.num -= damage
           opponent_user.battle_param.calc_max_damage(1)
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}が水攻めを仕掛けました。敵軍の攻撃力が低下しました。" \
             "#{opponent_user.name} (最大ダメージ＝#{opponent_user.battle_param.max_damage})" \
-            "#{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+            "#{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
           )
         end
         messages

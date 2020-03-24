@@ -31,10 +31,10 @@ module Skills
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
-          opponent_user.soldier_num -= damage
+          opponent_user.soldier.num -= damage
           messages << Message::MessageWriter.message(
             "【突貫】#{user.name}が突貫を仕掛けました。" \
-            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier_num}人 ↓(-#{damage})"
+            "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
           )
         end
         messages

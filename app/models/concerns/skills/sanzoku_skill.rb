@@ -61,7 +61,7 @@ module Skills
       def sikabane_battling_effect(user, opponent_user, battle_context, is_attack)
         messages = []
         need_down_num = (2100 / user.intelligence) + 3
-        down_num = opponent_user.battle_param.before_soldier_num - opponent_user.soldier_num
+        down_num = opponent_user.battle_param.before_soldier_num - opponent_user.soldier.num
         if (down_num - user.battle_param.down_correction) >= need_down_num
           user.battle_param.down_correction += need_down_num
           user.battle_param.calc_max_damage(rand(1..3))

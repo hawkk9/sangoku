@@ -35,7 +35,7 @@ class ConscriptionCommand < ApplicationRecord
   end
 
   def inputed_label
-    "#{self.soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier_num}人:#{self.price}Ｇ）"
+    "#{self.soldier.name_with_rank}#{Command::COMMAND_LABEL_HASH[self.command.command_type]}（#{self.soldier.num}人:#{self.price}Ｇ）"
   end
 
   protected
@@ -55,7 +55,7 @@ class ConscriptionCommand < ApplicationRecord
   # HACK: soldier_typeやsoldier_numを変更した後に参照すると意図しない値になる
   def increase_soldier_num
     soldier_num = self.soldier_type == self.user.soldier.soldier_type ?
-                    self.user.soldier.num + self.soldier_num : self.soldier_num
+                    self.user.soldier.num + self.soldier.num : self.soldier.num
     increased_soldier_num = [soldier_num, self.user.leadership].min
     [increased_soldier_num - self.user.soldier.num, 0].max
   end
