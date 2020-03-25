@@ -95,7 +95,7 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 35
         end
-        user.battle_param.attack_percent += percent
+        user.attack_percent += percent
       end
 
       def gangetu_correction(user, opponent_user, battle_context)
@@ -104,7 +104,7 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           correction *= 2
         end
-        user.battle_param.attack_correction += correction
+        user.attack_correction += correction
       end
 
       def gankou_correction(user, opponent_user, battle_context)
@@ -113,8 +113,8 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 35
         end
-        user.battle_param.defence_percent += percent
-        user.battle_param.defence_correction += correction
+        user.defence_percent += percent
+        user.defence_correction += correction
       end
 
       def kakuyoku_correction(user, opponent_user, battle_context)
@@ -123,13 +123,13 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           correction *= 2
         end
-        user.battle_param.attack_correction += correction
+        user.attack_correction += correction
       end
 
       def kouyaku_correction(user, opponent_user, battle_context)
-        user.battle_param.add_status_percents(10)
+        user.add_status_percents(10)
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
-          user.battle_param.attack_percent += 30
+          user.attack_percent += 30
         end
       end
 
@@ -138,7 +138,7 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 50
         end
-        user.battle_param.attack_percent += percent
+        user.attack_percent += percent
       end
 
       def houen_correction(user, opponent_user, battle_context)
@@ -146,30 +146,30 @@ module Formations
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
           percent = 50
         end
-        user.battle_param.defence_percent += percent
+        user.defence_percent += percent
       end
 
       def kurumagakari_correction(user, opponent_user, battle_context)
-        user.battle_param.add_status_percents(10)
+        user.add_status_percents(10)
         if COMPATIBILITY_HASH[user.formation.to_sym].include?(opponent_user.formation.to_sym)
-          user.battle_param.attack_percent += 30
+          user.attack_percent += 30
         end
       end
 
       def moroha_correction(user, opponent_user, battle_context)
         correction = user.defence
-        user.battle_param.defence_correction -= correction
-        user.battle_param.attack_correction += correction
+        user.defence_correction -= correction
+        user.attack_correction += correction
       end
 
       def donjin_correction(user, opponent_user, battle_context)
         correction = user.attack / 2
-        user.battle_param.attack_correction -= correction
-        user.battle_param.defence_correction += correction
+        user.attack_correction -= correction
+        user.defence_correction += correction
       end
 
       def densetu_correction(user, opponent_user, battle_context)
-        user.battle_param.add_status_percents(13)
+        user.add_status_percents(13)
       end
     end
   end

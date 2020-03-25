@@ -50,7 +50,7 @@ module Skills
       def goudatu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         if user.intelligence >= opponent_user.intelligence
-          user.battle_param.attack_correction += opponent_user.arm
+          user.attack_correction += opponent_user.arm
           messages << Message::MessageWriter.message(
             "#{opponent_user.name}の武器(#{opponent_user.arm})の威力が#{user.name}の攻撃力に追加されました！" \
           )
@@ -61,12 +61,12 @@ module Skills
       def sikabane_battling_effect(user, opponent_user, battle_context)
         messages = []
         need_down_num = (2100 / user.intelligence) + 3
-        down_num = opponent_user.battle_param.before_soldier_num - opponent_user.soldier.num
-        if (down_num - user.battle_param.down_correction) >= need_down_num
-          user.battle_param.down_correction += need_down_num
-          user.battle_param.calc_max_damage(rand(1..3))
+        down_num = opponent_user.before_soldier_num - opponent_user.soldier.num
+        if (down_num - user.down_correction) >= need_down_num
+          user.down_correction += need_down_num
+          user.calc_max_damage(rand(1..3))
           messages << Message::MessageWriter.message(
-            "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})" \
+            "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})" \
           )
         end
         messages

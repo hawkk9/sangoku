@@ -3,8 +3,6 @@ module Battle
     def initialize(attack_user, defence_user)
       @attack_user = attack_user
       @defence_user = defence_user
-      @attack_user.battle_param = Battle::BattleParam.new(@attack_user)
-      @defence_user.battle_param = Battle::BattleParam.new(@defence_user)
       @battle_context = Battle::BattleContext.new
       @turn = 0
       @messages = []
@@ -12,8 +10,8 @@ module Battle
 
     def start
       @messages << Message::MessageWriter.message(
-        "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
-        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
+        "【デバッグ用】【#{@attack_user.name}#{@attack_user.attack_and_defence_label}】" \
+        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label}】"
       )
 
       self.invoke_before_battle_skills
@@ -46,25 +44,25 @@ module Battle
     end
 
     def handle_normal_attack
-      @defence_user.soldier.num -= @attack_user.battle_param.damage
+      @defence_user.soldier.num -= @attack_user.damage
       if @defence_user.soldier.num <= 0
-        @defence_user.battle_param.damage = 0
+        @defence_user.damage = 0
       end
-      @attack_user.soldier.num -= @defence_user.battle_param.damage
+      @attack_user.soldier.num -= @defence_user.damage
 
       @messages << Message::MessageWriter.message(
         "ターン#{@turn}:#{@attack_user.name} #{@attack_user.soldier.name_with_rank}(#{@attack_user.soldier.soldier_type_label})" \
-      " #{@attack_user.corrected_soldier_num}人↓(-#{@defence_user.battle_param.damage}) |" \
+      " #{@attack_user.corrected_soldier_num}人↓(-#{@defence_user.damage}) |" \
       "#{@defence_user.name} #{@defence_user.soldier.name_with_rank}(#{@defence_user.soldier.soldier_type_label})" \
-      " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.battle_param.damage})"
+      " #{@defence_user.corrected_soldier_num}人 ↓(-#{@attack_user.damage})"
       )
     end
 
     def handle_formation_correction
       correction = @attack_user.formation_correction
-      correction.call(@attack_user, @defence_user, @battle_context, true) unless correction.nil?
+      correction.call(@attack_user, @defence_user, @battle_context) unless correction.nil?
       correction = @defence_user.formation_correction
-      correction.call(@defence_user, @attack_user, @battle_context, true) unless correction.nil?
+      correction.call(@defence_user, @attack_user, @battle_context) unless correction.nil?
     end
 
     def invoke_before_battle_skills
@@ -81,11 +79,11 @@ module Battle
 
     def invoke_skills(timing)
       @attack_user.available_skill_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
-        message = effect.call(@attack_user, @defence_user, @battle_context, true)
+        message = effect.call(@attack_user, @defence_user, @battle_context)
         @messages += message
       end
       @defence_user.available_skill_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
-        message = effect.call(@defence_user, @attack_user, @battle_context, false)
+        message = effect.call(@defence_user, @attack_user, @battle_context)
         @messages += message
       end
     end
@@ -96,22 +94,22 @@ module Battle
       )
 
       @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}（攻：守＝#{@attack_user.battle_param.attack_percent}%：#{@attack_user.battle_param.defence_percent}%）】" \
-        "【#{@defence_user.name}（攻：守＝#{@defence_user.battle_param.attack_percent}%：#{@defence_user.battle_param.defence_percent}%）】"
+        "【#{@attack_user.name}（攻：守＝#{@attack_user.attack_percent}%：#{@attack_user.defence_percent}%）】" \
+        "【#{@defence_user.name}（攻：守＝#{@defence_user.attack_percent}%：#{@defence_user.defence_percent}%）】"
       )
 
       @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}#{@attack_user.attack_and_defence_label(true)}】" \
-        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label(true)}】"
+        "【#{@attack_user.name}#{@attack_user.attack_and_defence_label}】" \
+        "【#{@defence_user.name}#{@defence_user.attack_and_defence_label}】"
       )
 
-      @attack_user.calc_max_damage(@defence_user.defence(true))
-      @defence_user.calc_max_damage(@attack_user.defence(true))
+      @attack_user.calc_max_damage(@defence_user.defence)
+      @defence_user.calc_max_damage(@attack_user.defence)
       @messages << @attack_user.calc_advantageous(@defence_user)
       @messages << @defence_user.calc_advantageous(@attack_user)
       @messages << Message::MessageWriter.message(
-        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.battle_param.max_damage}】" \
-      "【#{@defence_user.name}の最大ダメージ：#{@defence_user.battle_param.max_damage}】"
+        "【#{@attack_user.name}の最大ダメージ：#{@attack_user.max_damage}】" \
+      "【#{@defence_user.name}の最大ダメージ：#{@defence_user.max_damage}】"
       )
 
       @messages << Message::MessageWriter.message(

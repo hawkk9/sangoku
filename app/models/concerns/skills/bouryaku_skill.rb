@@ -25,12 +25,12 @@ module Skills
         messages = []
         if user.intelligence > opponent_user.intelligence
           if user.soldier.is_advantageous(opponent_user.soldier.soldier_type)
-            user.battle_param.calc_max_damage(1)
+            user.calc_max_damage(1)
             messages << Message::MessageWriter.message(
               "【誘導】最大ダメージがさらに+1されます。"
             )
           else
-            opponent_user.battle_param.disable_advantageous = true
+            opponent_user.disable_advantageous = true
             messages << Message::MessageWriter.message(
               "【誘導】最大ダメージ増加を阻止しました。"
             )
@@ -45,7 +45,7 @@ module Skills
         if Util::Calculator::draw_lots(odds)
           percent = [(user.intelligence / 15), 90].min
           damage = rand(1..5)
-          opponent_user.battle_param.attack_percent -= percent
+          opponent_user.attack_percent -= percent
           opponent_user.soldier.num -= damage
           messages << Message::MessageWriter.message(
             "【分断工作】#{opponent_user.name}の攻撃力が#{percent}%低下しました。" \
@@ -60,7 +60,7 @@ module Skills
         if (user.soldier.num * 5) > opponent_user.soldier.num
           odds = [(user.intelligence / 3), 50].min
           if Util::Calculator::draw_lots(odds)
-            opponent_user.battle_param.disable_formation = true
+            opponent_user.disable_formation = true
             messages << Message::MessageWriter.message(
               "【混乱】#{opponent_user.name}の陣形が無効になりました。"
             )

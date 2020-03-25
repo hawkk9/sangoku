@@ -1,7 +1,4 @@
 module Battle
-  class DefenceUser
-    def initialize(user)
-      @user = user
-    end
+  class DefenceUser < BattleUser
   end
 end

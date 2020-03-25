@@ -20,7 +20,7 @@ module Skills
         messages = []
         up_max_damage = (user.charm - opponent_user.charm) / 50
         return messages if up_max_damage < 1
-        user.battle_param.calc_max_damage(up_max_damage)
+        user.calc_max_damage(up_max_damage)
         messages << Message::MessageWriter.message(
           "【加勢】最大ダメージが+#{up_max_damage}されました！"
         )

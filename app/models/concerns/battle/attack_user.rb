@@ -1,7 +1,7 @@
 module Battle
-  class AttackUser
+  class AttackUser < BattleUser
     def initialize(user, mode)
-      @user = user
+      super(user)
       @mode = mode
     end
   end

@@ -44,9 +44,9 @@ module Skills
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
-          user.battle_param.calc_max_damage(1)
+          user.calc_max_damage(1)
           messages << Message::MessageWriter.message(
-            "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
+            "【食事】#{user.name}の最大ダメージが1上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
           )
         end
         messages
@@ -57,8 +57,8 @@ module Skills
         max = user.leadership / 12
         down_attack_percent = rand(1..max)
         gain = opponent_user.attack * down_attack_percent / 100
-        opponent_user.battle_param.attack_correction -= gain
-        user.battle_param.defence_correction += gain
+        opponent_user.attack_correction -= gain
+        user.defence_correction += gain
         messages << Message::MessageWriter.message(
           "【包囲】#{opponent_user.name}の攻撃力の#{down_attack_percent}％が#{user.name}の守備力になりました。"
         )

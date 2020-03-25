@@ -43,33 +43,8 @@ class User < ApplicationRecord
   attr_accessor :battle_param
 
   def calc_max_damage(defence)
-    diff = self.attack(true) - defence
-    self.battle_param.calc_max_damage(diff / 20) if diff > 0
-  end
-
-  def calc_advantageous(opponent_user)
-    messages = []
-    return messages if self.battle_param.disable_advantageous
-    return messages if self.battle_param.disable_formation || opponent_user.battle_param.disable_formation
-    if self.soldier.is_advantageous(opponent_user.soldier.soldier_type)
-      self.battle_param.calc_max_damage(2)
-      messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
-    end
-    messages
-  end
-
-  def calc_damage
-    self.battle_param.damage = rand(1..self.battle_param.max_damage)
-  end
-
-  def available_skill_effects(timing, conditions)
-    typed_skills = self.skills.map(&:typed_skill)
-    typed_skills.map { |typed_skill| typed_skill.available_effects(timing, conditions) }.flatten
-  end
-
-  def formation_correction
-    return nil if self.battle_param.disable_formation
-    Formations::Formation.formation_correction_hash[self.formation.to_sym]
+    diff = self.attack - defence
+    self.calc_max_damage(diff / 20) if diff > 0
   end
 
   def formation_name
@@ -101,21 +76,13 @@ class User < ApplicationRecord
     OFFICER_TYPE_EQUIP_LABEL_HASH[self.officer_type]
   end
 
-  def attack(in_battle = false)
+  def attack
     attack = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.attack + self.arm
-    if in_battle
-      attack = attack * self.battle_param.attack_percent / 100
-      attack += self.battle_param.attack_correction
-    end
     attack.to_i
   end
 
-  def defence(in_battle = false)
+  def defence
     defence = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.defence + (self.training / 2) + self.guard
-    if in_battle
-      defence = defence * self.battle_param.defence_percent / 100
-      defence += self.battle_param.defence_correction
-    end
     defence.to_i
   end
 
@@ -127,12 +94,8 @@ class User < ApplicationRecord
     }[self.officer_type]
   end
 
-  def attack_and_defence_label(in_battle = false)
-    "（攻：守＝#{self.attack(in_battle)}：#{self.defence(in_battle)}）"
-  end
-
-  def is_win?
-    self.soldier.num > 0
+  def attack_and_defence_label
+    "（攻：守＝#{self.attack}：#{self.defence}）"
   end
 
   def messages

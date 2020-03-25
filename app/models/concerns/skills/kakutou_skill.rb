@@ -25,8 +25,8 @@ module Skills
         messages = []
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
-          min_damage = user.battle_param.max_damage / 2
-          user.battle_param.damage = [user.battle_param.damage, min_damage].max if battle_param.damage != 0
+          min_damage = user.max_damage / 2
+          user.damage = [user.damage, min_damage].max if damage != 0
           messages << Message::MessageWriter.message(
             "【会心の一撃】#{user.name}の会心の一撃！"
           )
@@ -38,9 +38,9 @@ module Skills
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
-          user.battle_param.calc_max_damage(rand(1..2))
+          user.calc_max_damage(rand(1..2))
           messages << Message::MessageWriter.message(
-            "【気合いため】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.battle_param.max_damage})"
+            "【気合いため】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
           )
         end
         messages
@@ -50,7 +50,7 @@ module Skills
         messages = []
         odds = user.strength / 14
         if Util::Calculator::draw_lots(odds)
-          user.battle_param.damage *= 2
+          user.damage *= 2
           messages << Message::MessageWriter.message(
             "【正拳突き】#{user.name}の正拳突き！"
           )

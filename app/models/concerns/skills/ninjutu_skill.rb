@@ -30,7 +30,7 @@ module Skills
         messages = []
         odds = user.leadership / 11
         if Util::Calculator::draw_lots(odds)
-          opponent_user.battle_param.damage = 0
+          opponent_user.damage = 0
           messages << Message::MessageWriter.message(
             "【幻影】#{user.name}が幻影を発動しました。#{user.name}は攻撃を受けません。"
           )
@@ -42,7 +42,7 @@ module Skills
         messages = []
         odds = user.leadership / 3
         if Util::Calculator::draw_lots(odds)
-          downed_num = user.battle_param.before_soldier_num - user.soldier.num
+          downed_num = user.before_soldier_num - user.soldier.num
           return messages if downed_num <= 0
           recovery_num = (downed_num * (rand(1..5) / 10.0)).to_i
           user.soldier.num += recovery_num
@@ -57,7 +57,7 @@ module Skills
         messages = []
         odds = user.leadership / 13
         if Util::Calculator::draw_lots(odds)
-          user.battle_param.damage += opponent_user.battle_param.damage
+          user.damage += opponent_user.damage
           messages << Message::MessageWriter.message(
             "【受け流し】#{user.name}が受け流しを発動しました。#{opponent_user.name}が与えるダメージが#{user.name}の攻撃力に加わります"
           )
