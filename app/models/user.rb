@@ -42,11 +42,6 @@ class User < ApplicationRecord
 
   attr_accessor :battle_param
 
-  def calc_max_damage(defence)
-    diff = self.attack - defence
-    self.calc_max_damage(diff / 20) if diff > 0
-  end
-
   def formation_name
     Formations::Formation::LABEL_HASH[self.formation.to_sym][:name]
   end

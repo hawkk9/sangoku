@@ -58,13 +58,18 @@ module Battle
       return messages if self.disable_advantageous
       return messages if self.disable_formation || opponent_user.disable_formation
       if self.soldier.is_advantageous(opponent_user.soldier.soldier_type)
-        self.calc_max_damage(2)
+        self.add_max_damage(2)
         messages << "【兵種相性】#{self.name}の最大ダメージが2増加しました。"
       end
       messages
     end
 
-    def calc_damage
+    def define_max_damage(defence)
+      diff = self.attack - defence
+      self.add_max_damage(diff / 20) if diff > 0
+    end
+
+    def define_damage
       self.damage = rand(1..self.max_damage)
     end
 
@@ -77,7 +82,7 @@ module Battle
       self.defence_percent += percent
     end
 
-    def calc_max_damage(value)
+    def add_max_damage(value)
       @max_damage += value
       @max_damage = 1 if @max_damage < 1
     end

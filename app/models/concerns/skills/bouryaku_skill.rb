@@ -25,7 +25,7 @@ module Skills
         messages = []
         if user.intelligence > opponent_user.intelligence
           if user.soldier.is_advantageous(opponent_user.soldier.soldier_type)
-            user.calc_max_damage(1)
+            user.add_max_damage(1)
             messages << Message::MessageWriter.message(
               "【誘導】最大ダメージがさらに+1されます。"
             )

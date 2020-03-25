@@ -38,7 +38,7 @@ module Skills
         messages = []
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
-          user.calc_max_damage(rand(1..2))
+          user.add_max_damage(rand(1..2))
           messages << Message::MessageWriter.message(
             "【気合いため】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
           )

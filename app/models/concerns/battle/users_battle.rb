@@ -33,8 +33,8 @@ module Battle
 
     def battle_loop
       while @attack_user.soldier.num > 0 && @defence_user.soldier.num > 0 && @turn < @battle_context.turn_limit
-        @attack_user.calc_damage
-        @defence_user.calc_damage
+        @attack_user.define_damage
+        @defence_user.define_damage
 
         self.invoke_battling_skills
         self.handle_normal_attack
@@ -103,8 +103,8 @@ module Battle
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label}】"
       )
 
-      @attack_user.calc_max_damage(@defence_user.defence)
-      @defence_user.calc_max_damage(@attack_user.defence)
+      @attack_user.define_max_damage(@defence_user.defence)
+      @defence_user.define_max_damage(@attack_user.defence)
       @messages << @attack_user.calc_advantageous(@defence_user)
       @messages << @defence_user.calc_advantageous(@attack_user)
       @messages << Message::MessageWriter.message(

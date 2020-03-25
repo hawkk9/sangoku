@@ -39,7 +39,7 @@ module Skills
         odds = user.strength / 13
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..3)
-          opponent_user.calc_max_damage(rand(1..4))
+          opponent_user.add_max_damage(rand(1..4))
           messages << Message::MessageWriter.message(
             "【罠】#{user.name}の増築！" \
             "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})" \

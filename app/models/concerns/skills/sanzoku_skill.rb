@@ -64,7 +64,7 @@ module Skills
         down_num = opponent_user.before_soldier_num - opponent_user.soldier.num
         if (down_num - user.down_correction) >= need_down_num
           user.down_correction += need_down_num
-          user.calc_max_damage(rand(1..3))
+          user.add_max_damage(rand(1..3))
           messages << Message::MessageWriter.message(
             "【屍拾い】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})" \
           )
