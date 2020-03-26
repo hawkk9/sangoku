@@ -17,6 +17,9 @@ module Battle
       self.invoke_before_battle_skills
       self.handle_formation_correction
 
+      @attack_user.define_max_damage(@defence_user.defence)
+      @defence_user.define_max_damage(@attack_user.defence)
+
       self.write_before_battle_messages
 
       self.battle_loop
@@ -59,10 +62,15 @@ module Battle
     end
 
     def handle_formation_correction
+      # 攻守補正
       correction = @attack_user.formation_correction
       correction.call(@attack_user, @defence_user, @battle_context) unless correction.nil?
       correction = @defence_user.formation_correction
       correction.call(@defence_user, @attack_user, @battle_context) unless correction.nil?
+
+      # 相性
+      @messages << @attack_user.calc_advantageous(@defence_user)
+      @messages << @defence_user.calc_advantageous(@attack_user)
     end
 
     def invoke_before_battle_skills
@@ -103,10 +111,6 @@ module Battle
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label}】"
       )
 
-      @attack_user.define_max_damage(@defence_user.defence)
-      @defence_user.define_max_damage(@attack_user.defence)
-      @messages << @attack_user.calc_advantageous(@defence_user)
-      @messages << @defence_user.calc_advantageous(@attack_user)
       @messages << Message::MessageWriter.message(
         "【#{@attack_user.name}の最大ダメージ：#{@attack_user.max_damage}】" \
       "【#{@defence_user.name}の最大ダメージ：#{@defence_user.max_damage}】"
