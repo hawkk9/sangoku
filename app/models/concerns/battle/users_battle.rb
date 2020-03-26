@@ -14,7 +14,7 @@ module Battle
         "【#{@defence_user.name}#{@defence_user.attack_and_defence_label}】"
       )
 
-      self.invoke_before_battle_skills
+      self.invoke_before_battle_effects
       self.handle_formation_correction
 
       @attack_user.define_max_damage(@defence_user.defence)
@@ -24,7 +24,7 @@ module Battle
 
       self.battle_loop
 
-      self.invoke_after_battle_skills
+      self.invoke_after_battle_effects
 
       @messages.flatten!
       
@@ -39,7 +39,7 @@ module Battle
         @attack_user.define_damage
         @defence_user.define_damage
 
-        self.invoke_battling_skills
+        self.invoke_battling_effects
         self.handle_normal_attack
 
         @turn += 1
@@ -73,24 +73,24 @@ module Battle
       @messages << @defence_user.calc_advantageous(@attack_user)
     end
 
-    def invoke_before_battle_skills
-      self.invoke_skills(Skills::BaseSkill::TIMINGS[:before_battle])
+    def invoke_before_battle_effects
+      self.invoke_effects(Skills::BaseSkill::TIMINGS[:before_battle])
     end
     
-    def invoke_battling_skills
-      self.invoke_skills(Skills::BaseSkill::TIMINGS[:battling])
+    def invoke_battling_effects
+      self.invoke_effects(Skills::BaseSkill::TIMINGS[:battling])
     end
 
-    def invoke_after_battle_skills
-      self.invoke_skills(Skills::BaseSkill::TIMINGS[:after_battle])
+    def invoke_after_battle_effects
+      self.invoke_effects(Skills::BaseSkill::TIMINGS[:after_battle])
     end
 
-    def invoke_skills(timing)
-      @attack_user.available_skill_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
+    def invoke_effects(timing)
+      (@attack_user.soldier.available_effects + @attack_user.available_skill_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]])).each do |effect|
         message = effect.call(@attack_user, @defence_user, @battle_context)
         @messages += message
       end
-      @defence_user.available_skill_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
+      (@defence_user.soldier.available_effects + @defence_user.available_skill_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]])).each do |effect|
         message = effect.call(@defence_user, @attack_user, @battle_context)
         @messages += message
       end

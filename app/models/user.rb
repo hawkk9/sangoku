@@ -50,6 +50,10 @@ class User < ApplicationRecord
     self.soldier.num > 0 ? self.soldier.num : 0
   end
 
+  def main_status
+    self.officer_type_main_status_hash[self.officer_type]
+  end
+
   def officer_type_main_status_hash
     {
       STRENGTH => self.strength, INTELLIGENCE => self.intelligence,
@@ -72,12 +76,12 @@ class User < ApplicationRecord
   end
 
   def attack
-    attack = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.attack + self.arm
+    attack = (self.main_status + self.equipment_param) * self.soldier.attack + self.arm
     attack.to_i
   end
 
   def defence
-    defence = (self.officer_type_main_status_hash[self.officer_type] + self.equipment_param) * self.soldier.defence + (self.training / 2) + self.guard
+    defence = (self.main_status + self.equipment_param) * self.soldier.defence + (self.training / 2) + self.guard
     defence.to_i
   end
 

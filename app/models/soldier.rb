@@ -12,7 +12,7 @@ class Soldier < ApplicationRecord
     :archer => :cavalry
   }
 
-  delegate :name, :attack, :defence, :name_with_rank, :soldier_type_label, :enable_equip, to: :@concrete_soldier
+  delegate :name, :attack, :defence, :name_with_rank, :soldier_type_label, :enable_equip, :available_effects, to: :@concrete_soldier
 
   after_initialize do |soldier|
     @concrete_soldier = Soldiers::ConcreteSoldier.to_concrete_soldier(

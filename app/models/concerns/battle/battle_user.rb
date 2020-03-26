@@ -1,7 +1,7 @@
 module Battle
   class BattleUser
     delegate :name, :soldier, :formation, :formation_name, :country,
-             :corrected_soldier_num, :character_id, to: :@user
+             :main_status, :corrected_soldier_num, :character_id, to: :@user
 
     attr_accessor :before_soldier_num
     attr_accessor :damage
@@ -41,6 +41,14 @@ module Battle
 
     def attack_and_defence_label
       "（攻：守＝#{self.attack}：#{self.defence}）"
+    end
+
+    def available_effects(timing, conditions)
+      self.available_skill_effects(timing, conditions)
+    end
+
+    def available_soldier_effects(timing, conditions)
+      @user.soldier.available_effects(timing, conditions)
     end
 
     def available_skill_effects(timing, conditions)
