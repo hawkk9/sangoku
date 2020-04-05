@@ -289,8 +289,8 @@ module Soldiers
             attack: 1.2,
             defence: 0.3,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_max_damage_effect(2, 20, '欧州の馬')],
+            skill_label: '奥州の馬：なんかすごい馬',
             enable_equip: false,
             gold: 165,
             need_rank: 22000,
@@ -498,8 +498,8 @@ module Soldiers
             attack: 1.1,
             defence: 0.2,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_max_damage_effect(1, 20, '美濃八千騎')],
+            skill_label: '美濃八千騎：攻撃力が上がる',
             enable_equip: true,
             gold: 85,
             need_rank: 14500,
@@ -582,8 +582,8 @@ module Soldiers
             attack: 1.4,
             defence: 0.3,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_max_damage_effect(2, 20, '蹂躙せよ！！')],
+            skill_label: '蹂躙せよ！！：攻撃力があがる',
             enable_equip: true,
             gold: 175,
             need_rank: 22000,
@@ -791,8 +791,8 @@ module Soldiers
             attack: 0.9,
             defence: 0.2,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_max_damage_effect(1, 20, '檄')],
+            skill_label: '檄：攻撃力が上がる',
             enable_equip: false,
             gold: 90,
             need_rank: 14500,
@@ -930,7 +930,7 @@ module Soldiers
             attack: 0.8,
             defence: 0,
             soldier_type: :none,
-            skill: nil,
+            skill: [up_max_damage_effect(1, 20, '掛け声')],
             skill_label: '掛け声：攻撃力が上がる',
             enable_equip: true,
             gold: 20,
@@ -1154,7 +1154,7 @@ module Soldiers
             attack: 1.7,
             defence: 0,
             soldier_type: :infantry,
-            skill: nil,
+            skill: [up_max_damage_effect(2, 20, '檄文')],
             skill_label: '檄文：味方の攻撃力があがる',
             enable_equip: true,
             gold: 175,
@@ -1297,6 +1297,20 @@ module Soldiers
             messages << Message::MessageWriter.message(
               "【#{effect_name}】#{user.name}#{effect_message}" \
               "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
+            )
+          end
+          messages
+        end
+      end
+
+      def up_max_damage_effect(up_damage, odds_denominator, effect_name)
+        Proc.new do |user, opponent_user, battle_context|
+          messages = []
+          odds = user.main_status / odds_denominator
+          if Util::Calculator::draw_lots(odds)
+            user.add_max_damage(up_damage)
+            messages << Message::MessageWriter.message(
+              "【#{effect_name}】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
             )
           end
           messages
