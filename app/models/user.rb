@@ -42,6 +42,8 @@ class User < ApplicationRecord
 
   attr_accessor :battle_param
 
+  delegate :can_employ_soldiers, to: :soldier
+
   def formation_name
     Formations::Formation::LABEL_HASH[self.formation.to_sym][:name]
   end

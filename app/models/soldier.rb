@@ -25,4 +25,8 @@ class Soldier < ApplicationRecord
   def is_advantageous(opponent_soldier_type)
     opponent_soldier_type == ADVANTAGEOUS_HASH[self.soldier_type]
   end
+
+  def can_employ_soldiers
+    Soldiers::ConcreteSoldier.can_employ_soldiers(self.user)
+  end
 end
