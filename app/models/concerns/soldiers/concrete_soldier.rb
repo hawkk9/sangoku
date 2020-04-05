@@ -107,8 +107,8 @@ module Soldiers
             attack: 0.35,
             defence: 0.25,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 10)],
+            skill_label: '盾：防御力+10',
             enable_equip: false,
             gold: 70,
             need_rank: 8000,
@@ -135,8 +135,8 @@ module Soldiers
             attack: 0.6,
             defence: 0,
             soldier_type: :archer,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 10)],
+            skill_label: '火矢：攻撃力+10',
             enable_equip: false,
             gold: 70,
             need_rank: 8000,
@@ -191,8 +191,8 @@ module Soldiers
             attack: 0.6,
             defence: 0.4,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 20)],
+            skill_label: '大鎧：防御力+20',
             enable_equip: false,
             gold: 105,
             need_rank: 14500,
@@ -275,8 +275,8 @@ module Soldiers
             attack: 1,
             defence: 0.5,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 30)],
+            skill_label: '赤備え：防御力+30',
             enable_equip: false,
             gold: 165,
             need_rank: 22000,
@@ -400,8 +400,8 @@ module Soldiers
             attack: 0.75,
             defence: 0.35,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 10)],
+            skill_label: '鎖帷子：防御力＋１０',
             enable_equip: true,
             gold: 50,
             need_rank: 8000,
@@ -428,8 +428,8 @@ module Soldiers
             attack: 1.1,
             defence: 0,
             soldier_type: :archer,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 10)],
+            skill_label: 'クロスボウ：攻撃力＋１０',
             enable_equip: true,
             gold: 50,
             need_rank: 8000,
@@ -484,8 +484,8 @@ module Soldiers
             attack: 0.9,
             defence: 0.4,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 20)],
+            skill_label: '遁走：防御力＋２０',
             enable_equip: true,
             gold: 85,
             need_rank: 14500,
@@ -512,8 +512,8 @@ module Soldiers
             attack: 1.3,
             defence: 0,
             soldier_type: :archer,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 20)],
+            skill_label: '都城大弓：でかい弓、攻撃力＋２０',
             enable_equip: true,
             gold: 85,
             need_rank: 14500,
@@ -568,8 +568,8 @@ module Soldiers
             attack: 1.2,
             defence: 0.5,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 30)],
+            skill_label: '掛かれぇぇぇ！！！：攻撃力＋３０',
             enable_equip: true,
             gold: 175,
             need_rank: 22000,
@@ -693,8 +693,8 @@ module Soldiers
             attack: 0.45,
             defence: 0.25,
             soldier_type: :infantry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 10)],
+            skill_label: '警棒：攻撃力＋１０',
             enable_equip: false,
             gold: 70,
             need_rank: 8000,
@@ -707,8 +707,8 @@ module Soldiers
             attack: 0.6,
             defence: 0.1,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(defence: 10)],
+            skill_label: '母衣：防御力＋１０',
             enable_equip: false,
             gold: 70,
             need_rank: 8000,
@@ -875,8 +875,8 @@ module Soldiers
             attack: 1.3,
             defence: 0.3,
             soldier_type: :cavalry,
-            skill: nil,
-            skill_label: '',
+            skill: [up_status_effect(attack: 30)],
+            skill_label: '島左近：島左近でビビらす。攻撃力＋３０',
             enable_equip: false,
             gold: 120,
             need_rank: 22000,
@@ -1000,7 +1000,7 @@ module Soldiers
             attack: 0.9,
             defence: 0.2,
             soldier_type: :cavalry,
-            skill: nil,
+            skill: [up_status_effect(attack: 10)],
             skill_label: 'すごい刀：攻撃力＋１０',
             enable_equip: true,
             gold: 50,
@@ -1084,7 +1084,7 @@ module Soldiers
             attack: 1.1,
             defence: 0.2,
             soldier_type: :cavalry,
-            skill: nil,
+            skill: [up_status_effect(attack: 20)],
             skill_label: '先祖伝来の刀：攻撃力＋２０',
             enable_equip: true,
             gold: 85,
@@ -1303,16 +1303,25 @@ module Soldiers
         end
       end
 
-      def up_max_damage_effect(up_damage, odds_denominator, effect_name)
+      def up_max_damage_effect(value, odds_denominator, effect_name)
         Proc.new do |user, opponent_user, battle_context|
           messages = []
           odds = user.main_status / odds_denominator
           if Util::Calculator::draw_lots(odds)
-            user.add_max_damage(up_damage)
+            user.add_max_damage(value)
             messages << Message::MessageWriter.message(
               "【#{effect_name}】#{user.name}の最大ダメージが上昇しました！(#{user.name}の最大ダメージ＝#{user.max_damage})"
             )
           end
+          messages
+        end
+      end
+
+      def up_status_effect(attack: 0, defence: 0)
+        Proc.new do |user, opponent_user, battle_context|
+          messages = []
+          user.attack_correction += attack
+          user.defence_correction += defence
           messages
         end
       end
