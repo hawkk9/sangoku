@@ -44,11 +44,7 @@ module Battle
     end
 
     def available_effects(timing, conditions)
-      self.available_skill_effects(timing, conditions)
-    end
-
-    def available_soldier_effects(timing, conditions)
-      @user.soldier.available_effects(timing, conditions)
+      self.soldier.available_effects(timing) + self.available_skill_effects(timing, conditions)
     end
 
     def available_skill_effects(timing, conditions)

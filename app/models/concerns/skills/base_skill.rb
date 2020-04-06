@@ -5,12 +5,6 @@ module Skills
       defence: 1
     }.freeze
 
-    TIMINGS = {
-      before_battle: 0,
-      battling: 1,
-      after_battle: 2,
-    }.freeze
-
     class << self
       def before_battle_effects
         []
@@ -40,11 +34,11 @@ module Skills
 
     def available_effects(timing, conditions)
       case timing
-      when TIMINGS[:before_battle]
+      when Battle::Effect::TIMING_BEFORE_BATTLE
         self.effects_filter_by_conditions(@before_battle_effects, conditions)
-      when TIMINGS[:battling]
+      when Battle::Effect::TIMING_BATTLING
         self.effects_filter_by_conditions(@battling_effects, conditions)
-      when TIMINGS[:after_battle]
+      when Battle::Effect::TIMING_AFTER_BATTLE
         self.effects_filter_by_conditions(@after_battle_effects, conditions)
       end
     end

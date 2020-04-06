@@ -74,23 +74,23 @@ module Battle
     end
 
     def invoke_before_battle_effects
-      self.invoke_effects(Skills::BaseSkill::TIMINGS[:before_battle])
+      self.invoke_effects(Effect::TIMING_BEFORE_BATTLE)
     end
     
     def invoke_battling_effects
-      self.invoke_effects(Skills::BaseSkill::TIMINGS[:battling])
+      self.invoke_effects(Effect::TIMING_BATTLING)
     end
 
     def invoke_after_battle_effects
-      self.invoke_effects(Skills::BaseSkill::TIMINGS[:after_battle])
+      self.invoke_effects(Effect::TIMING_AFTER_BATTLE)
     end
 
     def invoke_effects(timing)
-      (@attack_user.soldier.available_effects + @attack_user.available_skill_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]])).each do |effect|
+      @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
         message = effect.call(@attack_user, @defence_user, @battle_context)
         @messages += message
       end
-      (@defence_user.soldier.available_effects + @defence_user.available_skill_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]])).each do |effect|
+      @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
         message = effect.call(@defence_user, @attack_user, @battle_context)
         @messages += message
       end
