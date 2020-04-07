@@ -5,24 +5,22 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:yuudou_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:yuudou_before_battle_effect)
           },
           {
             level: 2,
-            effect: method(:bundan_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:bundan_before_battle_effect)
           },
           {
             level: 3,
-            effect: method(:konran_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:konran_before_battle_effect)
           }
         ]
       end
 
       def yuudou_before_battle_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         if user.intelligence > opponent_user.intelligence
           if user.soldier.is_advantageous(opponent_user.soldier.soldier_type)
             user.add_max_damage(1)
@@ -41,6 +39,7 @@ module Skills
 
       def bundan_before_battle_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = user.intelligence / 2.5
         if Util::Calculator::draw_lots(odds)
           percent = [(user.intelligence / 15), 90].min
@@ -57,6 +56,7 @@ module Skills
 
       def konran_before_battle_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         if (user.soldier.num * 5) > opponent_user.soldier.num
           odds = [(user.intelligence / 3), 50].min
           if Util::Calculator::draw_lots(odds)

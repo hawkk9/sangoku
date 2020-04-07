@@ -5,13 +5,11 @@ module Skills
         [
           {
             level: 2,
-            effect: method(:kasei_before_battle_effect),
-            conditions: []
+            effect: method(:kasei_before_battle_effect)
           },
           {
             level: 3,
-            effect: method(:iatu_before_battle_effect),
-            conditions: []
+            effect: method(:iatu_before_battle_effect)
           }
         ]
       end

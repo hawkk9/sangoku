@@ -5,13 +5,11 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:genei_battling_effect),
-            conditions: []
+            effect: method(:genei_battling_effect)
           },
           {
             level: 3,
-            effect: method(:ukenagasi_battling_effect),
-            conditions: []
+            effect: method(:ukenagasi_battling_effect)
           }
         ]
       end
@@ -20,8 +18,7 @@ module Skills
         [
           {
             level: 2,
-            effect: method(:oukyu_after_battle_effect),
-            conditions: []
+            effect: method(:oukyu_after_battle_effect)
           }
         ]
       end

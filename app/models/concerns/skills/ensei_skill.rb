@@ -5,8 +5,7 @@ module Skills
         [
           {
             level: 3,
-            effect: method(:houi_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:houi_before_battle_effect)
           }
         ]
       end
@@ -15,19 +14,18 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:tokkan_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:tokkan_battling_effect)
           },
           {
             level: 2,
-            effect: method(:syokuji_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:syokuji_battling_effect)
           }
         ]
       end
 
       def tokkan_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::AttackUser)
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
@@ -42,6 +40,7 @@ module Skills
 
       def syokuji_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::AttackUser)
         odds = user.strength / 11
         if Util::Calculator::draw_lots(odds)
           user.add_max_damage(1)
@@ -54,6 +53,7 @@ module Skills
 
       def houi_before_battle_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::AttackUser)
         max = user.leadership / 12
         down_attack_percent = rand(1..max)
         gain = opponent_user.attack * down_attack_percent / 100

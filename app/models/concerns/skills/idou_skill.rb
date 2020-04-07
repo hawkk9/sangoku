@@ -5,8 +5,7 @@ module Skills
         [
           {
             level: 3,
-            effect: method(:tousou_before_battle_effect),
-            conditions: []
+            effect: method(:tousou_before_battle_effect)
           }
         ]
       end

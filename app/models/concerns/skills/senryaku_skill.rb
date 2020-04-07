@@ -5,24 +5,22 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:otosiana_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:otosiana_battling_effect)
           },
           {
             level: 2,
-            effect: method(:engun_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:engun_battling_effect)
           },
           {
             level: 3,
-            effect: method(:mizuzeme_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:mizuzeme_battling_effect)
           },
         ]
       end
 
       def otosiana_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = (user.intelligence + user.charm) / 11
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..7)
@@ -37,6 +35,7 @@ module Skills
 
       def engun_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = (user.intelligence + user.charm) / 14
         if Util::Calculator::draw_lots(odds)
           recovery = rand(1..5)
@@ -53,6 +52,7 @@ module Skills
 
       def mizuzeme_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = (user.intelligence + user.charm) / 13
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)

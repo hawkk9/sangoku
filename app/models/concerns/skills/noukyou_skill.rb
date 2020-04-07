@@ -5,18 +5,15 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:status_up_before_battle_effect),
-            conditions: []
+            effect: method(:status_up_before_battle_effect)
           },
           {
             level: 2,
-            effect: method(:status_up_before_battle_effect),
-            conditions: []
+            effect: method(:status_up_before_battle_effect)
           },
           {
             level: 3,
-            effect: method(:status_up_before_battle_effect),
-            conditions: []
+            effect: method(:status_up_before_battle_effect)
           },
         ]
       end

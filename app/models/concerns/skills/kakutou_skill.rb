@@ -5,18 +5,15 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:kaisin_battling_effect),
-            conditions: []
+            effect: method(:kaisin_battling_effect)
           },
           {
             level: 2,
-            effect: method(:kiai_battling_effect),
-            conditions: []
+            effect: method(:kiai_battling_effect)
           },
           {
             level: 3,
-            effect: method(:seiken_battling_effect),
-            conditions: []
+            effect: method(:seiken_battling_effect)
           }
         ]
       end

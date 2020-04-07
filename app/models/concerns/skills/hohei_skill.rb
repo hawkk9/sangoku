@@ -12,8 +12,7 @@ module Skills
             "#{opponent_user.name} #{opponent_user.soldier.name_with_rank} #{opponent_user.soldier.num}人 ↓(-#{damage})"
                      )
                    end
-                 end,
-                 conditions: []
+                 end
                }]
   end
 end

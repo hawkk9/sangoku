@@ -5,8 +5,7 @@ module Skills
         [
           {
             level: 3,
-            effect: method(:sennou_battling_effect),
-            conditions: []
+            effect: method(:sennou_battling_effect)
           }
         ]
       end

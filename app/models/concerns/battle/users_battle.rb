@@ -86,11 +86,11 @@ module Battle
     end
 
     def invoke_effects(timing)
-      @attack_user.available_effects(timing, [Skills::BaseSkill::CONDITIONS[:attack]]).each do |effect|
+      @attack_user.available_effects(timing).each do |effect|
         message = effect.call(@attack_user, @defence_user, @battle_context)
         @messages += message
       end
-      @defence_user.available_effects(timing,[Skills::BaseSkill::CONDITIONS[:defence]]).each do |effect|
+      @defence_user.available_effects(timing).each do |effect|
         message = effect.call(@defence_user, @attack_user, @battle_context)
         @messages += message
       end

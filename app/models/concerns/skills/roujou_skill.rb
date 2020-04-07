@@ -5,24 +5,22 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:ganseki_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:ganseki_battling_effect)
           },
           {
             level: 2,
-            effect: method(:zoutiku_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:zoutiku_battling_effect)
           },
           {
             level: 3,
-            effect: method(:sanada_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:defence]]
+            effect: method(:sanada_battling_effect)
           },
         ]
       end
 
       def ganseki_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = user.strength / 10
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..5)
@@ -36,6 +34,7 @@ module Skills
 
       def zoutiku_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = user.strength / 13
         if Util::Calculator::draw_lots(odds)
           damage = rand(1..3)
@@ -51,6 +50,7 @@ module Skills
 
       def sanada_battling_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::DefenceUser)
         odds = user.strength / 50
         if Util::Calculator::draw_lots(odds)
           damage = opponent_user.soldier.num / 2

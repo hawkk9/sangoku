@@ -5,18 +5,15 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:fuiuti_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:fuiuti_before_battle_effect)
           },
           {
             level: 2,
-            effect: method(:yasyu_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:yasyu_before_battle_effect)
           },
           {
             level: 3,
-            effect: method(:kyousyu_before_battle_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:kyousyu_before_battle_effect)
           },
         ]
       end
@@ -25,19 +22,18 @@ module Skills
         [
           {
             level: 2,
-            effect: method(:yasyu_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:yasyu_battling_effect)
           },
           {
             level: 3,
-            effect: method(:kyousyu_battling_effect),
-            conditions: [Skills::BaseSkill::CONDITIONS[:attack]]
+            effect: method(:kyousyu_battling_effect)
           },
         ]
       end
 
       def fuiuti_before_battle_effect(user, opponent_user, battle_context)
         messages = []
+        return messages unless user.is_a?(Battle::AttackUser)
         enable = if user.strength >= user.intelligence
                    user.strength > opponent_user.strength
                  else
@@ -54,7 +50,8 @@ module Skills
 
       def yasyu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
-        if battle_context.mode == :yasyu.to_s
+        return messages unless user.is_a?(Battle::AttackUser)
+        if user.mode == :yasyu.to_s
           enable = [user.strength, user.intelligence].max >= 130
           if enable
             opponent_user.add_status_percents(-5)
@@ -68,7 +65,8 @@ module Skills
 
       def kyousyu_before_battle_effect(user, opponent_user, battle_context)
         messages = []
-        if battle_context.mode == :kyousyu.to_s
+        return messages unless user.is_a?(Battle::AttackUser)
+        if user.mode == :kyousyu.to_s
           enable = [user.strength, user.intelligence].max >= 160
           if enable
             opponent_user.add_status_percents(-10)
@@ -82,7 +80,8 @@ module Skills
 
       def yasyu_battling_effect(user, opponent_user, battle_context)
         messages = []
-        if battle_context.mode == :yasyu.to_s
+        return messages unless user.is_a?(Battle::AttackUser)
+        if user.mode == :yasyu.to_s
           odds = (user.strength + user.intelligence) / 10
           if Util::Calculator::draw_lots(odds)
             damage = rand(1..5)
@@ -98,7 +97,8 @@ module Skills
 
       def kyousyu_battling_effect(user, opponent_user, battle_context)
         messages = []
-        if battle_context.mode == :kyousyu.to_s
+        return messages unless user.is_a?(Battle::AttackUser)
+        if user.mode == :kyousyu.to_s
           odds = (user.intelligence + user.charm) / 7
           if Util::Calculator::draw_lots(odds)
             damage = rand(1..7)

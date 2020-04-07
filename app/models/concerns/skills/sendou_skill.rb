@@ -5,13 +5,11 @@ module Skills
         [
           {
             level: 2,
-            effect: method(:keiryaku_before_battle_effect),
-            conditions: []
+            effect: method(:keiryaku_before_battle_effect)
           },
           {
             level: 3,
-            effect: method(:nouminkasei_before_battle_effect),
-            conditions: []
+            effect: method(:nouminkasei_before_battle_effect)
           },
         ]
       end
@@ -20,8 +18,7 @@ module Skills
         [
           {
             level: 1,
-            effect: method(:kobu_battling_effect),
-            conditions: []
+            effect: method(:kobu_battling_effect)
           },
         ]
       end
@@ -29,7 +26,7 @@ module Skills
       def keiryaku_before_battle_effect(user, opponent_user, battle_context)
         messages = []
         turn = user.charm / 10
-        is_attack = user.class == Battle::AttackUser
+        is_attack = user.is_a?(Battle::AttackUser)
         battle_context.turn_limit = battle_context.turn_limit + (turn * (is_attack ? 1 : -1))
         messages << Message::MessageWriter.message(
           "【計略】戦闘ターン数が#{turn}#{is_attack ? '増加' : '減少'}しました！（最大戦闘ターン数＝#{battle_context.turn_limit}）"

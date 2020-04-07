@@ -1,10 +1,5 @@
 module Skills
   class BaseSkill
-    CONDITIONS = {
-      attack: 0,
-      defence: 1
-    }.freeze
-
     class << self
       def before_battle_effects
         []
@@ -27,28 +22,20 @@ module Skills
     end
 
     def effects_filter_by_level(effects)
-      effects.filter do |effect|
-        effect[:level] <= @level
-      end
+      effects.map do |effect|
+        effect[:effect] if effect[:level] <= @level
+      end.compact
     end
 
-    def available_effects(timing, conditions)
+    def available_effects(timing)
       case timing
       when Battle::Effect::TIMING_BEFORE_BATTLE
-        self.effects_filter_by_conditions(@before_battle_effects, conditions)
+        @before_battle_effects
       when Battle::Effect::TIMING_BATTLING
-        self.effects_filter_by_conditions(@battling_effects, conditions)
+        @battling_effects
       when Battle::Effect::TIMING_AFTER_BATTLE
-        self.effects_filter_by_conditions(@after_battle_effects, conditions)
+        @after_battle_effects
       end
-    end
-
-    protected
-
-    def effects_filter_by_conditions(effects, conditions)
-      effects.map do |effect|
-        effect[:effect] if (effect[:conditions] & conditions).length >= effect[:conditions].length
-      end.compact
     end
   end
 end

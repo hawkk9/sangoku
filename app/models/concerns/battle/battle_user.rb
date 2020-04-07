@@ -1,6 +1,6 @@
 module Battle
   class BattleUser
-    delegate :name, :soldier, :formation, :formation_name, :country,
+    delegate :name, :strength,:intelligence, :soldier, :formation, :formation_name, :country,
              :main_status, :corrected_soldier_num, :character_id, to: :@user
 
     attr_accessor :before_soldier_num
@@ -43,13 +43,13 @@ module Battle
       "（攻：守＝#{self.attack}：#{self.defence}）"
     end
 
-    def available_effects(timing, conditions)
-      self.soldier.available_effects(timing) + self.available_skill_effects(timing, conditions)
+    def available_effects(timing)
+      self.soldier.available_effects(timing) + self.available_skill_effects(timing)
     end
 
-    def available_skill_effects(timing, conditions)
+    def available_skill_effects(timing)
       typed_skills = @user.skills.map(&:typed_skill)
-      typed_skills.map { |typed_skill| typed_skill.available_effects(timing, conditions) }.flatten
+      typed_skills.map { |typed_skill| typed_skill.available_effects(timing) }.flatten
     end
 
     def formation_correction
