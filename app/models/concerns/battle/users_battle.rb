@@ -74,15 +74,15 @@ module Battle
     end
 
     def invoke_before_battle_effects
-      self.invoke_effects(Effect::TIMING_BEFORE_BATTLE)
+      self.invoke_effects(:before)
     end
     
     def invoke_battling_effects
-      self.invoke_effects(Effect::TIMING_BATTLING)
+      self.invoke_effects(:battling)
     end
 
     def invoke_after_battle_effects
-      self.invoke_effects(Effect::TIMING_AFTER_BATTLE)
+      self.invoke_effects(:after)
     end
 
     def invoke_effects(timing)

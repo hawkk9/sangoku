@@ -1,6 +1,6 @@
 module Battle
   class BattleUser
-    delegate :name, :strength,:intelligence, :soldier, :formation, :formation_name, :country,
+    delegate :name, :strength,:intelligence, :leadership, :charm, :soldier, :formation, :formation_name, :country,
              :main_status, :corrected_soldier_num, :character_id, to: :@user
 
     attr_accessor :before_soldier_num

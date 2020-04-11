@@ -1,7 +1,14 @@
 module Battle
-  module Effect
-    TIMING_BEFORE_BATTLE = :before_battle
-    TIMING_BATTLING = :battling
-    TIMING_AFTER_BATTLE = :after_battle
+  class Effect
+    delegate :call, to: :@effect
+
+    def initialize(effect, timing)
+      @effect = effect
+      @timing = timing
+    end
+
+    def callable?(timing)
+      timing == @timing
+    end
   end
 end

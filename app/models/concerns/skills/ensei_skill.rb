@@ -1,24 +1,19 @@
 module Skills
   class EnseiSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
-        [
-          {
-            level: 3,
-            effect: method(:houi_before_battle_effect)
-          }
-        ]
-      end
-
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:tokkan_battling_effect)
+            effect: Battle::Effect.new(method(:tokkan_battling_effect), :battling)
           },
           {
             level: 2,
-            effect: method(:syokuji_battling_effect)
+            effect: Battle::Effect.new(method(:syokuji_battling_effect), :battling)
+        },
+          {
+            level: 3,
+            effect: Battle::Effect.new(method(:houi_before_battle_effect), :before)
           }
         ]
       end
