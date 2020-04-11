@@ -1,15 +1,15 @@
 module Skills
   class JintokuSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
+      def all_effects
         [
           {
             level: 2,
-            effect: method(:kasei_before_battle_effect)
+            effect: Battle::Effect.new(method(:kasei_before_battle_effect), :before)
           },
           {
             level: 3,
-            effect: method(:iatu_before_battle_effect)
+            effect: Battle::Effect.new(method(:iatu_before_battle_effect), :before)
           }
         ]
       end

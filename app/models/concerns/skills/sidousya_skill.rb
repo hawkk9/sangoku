@@ -1,11 +1,11 @@
 module Skills
   class SidousyaSkill < Skills::BaseSkill
     class << self
-      def battling_effects
+      def all_effects
         [
           {
             level: 3,
-            effect: method(:sennou_battling_effect)
+            effect: Battle::Effect.new(method(:sennou_battling_effect), :battling)
           }
         ]
       end

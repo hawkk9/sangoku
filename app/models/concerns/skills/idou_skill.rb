@@ -1,11 +1,11 @@
 module Skills
   class IdouSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
+      def all_effects
         [
           {
             level: 3,
-            effect: method(:tousou_before_battle_effect)
+            effect: Battle::Effect.new(method(:tousou_before_battle_effect), :before)
           }
         ]
       end

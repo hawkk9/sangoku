@@ -1,19 +1,19 @@
 module Skills
   class SenryakuSkill < Skills::BaseSkill
     class << self
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:otosiana_battling_effect)
+            effect: Battle::Effect.new(method(:otosiana_battling_effect), :battling)
           },
           {
             level: 2,
-            effect: method(:engun_battling_effect)
+            effect: Battle::Effect.new(method(:engun_battling_effect), :battling)
           },
           {
             level: 3,
-            effect: method(:mizuzeme_battling_effect)
+            effect: Battle::Effect.new(method(:mizuzeme_battling_effect), :battling)
           },
         ]
       end

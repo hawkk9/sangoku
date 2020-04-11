@@ -1,19 +1,19 @@
 module Skills
   class RoujouSkill < Skills::BaseSkill
     class << self
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:ganseki_battling_effect)
+            effect: Battle::Effect.new(method(:ganseki_battling_effect), :battling)
           },
           {
             level: 2,
-            effect: method(:zoutiku_battling_effect)
+            effect: Battle::Effect.new(method(:zoutiku_battling_effect), :battling)
           },
           {
             level: 3,
-            effect: method(:sanada_battling_effect)
+            effect: Battle::Effect.new(method(:sanada_battling_effect), :battling)
           },
         ]
       end

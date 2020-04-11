@@ -1,24 +1,19 @@
 module Skills
   class SendouSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
-        [
-          {
-            level: 2,
-            effect: method(:keiryaku_before_battle_effect)
-          },
-          {
-            level: 3,
-            effect: method(:nouminkasei_before_battle_effect)
-          },
-        ]
-      end
-
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:kobu_battling_effect)
+            effect: Battle::Effect.new(method(:kobu_battling_effect), :battling)
+          },
+          {
+            level: 2,
+            effect: Battle::Effect.new(method(:keiryaku_before_battle_effect), :before)
+          },
+          {
+            level: 3,
+            effect: Battle::Effect.new(method(:nouminkasei_before_battle_effect), :before)
           },
         ]
       end

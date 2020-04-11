@@ -1,29 +1,19 @@
 module Skills
   class SanzokuSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
-        [
-          {
-            level: 2,
-            effect: method(:goudatu_before_battle_effect)
-          }
-        ]
-      end
-
-      def battling_effects
-        [
-          {
-            level: 3,
-            effect: method(:sikabane_battling_effect)
-          }
-        ]
-      end
-
-      def after_battle_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:oihagi_after_battle_effect)
+            effect: Battle::Effect.new(method(:oihagi_after_battle_effect), :after)
+          },
+          {
+            level: 2,
+            effect: Battle::Effect.new(method(:goudatu_before_battle_effect), :before)
+          },
+          {
+            level: 3,
+            effect: Battle::Effect.new(method(:sikabane_battling_effect), :battling)
           }
         ]
       end

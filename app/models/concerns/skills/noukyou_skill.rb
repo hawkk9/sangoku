@@ -1,19 +1,19 @@
 module Skills
   class NoukyouSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:status_up_before_battle_effect)
+            effect: Battle::Effect.new(method(:status_up_before_battle_effect), :before)
           },
           {
             level: 2,
-            effect: method(:status_up_before_battle_effect)
+            effect: Battle::Effect.new(method(:status_up_before_battle_effect), :before)
           },
           {
             level: 3,
-            effect: method(:status_up_before_battle_effect)
+            effect: Battle::Effect.new(method(:status_up_before_battle_effect), :before)
           },
         ]
       end

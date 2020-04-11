@@ -1,33 +1,28 @@
 module Skills
   class SenjutuSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:fuiuti_before_battle_effect)
+            effect: Battle::Effect.new(method(:fuiuti_before_battle_effect), :before)
           },
           {
             level: 2,
-            effect: method(:yasyu_before_battle_effect)
+            effect: Battle::Effect.new(method(:yasyu_before_battle_effect), :before)
           },
-          {
-            level: 3,
-            effect: method(:kyousyu_before_battle_effect)
-          },
-        ]
-      end
-
-      def battling_effects
-        [
           {
             level: 2,
-            effect: method(:yasyu_battling_effect)
+            effect: Battle::Effect.new(method(:yasyu_battling_effect), :battling)
           },
           {
             level: 3,
-            effect: method(:kyousyu_battling_effect)
+            effect: Battle::Effect.new(method(:kyousyu_before_battle_effect), :before)
           },
+          {
+            level: 3,
+            effect: Battle::Effect.new(method(:kyousyu_battling_effect), :battling)
+          }
         ]
       end
 

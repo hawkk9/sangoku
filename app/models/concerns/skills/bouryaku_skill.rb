@@ -1,19 +1,19 @@
 module Skills
   class BouryakuSkill < Skills::BaseSkill
     class << self
-      def before_battle_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:yuudou_before_battle_effect)
+            effect: Battle::Effect.new(method(:yuudou_before_battle_effect), :before)
           },
           {
             level: 2,
-            effect: method(:bundan_before_battle_effect)
+            effect: Battle::Effect.new(method(:bundan_before_battle_effect), :before)
           },
           {
             level: 3,
-            effect: method(:konran_before_battle_effect)
+            effect: Battle::Effect.new(method(:konran_before_battle_effect), :before)
           }
         ]
       end

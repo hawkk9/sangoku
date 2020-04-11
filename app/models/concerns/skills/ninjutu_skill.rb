@@ -1,24 +1,19 @@
 module Skills
   class NinjutuSkill < Skills::BaseSkill
     class << self
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:genei_battling_effect)
+            effect: Battle::Effect.new(method(:genei_battling_effect), :battling)
+          },
+          {
+            level: 2,
+            effect: Battle::Effect.new(method(:oukyu_after_battle_effect), :after)
           },
           {
             level: 3,
-            effect: method(:ukenagasi_battling_effect)
-          }
-        ]
-      end
-
-      def after_battle_effects
-        [
-          {
-            level: 2,
-            effect: method(:oukyu_after_battle_effect)
+            effect: Battle::Effect.new(method(:ukenagasi_battling_effect), :battling)
           }
         ]
       end

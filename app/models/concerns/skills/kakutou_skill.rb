@@ -1,19 +1,19 @@
 module Skills
   class KakutouSkill < Skills::BaseSkill
     class << self
-      def battling_effects
+      def all_effects
         [
           {
             level: 1,
-            effect: method(:kaisin_battling_effect)
+            effect: Battle::Effect.new(method(:kaisin_battling_effect), :battling)
           },
           {
             level: 2,
-            effect: method(:kiai_battling_effect)
+            effect: Battle::Effect.new(method(:kiai_battling_effect), :battling)
           },
           {
             level: 3,
-            effect: method(:seiken_battling_effect)
+            effect: Battle::Effect.new(method(:seiken_battling_effect), :battling)
           }
         ]
       end
