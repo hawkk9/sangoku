@@ -1235,13 +1235,13 @@ module Soldiers
             soldier_rank: :monte,
             officer_type: nil,
             name: 'モンテカルロ隊',
-            attack: 1.0,
-            defence: 0.5,
+            attack: 0,
+            defence: 0,
             soldier_type: :none,
-            effects: [],
+            effects: [Battle::Effect.new(randam_status_effect(1.0, 0.5), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）<br>守備力＝０～（武力＋知力＋統率＋人望）×0.5。<br>すべて運に任せろ。',
             enable_equip: true,
-            gold: 175,
+            gold: 70,
             need_rank:0,
             technology: 800
           },
@@ -1249,13 +1249,13 @@ module Soldiers
             soldier_rank: :macao,
             officer_type: nil,
             name: 'マカオ隊',
-            attack: 1.5,
-            defence: 0.75,
+            attack: 0,
+            defence: 0,
             soldier_type: :none,
-            effects: [],
+            effects: [Battle::Effect.new(randam_status_effect(1.5, 0.75), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×1.5<br>守備力＝0～（武力＋知力＋統率＋人望）×0.75<br>すべて運に任せろ。',
             enable_equip: true,
-            gold: 175,
+            gold: 100,
             need_rank:0,
             technology: 800,
             achievement: Achievement::MACAO
@@ -1264,13 +1264,13 @@ module Soldiers
             soldier_rank: :vegas,
             officer_type: nil,
             name: 'ラスベガス隊',
-            attack: 2.0,
-            defence: 1.0,
+            attack: 0,
+            defence: 0,
             soldier_type: :none,
-            effects: [],
+            effects: [Battle::Effect.new(randam_status_effect(2.0, 1.5), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×2.0<br>守備力＝0～（武力＋知力＋統率＋人望）×1.0<br>すべて運に任せろ。',
             enable_equip: true,
-            gold: 175,
+            gold: 140,
             need_rank:0,
             technology: 800,
             achievement: Achievement::LAS_VEGAS
@@ -1308,12 +1308,22 @@ module Soldiers
         end
       end
 
-      # 戦闘開始前にのみ発動させないといけない
       def up_status_effect(attack: 0, defence: 0)
         Proc.new do |user, opponent_user, battle_context|
           messages = []
           user.attack_correction += attack
           user.defence_correction += defence
+          messages
+        end
+      end
+
+      def randam_status_effect(attack_coefficient ,defence_coefficient)
+        Proc.new do |user, opponent_user, battle_context|
+          messages = []
+          status_max = (user.strength + user.intelligence + user.leadership + user.charm)
+          status = rand(0..status_max)
+          user.attack_correction += status * attack_coefficient
+          user.defence_correction += status * defence_coefficient
           messages
         end
       end
