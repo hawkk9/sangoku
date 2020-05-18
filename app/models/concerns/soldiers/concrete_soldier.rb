@@ -1,6 +1,5 @@
 module Soldiers
   class ConcreteSoldier
-
     SOLDIER_TYPE_LABEL_HASH = {
       none: '無し',
       infantry: '歩',
@@ -22,10 +21,10 @@ module Soldiers
       :soldier_rank, :officer_type, :name,
       :attack, :defence, :soldier_type,
       :effects, :skill_label, :enable_equip,
-      :gold, :need_rank, :technology, keyword_init: true
+      :gold, :need_rank, :technology, :class, keyword_init: true
     )
 
-    delegate :name, :attack, :defence, :technology, :gold, :soldier_rank, :soldier_type, :officer_type, :enable_equip, :skill_label, to: :@common_soldier
+    delegate :name, :attack, :defence, :technology, :gold, :soldier_rank, :soldier_type, :officer_type, :enable_equip, :skill_label, to: :@concrete_soldier
 
     class << self
       def soldier_params
@@ -1217,6 +1216,7 @@ module Soldiers
             need_rank:22000,
             technology: 0
           },
+          # DOING
           {
             soldier_rank: :mirror,
             officer_type: nil,
@@ -1224,7 +1224,7 @@ module Soldiers
             attack: 0,
             defence: 0,
             soldier_type: :none,
-            effects: [],
+            effects: [Battle::Effect.new(copy_status_effect, :before)],
             skill_label: '敵の攻守値をコピー(扇動スキル３（農民加勢）の効果は適応されない)',
             enable_equip: false,
             gold: 250,
@@ -1240,10 +1240,11 @@ module Soldiers
             soldier_type: :none,
             effects: [Battle::Effect.new(randam_status_effect(1.0, 0.5), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）<br>守備力＝０～（武力＋知力＋統率＋人望）×0.5。<br>すべて運に任せろ。',
-            enable_equip: true,
+            enable_equip: false,
             gold: 70,
             need_rank:0,
-            technology: 800
+            technology: 0,
+            class: RandomSoldier
           },
           {
             soldier_rank: :macao,
@@ -1254,11 +1255,12 @@ module Soldiers
             soldier_type: :none,
             effects: [Battle::Effect.new(randam_status_effect(1.5, 0.75), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×1.5<br>守備力＝0～（武力＋知力＋統率＋人望）×0.75<br>すべて運に任せろ。',
-            enable_equip: true,
+            enable_equip: false,
             gold: 100,
             need_rank:0,
-            technology: 800,
-            achievement: Achievement::MACAO
+            technology: 0,
+            achievement: Achievement::MACAO,
+            class: RandomSoldier
           },
           {
             soldier_rank: :vegas,
@@ -1269,11 +1271,12 @@ module Soldiers
             soldier_type: :none,
             effects: [Battle::Effect.new(randam_status_effect(2.0, 1.5), :before)],
             skill_label: '攻撃力＝０～（武力＋知力＋統率＋人望）×2.0<br>守備力＝0～（武力＋知力＋統率＋人望）×1.0<br>すべて運に任せろ。',
-            enable_equip: true,
+            enable_equip: false,
             gold: 140,
             need_rank:0,
-            technology: 800,
-            achievement: Achievement::LAS_VEGAS
+            technology: 0,
+            achievement: Achievement::LAS_VEGAS,
+            class: RandomSoldier
           },
         ]
       end
@@ -1317,6 +1320,15 @@ module Soldiers
         end
       end
 
+      def copy_status_effect
+        Proc.new do |user, opponent_user, battle_context|
+          messages = []
+          user.attack_correction += opponent_user.attack
+          user.defence_correction += opponent_user.defence
+          messages
+        end
+      end
+
       def randam_status_effect(attack_coefficient ,defence_coefficient)
         Proc.new do |user, opponent_user, battle_context|
           messages = []
@@ -1350,7 +1362,8 @@ module Soldiers
     end
 
     def initialize(param)
-      @common_soldier = CommonSoldier.new(param)
+      @concrete_soldier = CommonSoldier.new(param)
+      # @concrete_soldier = @concrete_soldier.class.new(@concrete_soldier) if @concrete_soldier.class
     end
 
     # 例)暴走族【Cランク】
@@ -1373,7 +1386,7 @@ module Soldiers
     end
 
     def available_effects(timing)
-      @common_soldier.effects.filter { |effect| effect.callable?(timing) }
+      @concrete_soldier.effects.filter { |effect| effect.callable?(timing) }
     end
   end
 end

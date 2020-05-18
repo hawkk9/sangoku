@@ -1,7 +1,7 @@
 module Battle
   class BattleUser
     delegate :name, :strength,:intelligence, :leadership, :charm, :soldier, :formation, :formation_name, :country,
-             :main_status, :corrected_soldier_num, :character_id, to: :@user
+             :town, :main_status, :corrected_soldier_num, :character_id, to: :@user
 
     attr_accessor :before_soldier_num
     attr_accessor :damage
@@ -28,6 +28,7 @@ module Battle
     end
     
     def attack
+      # ランダム兵、ミラーでは、@user.attackの箇所のステータスを書き換えないといけない
       attack = @user.attack * self.attack_percent / 100
       attack += self.attack_correction
       attack.to_i 

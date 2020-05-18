@@ -171,92 +171,111 @@
 
 
 
-        <tr><th>開戦設定</th><th colspan="7"><br>
-          <br></th></tr>
+        <tr>
+          <th>開戦設定</th>
+          <th colspan="7"><br><br></th>
+        </tr>
 
         </tbody></table>
       </td></tr>
       <tr><td>
+        <table width="100%" bgcolor="<%= @user.country.main_color %>" cellspacing="1">
+          <tbody bgcolor="<%= @user.country.sub_color %>">
+            <tr>
+              <th colspan="9" bgcolor="<%= @user.country.main_color %>">
+                <font color="<%= @user.country.sub_color %>">
+                  <%= @user.name %>【勤続7年8ヶ月】【攻撃力：<%= @user.attack %> (＋0)】【守備力：<%= @user.defence %>(＋10)】</font>
+              </th>
+            </tr>
 
+            <tr>
+              <td rowspan="4" width="5"><%= image_tag('34.gif') %></td><td>武力</td><th><%= @user.strength %></th><td>知力</td><th><%= @user.intelligence %></th><td>統率力</td><th><%= @user.leadership %></th><td>人望</td><th><%= @user.charm %></th>
+            </tr>
+            <tr>
+              <td>武EX</td><th><%= @user.strength_exp %></th><td>知EX</td><th><%= @user.intelligence_exp %></th><td>統EX</td><th><%= @user.leadership_exp %></th><td>人望EX</td><th><%= @user.charm_exp %></th>
+            </tr>
+            <tr>
+              <td>金</td><th><%= @user.gold %></th><td>米</td><th><%= @user.rice %></th><td>所属</td><th>豆板醤国</th><td>部隊</td><th>伝説リプレイス部</th>
+            </tr>
+            <tr>
+              <td>階級</td><th>始皇帝</th><td>貢献</td><th>30</th><td>階級値</td><th colspan="3"><%= @user.rank %></th>
+            </tr>
 
-
-        <table width="100%" bgcolor="<%= @user.country.main_color %>" cellspacing="1"><tbody bgcolor="<%= @user.country.sub_color %>">
+            <tr>
+              <td>兵種</td>
+              <th colspan="4">
+                <%= "#{@user.soldier.name_with_rank}:#{@user.soldier.soldier_type_label}" %>
+              </th>
+              <td>兵士</td>
+              <th><%= @user.soldier.num %></th>
+              <td>訓練</td>
+              <th><%= @user.training %></th>
+            </tr>
+            <tr><td>武器</td><th colspan="7">竹槍</th><th><%= @user.arm %></th></tr>
+            <tr><td>防具</td><th colspan="7">普通のTシャツ</th><th><%= @user.guard %></th></tr>
+            <tr><td>書物</td><th colspan="7">二コ厨入門書</th><th><%= @user.book %></th></tr>
+            <tr><td>旗</td><th colspan="7">日の丸</th><th><%= @user.flag %></th></tr>
+            <tr><td>ON率</td><th colspan="7">251 / 729</th><th>34.43％</th></tr>
+            <tr>
+              <td>陣形</td><th colspan="3">伝説の陣</th><th colspan="5">攻守がそれぞれ１３％UP。特に苦手な陣も得意な陣も無い。</th>
+            </tr>
+            <form action="./mydata.cgi" method="post"></form>
+            <tr>
+              <td>陣形変更</td>
+              <th colspan="10">
+                <input type="hidden" name="mode" value="ZINKEI">
+                <select name="zinkei">
+                  <option value="">選択してください
+                  </option><option value="1"> 魚鱗の陣（勝0回：負1回） </option><option value="2"> 偃月の陣（勝0回：負0回） </option><option value="3"> 雁行の陣（勝0回：負0回） </option><option value="4"> 鶴翼の陣（勝0回：負0回） </option><option value="5"> 鋒矢の陣（勝0回：負0回） </option><option value="6"> 衝軛の陣（勝0回：負0回） </option><option value="7"> 長蛇の陣（勝2回：負0回） </option><option value="8"> 方円の陣（勝0回：負2回） </option><option value="9"> 車懸りの陣（勝0回：負0回） </option><option value="10"> 虎の陣（勝0回：負0回） </option><option value="11"> 諸刃の陣（勝0回：負0回） </option><option value="12"> 鈍刃の陣（勝4回：負30回） </option><option value="13"> 伝説の陣（勝2回：負5回）
+                  </option>
+                </select>
+                <input type="submit" value="変更">
+              </th>
+            </tr>
         <tr>
-          <th colspan="9" bgcolor="<%= @user.country.main_color %>">
-            <font color="<%= @user.country.sub_color %>"><%= @user.name %>【勤続7年8ヶ月】【攻撃力：<%= @user.attack %> (＋0)】【守備力：<%= @user.defence %>(＋10)】</font>
-          </th>
+          <td colspan="6">
+
+            <form action="./mydata.cgi" method="post">
+              <input type="hidden" name="mode" value="LETTER">
+              <input type="submit" value="個人宛手紙送信"><br>
+            </form>
+
+
+            <form action="./mydata.cgi" method="post">
+              <input type="hidden" name="mode" value="UNIT_SELECT">
+              <input type="submit" value="部隊所属申請＆設立">
+              <br>
+            </form>
+
+
+            <form action="./mylog2.cgi" method="post">
+              <input type="hidden" name="id" value="dummy">
+              <input type="hidden" name="eeeranku" value="35">
+              <input type="hidden" name="pass" value="dummy">
+              <input type="submit" value="国民のコマンド・更新時間を確認"><br>
+            </form>
+
+          </td>
+          <td colspan="3">
+            <form action="./mydata3.cgi" method="post">
+              <input type="hidden" name="mode" value="STATUS">
+              <input type="submit" value="各種設定変更＆過去ログ"><br>
+              行動ログ(400件)もこちらです。
+            </form>
+
+            <form action="./mydata4.cgi" method="post">
+              <input type="hidden" name="mode" value="STATUS">
+              <input type="submit" value="スキル取得・スキル一覧"><br>
+
+            </form>
+
+
+            <form action="./mydata5.cgi" method="post">
+              <input type="hidden" name="mode" value="STATUS">
+              <input type="submit" value="各種ランキング・特殊技能一覧"><br>
+            </form>
+          </td>
         </tr>
-
-        <tr><td rowspan="4" width="5"><%= image_tag('34.gif') %></td><td>武力</td><th><%= @user.strength %></th><td>知力</td><th><%= @user.intelligence %></th><td>統率力</td><th><%= @user.leadership %></th><td>人望</td><th><%= @user.charm %></th></tr>
-        <tr><td>武EX</td><th><%= @user.strength_exp %></th><td>知EX</td><th><%= @user.intelligence_exp %></th><td>統EX</td><th><%= @user.leadership_exp %></th><td>人望EX</td><th><%= @user.charm_exp %></th></tr>
-        <tr><td>金</td><th><%= @user.gold %></th><td>米</td><th><%= @user.rice %></th><td>所属</td><th>豆板醤国</th><td>部隊</td><th>伝説リプレイス部</th></tr>
-        <tr><td>階級</td><th>始皇帝</th><td>貢献</td><th>30</th><td>階級値</td><th colspan="3"><%= @user.rank %></th></tr>
-
-        <tr>
-          <td>兵種</td>
-          <th colspan="4"><%= "#{@user.soldier.name_with_rank}:#{@user.soldier.soldier_type_label}" %></th>
-          <td>兵士</td><th><%= @user.soldier.num %></th><td>訓練</td><th><%= @user.training %></th></tr>
-        <tr><td>武器</td><th colspan="7">竹槍</th><th><%= @user.arm %></th></tr>
-        <tr><td>防具</td><th colspan="7">普通のTシャツ</th><th><%= @user.guard %></th></tr>
-        <tr><td>書物</td><th colspan="7">二コ厨入門書</th><th><%= @user.book %></th></tr>
-        <tr><td>旗</td><th colspan="7">日の丸</th><th><%= @user.flag %></th></tr>
-        <tr><td>ON率</td><th colspan="7">251 / 729</th><th>34.43％</th></tr>
-        <tr><td>陣形</td><th colspan="3">伝説の陣</th><th colspan="5">攻守がそれぞれ１３％UP。特に苦手な陣も得意な陣も無い。</th></tr>
-        <form action="./mydata.cgi" method="post"></form><tr><td>陣形変更</td><th colspan="10">
-          <input type="hidden" name="mode" value="ZINKEI">
-
-          <select name="zinkei">
-            <option value="">選択してください
-            </option><option value="1"> 魚鱗の陣（勝0回：負1回） </option><option value="2"> 偃月の陣（勝0回：負0回） </option><option value="3"> 雁行の陣（勝0回：負0回） </option><option value="4"> 鶴翼の陣（勝0回：負0回） </option><option value="5"> 鋒矢の陣（勝0回：負0回） </option><option value="6"> 衝軛の陣（勝0回：負0回） </option><option value="7"> 長蛇の陣（勝2回：負0回） </option><option value="8"> 方円の陣（勝0回：負2回） </option><option value="9"> 車懸りの陣（勝0回：負0回） </option><option value="10"> 虎の陣（勝0回：負0回） </option><option value="11"> 諸刃の陣（勝0回：負0回） </option><option value="12"> 鈍刃の陣（勝4回：負30回） </option><option value="13"> 伝説の陣（勝2回：負5回）
-          </option></select>
-          <input type="submit" value="変更">
-        </th></tr>
-        <tr><td colspan="6">
-
-          <form action="./mydata.cgi" method="post">
-            <input type="hidden" name="mode" value="LETTER">
-            <input type="submit" value="個人宛手紙送信"><br>
-          </form>
-
-
-          <form action="./mydata.cgi" method="post">
-            <input type="hidden" name="mode" value="UNIT_SELECT">
-            <input type="submit" value="部隊所属申請＆設立">
-            <br>
-          </form>
-
-
-          <form action="./mylog2.cgi" method="post">
-            <input type="hidden" name="id" value="dummy">
-            <input type="hidden" name="eeeranku" value="35">
-            <input type="hidden" name="pass" value="dummy">
-            <input type="submit" value="国民のコマンド・更新時間を確認"><br>
-          </form>
-
-        </td><td colspan="3">
-
-
-          <form action="./mydata3.cgi" method="post">
-            <input type="hidden" name="mode" value="STATUS">
-            <input type="submit" value="各種設定変更＆過去ログ"><br>
-            行動ログ(400件)もこちらです。
-          </form>
-
-          <form action="./mydata4.cgi" method="post">
-            <input type="hidden" name="mode" value="STATUS">
-            <input type="submit" value="スキル取得・スキル一覧"><br>
-
-          </form>
-
-
-          <form action="./mydata5.cgi" method="post">
-            <input type="hidden" name="mode" value="STATUS">
-            <input type="submit" value="各種ランキング・特殊技能一覧"><br>
-
-          </form>
-
-
-        </td></tr>
         </tbody></table>
 
 
@@ -310,7 +329,8 @@
 
       </tbody></table>
 
-    </td><td valign="top">
+    </td>
+    <td valign="top">
 
 
 
@@ -486,7 +506,9 @@
 
 
 
-      </form></td></tr>
+      </form>
+    </td>
+    </tr>
 
     </tbody></table>
 </td></tr>
