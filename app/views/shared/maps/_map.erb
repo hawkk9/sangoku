@@ -10,7 +10,7 @@
     <tr>
       <td bgcolor="#C0C088"><%= y + 1 %></td>
       <% 10.times do |x| %>
-        <% town = @towns.find_by(y: y, x: x) %>
+        <% town = @towns.find { |town| town.y == y && town.x == x } %>
         <% if town.present? %>
           <th bgcolor="<%= @user.town != town ? town.country.main_color : '#efffff' %>">
             <font color="#ffffff"><%= town.name %></font>
