@@ -4,13 +4,13 @@ FactoryBot.define do
     password_digest { 'hoge' }
     name { '醤油' }
     image_path { 1 }
-    strength { 5 }
+    strength { 100 }
     strength_exp { 0 }
     intelligence { 5 }
     intelligence_exp { 0 }
     leadership { 65 }
     leadership_exp { 0 }
-    charm { 100 }
+    charm { 5 }
     charm_exp { 0 }
     formation { :gyorin }
     training { 100 }
