@@ -14,5 +14,6 @@ FactoryBot.define do
     max_wall { 1000 }
     wall { 800 }
     wall_durability { 800 }
+    association :country
   end
 end

@@ -14,7 +14,8 @@ FactoryBot.define do
     charm_exp { 0 }
     formation { :gyorin }
     training { 100 }
-    country_id { 1 }
+    association :town
+    country { town.country }
     gold { 10000 }
     rice { 10000 }
     contributing { 1000 }
