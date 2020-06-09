@@ -15,5 +15,9 @@ FactoryBot.define do
     wall { 800 }
     wall_durability { 800 }
     association :country
+
+    factory :opponent_town do
+      association :country, factory: :opponent_country
+    end
   end
 end

@@ -27,5 +27,11 @@ FactoryBot.define do
     delete_turn { 48 }
     email { 'hoge' }
     update_time { (30.minutes+30.seconds).to_i }
+
+    factory :opponent_user do
+      character_id { 'sato' }
+      name { '砂糖' }
+      association :town, factory: :opponent_town
+    end
   end
 end
