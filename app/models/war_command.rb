@@ -1,7 +1,7 @@
 class WarCommand < ApplicationRecord
   enum mode: {
    siege: 0, development: 1, gossip: 2,
-   yasyu:3, kyousyu: 4,
+   yasyu: 3, kyousyu: 4,
   }
 
   belongs_to :command
