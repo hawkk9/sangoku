@@ -63,6 +63,34 @@ RSpec.describe Skills::SenjutuSkill, type: :model do
   end
 
   describe '強襲' do
-
+    context '強襲モードの場合' do
+      let(:mode) { :kyousyu.to_s }
+      context '攻撃側の武力が160以上の場合' do
+        let(:status) { 160 }
+        it '守備側の攻守が-10%されること' do
+          Skills::SenjutuSkill.kyousyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(90)
+          expect(opponent_battle_user.defence_percent).to equal(90)
+        end
+      end
+      context '攻撃側の武力が160より下の場合' do
+        let(:status) { 159 }
+        it '守備側の攻守が-10%されないこと' do
+          Skills::SenjutuSkill.kyousyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(100)
+          expect(opponent_battle_user.defence_percent).to equal(100)
+        end
+      end
+    end
+    context '強襲モードでない場合' do
+      context '攻撃側の武力が160以上の場合' do
+        let(:status) { 160 }
+        it '守備側の攻守が-10%されないこと' do
+          Skills::SenjutuSkill.kyousyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(100)
+          expect(opponent_battle_user.defence_percent).to equal(100)
+        end
+      end
+    end
   end
 end
