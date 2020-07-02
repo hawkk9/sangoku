@@ -29,4 +29,40 @@ RSpec.describe Skills::SenjutuSkill, type: :model do
       end
     end
   end
+
+  describe '夜襲' do
+    context '夜襲モードの場合' do
+      let(:mode) { :yasyu.to_s }
+      context '攻撃側の武力が130以上の場合' do
+        let(:status) { 130 }
+        it '守備側の攻守が-5%されること' do
+          Skills::SenjutuSkill.yasyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(95)
+          expect(opponent_battle_user.defence_percent).to equal(95)
+        end
+      end
+      context '攻撃側の武力が130より下の場合' do
+        let(:status) { 129 }
+        it '守備側の攻守が-5%されないこと' do
+          Skills::SenjutuSkill.yasyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(100)
+          expect(opponent_battle_user.defence_percent).to equal(100)
+        end
+      end
+    end
+    context '夜襲モードでない場合' do
+      context '攻撃側の武力が130以上の場合' do
+        let(:status) { 130 }
+        it '守備側の攻守が-5%されないこと' do
+          Skills::SenjutuSkill.yasyu_before_battle_effect(battle_user, opponent_battle_user, battle_context)
+          expect(opponent_battle_user.attack_percent).to equal(100)
+          expect(opponent_battle_user.defence_percent).to equal(100)
+        end
+      end
+    end
+  end
+
+  describe '強襲' do
+
+  end
 end
