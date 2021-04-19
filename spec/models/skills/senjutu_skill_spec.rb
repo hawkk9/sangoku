@@ -14,7 +14,8 @@ RSpec.describe Skills::SenjutuSkill, type: :model do
     context '攻撃側の武力が守備側の武力より高い場合' do
       let(:status) { 101 }
       it '守備側の攻守が-5%されること' do
-        Battle::Skills::Fuiuti.new(nil, nil)
+        fuiuti = Battle::Skills::Fuiuti.new(nil, nil)
+        expect(fuiuti.handle).to equal(100)
       end
     end
 
