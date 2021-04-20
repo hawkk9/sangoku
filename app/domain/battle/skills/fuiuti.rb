@@ -8,7 +8,7 @@ module Battle
 
       def handle
          if higher_target_status?
-           # ステータスを減らす
+           @opponent_user.add_status_percent(-5)
          end
         # メッセージ作成
       end
