@@ -16,7 +16,7 @@ module Battle
       private
 
       def higher_target_status?
-        return higher_status?(@user.strength, @opponent_user.strength) if user.strength > user.intelligence
+        return higher_status?(@user.strength, @opponent_user.strength) if @user.strength > @user.intelligence
         higher_status?(@user.intelligence, @opponent_user.intelligence)
       end
 

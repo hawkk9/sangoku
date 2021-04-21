@@ -1,6 +1,10 @@
 module Battle
   class BeforeBattleUser
-    def initialize
+    attr_reader :attack_percent, :defence_percent
+    delegate :strength,:intelligence, :leadership, :charm, to: :@user
+
+    def initialize(user)
+      @user = user
       @attack_percent = 100
       @defence_percent = 100
       @attack_correction = 0
