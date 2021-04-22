@@ -4,13 +4,15 @@ module Battle
       def initialize(user, opponent_user)
         @user = user
         @opponent_user = opponent_user
+        @messages = []
       end
 
       def handle
          if higher_target_status?
            @opponent_user.add_status_percent(-5)
+           @messages.push('【不意打ち】不意打ちにより攻守が－５%になりました')
          end
-        # メッセージ作成
+         @messages
       end
 
       private
