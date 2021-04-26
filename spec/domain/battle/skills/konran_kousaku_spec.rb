@@ -14,5 +14,11 @@ RSpec.describe Battle::Skills::KonranKousaku, type: :model do
         expect(before_battle_opponent_user.formation).to be_nil
       end
     end
+    context '混乱工作未発動時' do
+      it '攻撃側の陣形が無効化されないこと' do
+        konran_kousaku.handle
+        expect(before_battle_opponent_user.formation).to_not be_nil
+      end
+    end
   end
 end

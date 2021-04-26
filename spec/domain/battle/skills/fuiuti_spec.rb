@@ -15,7 +15,7 @@ RSpec.describe Battle::Skills::Fuiuti, type: :model do
         expect(before_battle_opponent_user.defence_percent).to equal(95)
       end
     end
-    context '攻撃側の武力が守備側の武力より低いの場合' do
+    context '攻撃側の武力が守備側の武力より低い場合' do
       let(:opponent_strength) { 101 }
       it '守備側の攻守が-5%されないこと' do
         fuiuti.handle

@@ -9,8 +9,18 @@ module Battle
 
       def handle
         # 発動判定
-        @opponent_user.to_disable_formation!
+        @opponent_user.to_disable_formation! if enabled?
         @messages
+      end
+
+      private
+
+      def enabled?
+        hit?
+      end
+
+      def hit?
+
       end
     end
   end
