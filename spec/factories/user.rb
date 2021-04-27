@@ -27,6 +27,7 @@ FactoryBot.define do
     delete_turn { 48 }
     email { 'hoge' }
     update_time { (30.minutes+30.seconds).to_i }
+    association :soldier
 
     factory :opponent_user do
       character_id { 'sato' }

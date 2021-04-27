@@ -16,11 +16,18 @@ module Battle
       private
 
       def enabled?
+        return false unless @user.is_defence?
+        return false unless meet_soldier_num?
         hit?
       end
 
-      def hit?
+      # 相手の兵数＜自軍の兵数×５
+      def meet_soldier_num?
+        @opponent_user.soldier.num < @user.soldier.num * 5
+      end
 
+      def hit?
+        true
       end
     end
   end
