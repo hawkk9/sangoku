@@ -9,10 +9,11 @@ RSpec.describe Battle::Skills::KonranKousaku, type: :model do
     let(:opponent_user) { build_stubbed(:user, strength: opponent_strength) }
     let(:before_battle_user) { Battle::Before::DefenceUser.new(user) }
     let(:before_battle_opponent_user) { Battle::Before::AttackUser.new(opponent_user) }
-    let(:konran_kousaku) {Battle::Skills::KonranKousaku.new(before_battle_user, before_battle_opponent_user)}
+    let(:konran_kousaku) { Battle::Skills::KonranKousaku.new(before_battle_user, before_battle_opponent_user) }
     context '守備側のとき' do
       context '相手の兵数＜自軍の兵数×５' do
         it '攻撃側の陣形が無効化されること' do
+          allow(konran_kousaku).to receive(:hit?).and_return(true)
           konran_kousaku.handle
           expect(before_battle_opponent_user.formation).to be_nil
         end
@@ -20,6 +21,7 @@ RSpec.describe Battle::Skills::KonranKousaku, type: :model do
       context '相手の兵数≧自軍の兵数×５' do
         let(:soldier_num) { 13 }
         it '攻撃側の陣形が無効化されないこと' do
+          allow(konran_kousaku).to receive(:hit?).and_return(true)
           konran_kousaku.handle
           expect(before_battle_opponent_user.formation).to_not be_nil
         end
@@ -29,6 +31,7 @@ RSpec.describe Battle::Skills::KonranKousaku, type: :model do
       let(:before_battle_user) { Battle::Before::AttackUser.new(user) }
       let(:before_battle_opponent_user) { Battle::Before::DefenceUser.new(opponent_user) }
       it '攻撃側の陣形が無効化されないこと' do
+        allow(konran_kousaku).to receive(:hit?).and_return(true)
         konran_kousaku.handle
         expect(before_battle_opponent_user.formation).to_not be_nil
       end
