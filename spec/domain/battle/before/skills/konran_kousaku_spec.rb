@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Battle::Before::Skills::KonranKousaku, type: :model do
-  describe '不意打ち' do
+  describe '混乱工作' do
     let(:soldier_num) { 65 }
     let(:soldier) { build_stubbed(:soldier, num: soldier_num) }
     let(:user) { build_stubbed(:user, soldier: soldier) }
