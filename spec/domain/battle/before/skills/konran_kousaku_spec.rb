@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Battle::Skills::KonranKousaku, type: :model do
+RSpec.describe Battle::Before::Skills::KonranKousaku, type: :model do
   describe '不意打ち' do
     let(:soldier_num) { 65 }
     let(:soldier) { build_stubbed(:soldier, num: soldier_num) }
@@ -9,7 +9,7 @@ RSpec.describe Battle::Skills::KonranKousaku, type: :model do
     let(:opponent_user) { build_stubbed(:user, strength: opponent_strength) }
     let(:before_battle_user) { Battle::Before::DefenceUser.new(user) }
     let(:before_battle_opponent_user) { Battle::Before::AttackUser.new(opponent_user) }
-    let(:konran_kousaku) { Battle::Skills::KonranKousaku.new(before_battle_user, before_battle_opponent_user) }
+    let(:konran_kousaku) { Battle::Before::Skills::KonranKousaku.new(before_battle_user, before_battle_opponent_user) }
     context '守備側のとき' do
       context '相手の兵数＜自軍の兵数×５' do
         it '攻撃側の陣形が無効化されること' do

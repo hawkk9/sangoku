@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Battle::Skills::Fuiuti, type: :model do
+RSpec.describe Battle::Before::Skills::Fuiuti, type: :model do
   describe '不意打ち' do
     let(:user) { build_stubbed(:user) }
     let(:opponent_user) { build_stubbed(:user, strength: opponent_strength) }
     let(:before_battle_user) { Battle::Before::User.new(user) }
     let(:before_battle_opponent_user) { Battle::Before::User.new(opponent_user) }
-    let(:fuiuti) {Battle::Skills::Fuiuti.new(before_battle_user, before_battle_opponent_user)}
+    let(:fuiuti) {Battle::Before::Skills::Fuiuti.new(before_battle_user, before_battle_opponent_user)}
     let(:opponent_strength) { 100 }
     context '攻撃側の武力が守備側の武力以上の場合' do
       it '守備側の攻守が-5%されること' do
