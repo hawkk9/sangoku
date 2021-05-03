@@ -1,5 +1,7 @@
 # README
 
+[![Continuous Integration](https://github.com/hawkk9/sangoku/actions/workflows/ci.yml/badge.svg)](https://github.com/hawkk9/sangoku/actions/workflows/ci.yml)
+
 ## 初期設定
 
 ### gemパッケージのインストール
