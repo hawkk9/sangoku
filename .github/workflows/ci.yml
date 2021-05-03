@@ -1,0 +1,14 @@
+name: Continuous Integration
+on: push
+
+jobs:
+  build:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Bundle Install
+        run: bundle install
+      - name: Run Test
+        run: bin/rspec
