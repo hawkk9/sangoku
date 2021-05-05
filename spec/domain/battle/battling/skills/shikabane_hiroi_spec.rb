@@ -1,20 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Battle::Battling::Skills::ShikabaneHiroi, type: :model do
-  pending do
-    describe '屍拾い' do
-      let(:user) { build_stubbed(:user, soldier: soldier) }
-      let(:opponent_strength) { 100 }
-      let(:opponent_user) { build_stubbed(:user, strength: opponent_strength) }
-      let(:battling_user) { Battle::Battling::DefenceUser.new(user) }
-      let(:battling_opponent_user) { Battle::Battling::AttackUser.new(opponent_user) }
-      let(:shikabane_hiroi) { Battle::Battling::Skills::ShikabaneHiroi.new(before_battle_user, before_battle_opponent_user) }
-      context '' do
-        it '守備側の攻守が-5%されること' do
-          fuiuti.handle
-          expect(before_battle_opponent_user.attack_percent).to equal(95)
-          expect(before_battle_opponent_user.defence_percent).to equal(95)
-        end
+  describe '屍拾い' do
+    let(:user) { build_stubbed(:user) }
+    let(:opponent_user) { build_stubbed(:user) }
+    let(:battling_user) { Battle::Battling::DefenceUser.new(user) }
+    let(:battling_opponent_user) { Battle::Battling::AttackUser.new(opponent_user) }
+    let(:shikabane_hiroi) { Battle::Battling::Skills::ShikabaneHiroi.new(battling_user, battling_opponent_user) }
+    context '一定数倒した' do
+      it '最大ダメージが上昇すること' do
+        shikabane_hiroi.handle
+        battling_opponent_user.soldier.num -= 10
+        shikabane_hiroi.handle
+        expect(battling_user.max_damage).to equal(3)
+      end
+    end
+    context '倒してない' do
+      it '最大ダメージが上昇しないこと' do
+        shikabane_hiroi.handle
+        expect(battling_user.max_damage).to equal(1)
       end
     end
   end
