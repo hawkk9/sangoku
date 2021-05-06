@@ -15,7 +15,7 @@ module Battle
         def handle
           if kill_count >= need_kill_count
             # 最大ダメージアップ
-            @user.add_max_damage(1)
+            @user.add_max_damage(increase_damage)
             @start_soldier_num = @opponent_user.soldier.num
           end
 
@@ -31,6 +31,10 @@ module Battle
 
         def kill_count
           @start_soldier_num - @opponent_user.soldier.num
+        end
+
+        def increase_damage
+          rand(1..3)
         end
       end
     end
