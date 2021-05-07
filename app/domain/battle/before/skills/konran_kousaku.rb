@@ -36,7 +36,7 @@ module Battle
 
         def hit_percent
           percent = @user.intelligence / 3
-          percent > MAX_PERCENT ? MAX_PERCENT : percent
+          percent <= MAX_PERCENT ? percent : MAX_PERCENT
         end
       end
     end
