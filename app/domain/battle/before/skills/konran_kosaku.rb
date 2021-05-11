@@ -1,7 +1,7 @@
 module Battle
   module Before
     module Skills
-      class KonranKousaku
+      class KonranKosaku
         MAX_PERCENT = 50
 
         def initialize(user, opponent_user)

@@ -1,7 +1,7 @@
 module Battle
   module Battling
     module Skills
-      class ShikabaneHiroi
+      class SikabaneHiroi
         MIN_NEED_KILL_COUNT = 10
 
         def initialize(user, opponent_user)
