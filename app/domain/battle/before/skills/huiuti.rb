@@ -1,7 +1,7 @@
 module Battle
   module Before
     module Skills
-      class Fuiuti
+      class Huiuti
         def initialize(user, opponent_user)
           @user = user
           @opponent_user = opponent_user
