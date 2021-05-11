@@ -1,7 +1,7 @@
 module Battle
   module Battling
     class User
-      attr_reader :max_damage
+      attr_reader :max_damage, :shut_out_normal_attack
       delegate :strength,:intelligence, :leadership, :charm, :soldier, to: :@user
 
       def initialize(user)

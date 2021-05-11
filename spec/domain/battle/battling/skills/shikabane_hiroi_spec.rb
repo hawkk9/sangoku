@@ -4,8 +4,8 @@ RSpec.describe Battle::Battling::Skills::ShikabaneHiroi, type: :model do
   describe '屍拾い' do
     let(:user) { build_stubbed(:user, intelligence: 100) }
     let(:opponent_user) { build_stubbed(:user) }
-    let(:battling_user) { Battle::Battling::DefenceUser.new(user) }
-    let(:battling_opponent_user) { Battle::Battling::AttackUser.new(opponent_user) }
+    let(:battling_user) { Battle::Battling::AttackUser.new(user) }
+    let(:battling_opponent_user) { Battle::Battling::DefenceUser.new(opponent_user) }
     let!(:shikabane_hiroi) { Battle::Battling::Skills::ShikabaneHiroi.new(battling_user, battling_opponent_user) }
     describe '1度目の最大ダメージ上昇' do
       context '倒した兵数が一定数に達した' do

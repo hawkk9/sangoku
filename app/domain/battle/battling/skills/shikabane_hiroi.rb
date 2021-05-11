@@ -14,7 +14,7 @@ module Battle
         end
 
         def handle
-          return if @damage_up_count == 10
+          return unless enabled?
 
           if kill_count >= need_kill_count
             @user.add_max_damage(increase_damage)
@@ -26,6 +26,11 @@ module Battle
         end
 
         private
+
+        def enabled?
+          return false unless @user.is_attack?
+          @damage_up_count < 10
+        end
 
         def need_kill_count
           count = (2100 / @user.intelligence) + 3

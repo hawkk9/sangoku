@@ -9,14 +9,19 @@ module Battle
         end
 
         def handle
-           if higher_target_status?
-             @opponent_user.add_status_percent(-5)
-             @messages.push('【不意打ち】不意打ちにより攻守が－５%になりました')
-           end
-           @messages
+          if enabled?
+            @opponent_user.add_status_percent(-5)
+            @messages.push('【不意打ち】不意打ちにより攻守が－５%になりました')
+          end
+          @messages
         end
 
         private
+
+        def enabled?
+          return false unless @user.is_attack?
+          higher_target_status?
+        end
 
         def higher_target_status?
           return higher_status?(@user.strength, @opponent_user.strength) if @user.strength > @user.intelligence
