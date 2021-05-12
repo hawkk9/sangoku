@@ -31,4 +31,8 @@ class Soldier < ApplicationRecord
   def can_employ_soldiers
     Soldiers::ConcreteSoldier.can_employ_soldiers(self.user)
   end
+
+  def add_soldier_num(num)
+    self.num += num
+  end
 end

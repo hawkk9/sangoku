@@ -2,7 +2,7 @@ module Battle
   module Before
     module Skills
       class KonranKosaku
-        MAX_PERCENT = 50
+        MAX_HIT_PERCENT = 50
 
         def initialize(user, opponent_user)
           @user = user
@@ -36,7 +36,7 @@ module Battle
 
         def hit_percent
           percent = @user.intelligence / 3
-          percent <= MAX_PERCENT ? percent : MAX_PERCENT
+          percent <= MAX_HIT_PERCENT ? percent : MAX_HIT_PERCENT
         end
       end
     end

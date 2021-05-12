@@ -21,7 +21,7 @@ RSpec.describe Battle::Battling::Skills::SikabaneHiroi, type: :model do
           before_max_damage = battling_user.max_damage
           battling_opponent_user.soldier.num -= 23
           sikabane_hiroi.handle
-          expect(battling_user.max_damage).to equal(before_max_damage)
+          expect(battling_user.max_damage).to equal before_max_damage
         end
       end
     end
